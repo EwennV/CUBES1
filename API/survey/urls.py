@@ -1,7 +1,7 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
+from . import views
 
 urlpatterns = [
-    path('captor/', include('API.captor.urls')),
-    path('survey/', include('API.survey.urls'))
+    path('list', views.list),
 ]
