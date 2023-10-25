@@ -1,3 +1,6 @@
 env/
 CUBES1/db.sqlite3
 .env
+/Scripts/
+/lib/
+pyvenv.cfg
