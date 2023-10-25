@@ -10,3 +10,11 @@ def list(request):
         'email': 'john.doe@example.com'
     }
     return JsonResponse(data, status=200)
+
+def update(request):
+    data = {
+        'name': 'John Doe',
+        'age': 30,
+        'email': 'john.doe@example.com'
+    }
+    return JsonResponse(data, status=200)
