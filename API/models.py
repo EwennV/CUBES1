@@ -1,3 +1,12 @@
 from django.db import models
 
-# Create your models here.
+class captor(models.Model):
+    name = models.CharField(max_length=64)
+    lattitude = models.FloatField()
+    longitude = models.FloatField()
+
+class survey(models.Model):
+    temperature = models.FloatField()
+    humidity = models.Int
+    battery_level = models.FloatField()
+    rssi = models.
