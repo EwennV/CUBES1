@@ -7,7 +7,7 @@ def list(request):
     data = {
         'name': 'John Doe',
         'age': 30,
-        'email': 'john.doe@example.com'
+        'email': 'jTTTTTTTTTTTTTTTTTTTTTTm'
     }
     return JsonResponse(data, status=200)
 
