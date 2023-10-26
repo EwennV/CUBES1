@@ -1,9 +1,3 @@
-import time
-import os
-import asyncio
-import threading
-from API.scripts import ws
-
 """
 WSGI config for cube1 project.
 
@@ -14,6 +8,7 @@ https://docs.djangoproject.com/en/4.2/howto/deployment/wsgi/
 """
 
 import os
+from API.scripts import releve_donnees
 
 from django.core.wsgi import get_wsgi_application
 
