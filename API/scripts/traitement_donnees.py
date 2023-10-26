@@ -1,0 +1,13 @@
+hex = "545A004124240406020400000641884907900004150B0E173B0500000008AAC0000001A404B7001900020B62182233000E5600B8384406182660000E1300B7FF3C010A5EDC0D0A"
+id = int(hex[86:94], 16)
+print(f"ID : {id}")
+status = int(hex[94:96], 16)
+print(f"STATUS : {status}")
+battery_voltage = int(hex[94:100], 16)
+print(f"BATTERY VOLTAGE : {battery_voltage/1000} V")
+temperature = int(hex[100:104], 16)
+print(f"TEMPERATURE : {temperature/10} °C")
+humidity = int(hex[104:106], 16)
+print(f"HUMIDITY : {humidity} %")
+rssi = int(hex[106:108], 16)
+print(f"RSSI : {-rssi} dBm")
