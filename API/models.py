@@ -16,7 +16,6 @@ class survey(models.Model):
 class alert(models.Model):
     frequency = models.IntegerField(max_length=6)
     type = models.CharField(max_length=45)
-    type_id = models.IntegerField()
     limit = models.CharField(max_length=45)
 
 class type(models.Model):
