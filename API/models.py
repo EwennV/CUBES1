@@ -1,29 +1,28 @@
 from django.db import models
+import uuid
 
 class captor(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=64)
     lattitude = models.FloatField()
     longitude = models.FloatField()
 
 class survey(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     temperature = models.FloatField()
     humidity = models.IntegerField()
     battery_level = models.FloatField()
-    rssi = models.IntegerField(max_length=3)
+    rssi = models.IntegerField()
     date = models.DateField()
-    capteur_id = models.IntegerField(max_length=15)
-
-class alert(models.Model):
-    frequency = models.IntegerField(max_length=6)
-    type = models.CharField(max_length=45)
-    limit = models.CharField(max_length=45)
-
-class type(models.Model):
-    name = models.CharField(max_length=45)
+    capteur_id = models.IntegerField()
 
 class recipient(models.Model):
     email = models.CharField(max_length=255)
 
-class alert_has_recipient(models.Model):    
-    alert_date = models.IntegerField()
-    recipient_email = models.CharField(max_length=255)
+class alert(models.Model):
+    id_alert = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    frequency = models.IntegerField()
+    type = models.CharField(max_length=45)
+    limit = models.CharField(max_length=45)
+    recipients = models.ManyToManyField(recipient)
+
