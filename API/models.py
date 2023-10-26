@@ -4,8 +4,8 @@ import uuid
 class captor(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=64)
-    lattitude = models.FloatField()
-    longitude = models.FloatField()
+    lattitude = models.FloatField(null=True)
+    longitude = models.FloatField(null=True)
 
 class survey(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
