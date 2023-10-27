@@ -1,14 +1,16 @@
 from django_thread import Thread
 import time
+from datetime import datetime
 from API import models
+import requests
 
 class ExampleThread(Thread):
     def run(self):
-        time.sleep(1)
-        data = models.captor.objects.all()
-
-        for captor in data:
-            print(captor)
+        while(True):
+            time.sleep(1)
+            response = requests.get("https://api.coindesk.com/v1/bpi/currentprice.json")
+            btc = response.json()
+            print(btc['bpi']['USD']['rate'])
 
 thread = ExampleThread()
 thread.start()
