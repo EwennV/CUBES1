@@ -10,7 +10,7 @@ class ExampleThread(Thread):
             time.sleep(1)
             response = requests.get("https://api.coindesk.com/v1/bpi/currentprice.json")
             btc = response.json()
-            print(btc['bpi']['EUR']['rate'])
+            print(btc['bpi']['USD']['rate'])
 
 thread = ExampleThread()
 thread.start()
