@@ -1,0 +1,9 @@
+- python3 -m venv ./
+- source bin/activate
+- pip install -r requirements.txt
+- python ./manage.py migrate
+- python ./manage.py runserver
+
+Créer un fichier .env en y ajoutant :
+- SECRET_KEY="your secret key here"
+- API_KEY="your API key"
