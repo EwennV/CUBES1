@@ -3,6 +3,7 @@ import time
 from datetime import datetime
 from API import models
 import requests
+from API.scripts import traitement_donnees
 
 from pathlib import Path
 import os
@@ -15,11 +16,13 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 class ExampleThread(Thread):
     def run(self):
+        time.sleep(1)
         while(True):
-            time.sleep(1)
-            response = requests.get(f'http://app.objco.com:8099/?account=${env("API_KEY")}&limit=6')
-            btc = response.json()
-            print(btc['bpi']['USD']['rate'])
+            response = requests.get(f'http://app.objco.com:8099/?account=GX1GLQRVNM&limit=10')
+            data = response.json()
+            traitement_donnees.new(data)
+            time.sleep(40)
+            
 
 thread = ExampleThread()
 thread.start()

@@ -3,4 +3,4 @@ from django.shortcuts import render
 # Create your views here
 
 def home(request):
-    return render(request, 'captors/list.html')
+    return render(request, 'sensors/list.html')

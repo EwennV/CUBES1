@@ -1,20 +1,21 @@
 from django.db import models
 import uuid
 
-class captor(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+class sensor(models.Model):
+    id = models.CharField(primary_key=True, max_length=8)
     name = models.CharField(max_length=64)
     lattitude = models.FloatField(null=True)
     longitude = models.FloatField(null=True)
 
 class survey(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    temperature = models.FloatField()
-    humidity = models.IntegerField()
-    battery_level = models.FloatField()
+    idSurvey = models.IntegerField()
+    temperature = models.IntegerField(null=True)
+    humidity = models.IntegerField(null=True)
+    battery_level = models.IntegerField()
     rssi = models.IntegerField()
-    date = models.DateField()
-    capteur_id = models.IntegerField()
+    date = models.DateTimeField()
+    sensor_id = models.CharField(max_length=8)
 
 class recipient(models.Model):
     email = models.CharField(max_length=255)
