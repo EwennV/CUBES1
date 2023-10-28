@@ -20,6 +20,9 @@ Créez le fichier **.env** dans la racine du projet et y ajouter :
 ```env
 SECRET_KEY="your secret_key here"
 API_KEY="your api_key here"
+DB_USER=""
+DB_PASSWORD=""
+DB_HOST=""
 ```
 Vous pouvez maintenant migrer votre base de données avec la commande suivante en vérifiant que vous êtes toujours dans votre environnement (cubes1) :
 ```bash
@@ -43,9 +46,6 @@ Créez le fichier **.env** dans la racine du projet et y ajouter :
 ```env
 SECRET_KEY="your secret_key here"
 API_KEY="your api_key here"
-DB_USER=""
-DB_PASSWORD=""
-DB_HOST=""
 ```
 Vous pouvez maintenant migrer votre base de données avec la commande suivante en vérifiant que vous êtes toujours dans votre environnement (cubes1) :
 ```bash
@@ -58,16 +58,19 @@ python ./manage.py runserver
 
 
 
-## Environment Variables
+## Variables d'environment
 
 Pour lancer ce projet, vous avez besoin d'ajouter les variables d'environment suivantes dans un .env que vous devez créer à la racine du projet
 
 `SECRET_KEY`
-`API_KEY`
-`DB_USER`
-`DB_PASSWORD`
-`DB_HOST`
 
+`API_KEY`
+
+`DB_USER`
+
+`DB_PASSWORD`
+
+`DB_HOST`
 
 ## Développer avec GIT
 
@@ -93,7 +96,69 @@ git add .
 git commit -m "la_description_de_votre_modification"
 git push origin le_nom_de_ma_branche
 ```
+## Utilisation de l'API
 
+#### Récupérer tous les relevés
+
+```http
+  GET /api/survey/list
+```
+
+| Paramètre | Défaut| Exemple     | Description                |
+| :-------- | :----|:---------| :------------------------- |
+| `limit`   | `100`| `100` | **Optionnel** Nombre de relevés à recevoir |
+| `order`   | `desc`| `asc` | **Optionnel** Ordre de tri des données|
+| `id`   | `null`| `06190485`| **Optionnel** Retourne les relevés associés à un id de capteur|
+
+Les différents paramètres peuvent êtres utilisés ensembles.
+
+Exemple de requête comprenant les paramètres précédents :
+```http
+  GET /api/survey/list?id=06190485&order=asc&limit=10
+```
+
+Exemple de retour de l'API:
+
+```json
+    {
+        "model": "API.survey",
+        "pk": "c6f02fb6-792c-45f5-912b-82225f019602",
+        "fields": {
+            "idSurvey": 146757,
+            "temperature": 122,
+            "humidity": 90,
+            "battery_level": 3571,
+            "rssi": 30,
+            "date": "2023-10-28T07:51:36Z",
+            "sensor_id": "62190434"
+        }
+    },
+```
+
+
+#### Récupérer tous les capteurs enregistrés
+
+```http
+  GET /api/sensor/
+```
+
+Par défaut, l'API renverras la liste de tous les capteurs ainsi que leur dernier relevé
+| Paramètre | Type     |Défaut| Exemple     | Description                |
+| :-------- | :------- | :----|:---------| :------------------------- |
+| `id`   | `str`    | `none`| `06190485` | **Optionnel** Récupère les données du capteur avec cet id |
+
+Exemple de retour de l'API:
+```json
+    {
+        "model": "API.sensor",
+        "pk": "06190485",
+        "fields": {
+            "name": "Capteur cuisine",
+            "lattitude": null,
+            "longitude": null
+        }
+    }
+```
 
 ## Auteurs
 
