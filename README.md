@@ -43,6 +43,9 @@ Créez le fichier **.env** dans la racine du projet et y ajouter :
 ```env
 SECRET_KEY="your secret_key here"
 API_KEY="your api_key here"
+DB_USER=""
+DB_PASSWORD=""
+DB_HOST=""
 ```
 Vous pouvez maintenant migrer votre base de données avec la commande suivante en vérifiant que vous êtes toujours dans votre environnement (cubes1) :
 ```bash
@@ -60,16 +63,11 @@ python ./manage.py runserver
 Pour lancer ce projet, vous avez besoin d'ajouter les variables d'environment suivantes dans un .env que vous devez créer à la racine du projet
 
 `SECRET_KEY`
-
 `API_KEY`
+`DB_USER`
+`DB_PASSWORD`
+`DB_HOST`
 
-
-
-## Auteurs
-
-- [@TerryGyselings](https://github.com/TerryGyselings)
-- [@fromeof](https://github.com/fromeof)
-- [@EwennV](https://github.com/EwennV)
 
 ## Développer avec GIT
 
@@ -95,3 +93,10 @@ git add .
 git commit -m "la_description_de_votre_modification"
 git push origin le_nom_de_ma_branche
 ```
+
+
+## Auteurs
+
+- [@TerryGyselings](https://github.com/TerryGyselings)
+- [@fromeof](https://github.com/fromeof)
+- [@EwennV](https://github.com/EwennV)
