@@ -10,7 +10,7 @@ class sensor(models.Model):
 class survey(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     idSurvey = models.IntegerField()
-    temperature = models.IntegerField(null=True)
+    temperature = models.FloatField(null=True)
     humidity = models.IntegerField(null=True)
     battery_level = models.IntegerField()
     rssi = models.IntegerField()
