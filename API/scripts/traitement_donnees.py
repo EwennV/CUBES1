@@ -4,9 +4,9 @@ from django.utils import timezone
 from django.core import serializers
 
 sensors = models.sensor.objects.values('id')
-sensors = list(sensors)
+list_sensors = list(sensors)
+
 def new(data):
-    list_sensor = sensors
     for survey in data:
         idThisSurvey = survey[0]
         if models.survey.objects.filter(idSurvey=idThisSurvey):
@@ -17,7 +17,7 @@ def new(data):
         formattedDate = datetime.strptime(surveyDate, "%a, %d %b %Y %H:%M:%S %Z")
         formattedDate = timezone.make_aware(formattedDate, timezone=timezone.utc)
 
-        for sensor in list_sensor:
+        for sensor in list_sensors:
             if sensor['id'] in trame:
                 position = trame.find(sensor['id'])
                 sensorStatus = int(trame[position+8:position+10], 16)
@@ -27,6 +27,13 @@ def new(data):
                 if sensorHumidity == 255: sensorHumidity = None
                 sensorRssi = int(trame[position+20:position+22], 16)
 
-                newSurvey = models.survey(idSurvey=idThisSurvey, temperature=sensorTemperature, humidity=sensorHumidity, battery_level=sensorBattery_voltage, rssi=sensorRssi, date=formattedDate, sensor_id=sensor['id'])
+                newSurvey = models.survey(
+                    idSurvey=idThisSurvey,
+                    temperature=sensorTemperature,
+                    humidity=sensorHumidity,
+                    battery_level=sensorBattery_voltage,
+                    rssi=sensorRssi,
+                    date=formattedDate,
+                    sensor_id=sensor['id'])
                 newSurvey.save()
                 print("[API] [NEW] : Nouveau relevé n°"+str(idThisSurvey))

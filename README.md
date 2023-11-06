@@ -110,7 +110,7 @@ git push origin le_nom_de_ma_branche
 | Paramètre | Défaut| Exemple     | Description                |
 | :-------- | :----|:---------| :------------------------- |
 | `limit`   | `100`| `100` | **Optionnel** Nombre de relevés à recevoir |
-| `order`   | `desc`| `asc` | **Optionnel** Ordre de tri des données|
+| `order`   | `desc`| `asc` | **Optionnel** Ordre de tri des données par date|
 | `id`   | `null`| `06190485`| **Optionnel** Retourne les relevés associés à un id de capteur|
 
 Les différents paramètres peuvent êtres utilisés ensembles.

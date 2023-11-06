@@ -8,19 +8,17 @@ import json
 # Create your views here.
 
 def sensor(request):
-    id = request.GET.get("id")
+    sensorId = request.GET.get("id")
     
-    if id:
-        if not models.sensor.objects.filter(id=id):
+    if sensorId:
+        if not models.sensor.objects.filter(id=sensorId):
             return error_response.throwError("Id de capteur introuvable")
-        data = models.sensor.objects.filter(id=id)
+        data = models.sensor.objects.filter(id=sensorId)
     else:
         data = models.sensor.objects.all().order_by('name')
     
     dataJson = serializers.serialize('json', data)
     return HttpResponse(dataJson, content_type='application/json', status=200)
-
-
 
 def create(request):
     data = {
