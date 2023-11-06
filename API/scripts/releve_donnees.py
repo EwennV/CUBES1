@@ -15,7 +15,6 @@ import environ
 # Pour récupérer les variables d'environnement, on doit d'abord aller chercher le ficher .env en passant par la racine du projet
 # Le .parent permet de remonter dans les dossier à partir du dossier actuel
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
-print(BASE_DIR)
 env = environ.Env()
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
@@ -33,7 +32,7 @@ class surveyCollect(Thread):
                 data = response.json()
             except:
                 # Si nous n'avons pas de réponse de l'API ou que le format de retour n'est pas formatable en JSON, on print une erreur dans la console
-                return print("[API] [ERROR] Une erreur de communication avec l'API des capteurs est survenue")
+                print("[API] [ERROR] Une erreur de communication avec l'API des capteurs est survenue")
             
             # On appelle la fonction traitement_donnees qui permet de traiter les nouvelles données reçues
             traitement_donnees.new(data)

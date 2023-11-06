@@ -5,7 +5,6 @@ from django.core import serializers
 
 sensors = models.sensor.objects.values('id')
 sensors = list(sensors)
-print (sensors)
 def new(data):
     list_sensor = sensors
     for survey in data:
@@ -30,3 +29,4 @@ def new(data):
 
                 newSurvey = models.survey(idSurvey=idThisSurvey, temperature=sensorTemperature, humidity=sensorHumidity, battery_level=sensorBattery_voltage, rssi=sensorRssi, date=formattedDate, sensor_id=sensor['id'])
                 newSurvey.save()
+                print("[API] [NEW] : Nouveau relevé n°"+str(idThisSurvey))
