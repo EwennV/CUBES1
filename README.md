@@ -38,7 +38,7 @@ python ./manage.py runserver
 ```bash
   git clone https://github.com/EwennV/cubes1.git
   cd cubes1/
-  python3 -m venv ./
+  python -m venv ./
   .\Scripts\activate.bat
   pip install -r requirements.txt
 ```
@@ -46,6 +46,9 @@ Créez le fichier **.env** dans la racine du projet et y ajouter :
 ```env
 SECRET_KEY="your secret_key here"
 API_KEY="your api_key here"
+DB_USER=""
+DB_PASSWORD=""
+DB_HOST=""
 ```
 Vous pouvez maintenant migrer votre base de données avec la commande suivante en vérifiant que vous êtes toujours dans votre environnement (cubes1) :
 ```bash
