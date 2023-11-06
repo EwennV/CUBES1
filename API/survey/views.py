@@ -20,6 +20,7 @@ def list(request):
         return error_response.throwError("Le paramètre limite est incorrect")
     
     maxLimit = 10000
+    
     if limit > maxLimit:
         return error_response.throwError(f"Le paramètre limite ne peut pas dépasser {maxLimit}")
     

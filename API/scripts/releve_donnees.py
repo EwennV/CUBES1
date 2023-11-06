@@ -30,12 +30,12 @@ class surveyCollect(Thread):
             try:
                 response = requests.get(f'http://app.objco.com:8099/?account={env("API_KEY")}&limit=10')
                 data = response.json()
+                traitement_donnees.new(data)
             except:
                 # Si nous n'avons pas de réponse de l'API ou que le format de retour n'est pas formatable en JSON, on print une erreur dans la console
                 print("[API] [ERROR] Une erreur de communication avec l'API des capteurs est survenue")
             
             # On appelle la fonction traitement_donnees qui permet de traiter les nouvelles données reçues
-            traitement_donnees.new(data)
             # Dans le cas où les capteurs font un relevé minimum toute les 5 minutes il est inutile de faire des requêtes toutes les secondes. On met donc un time.sleep de 5 minutes
             time.sleep(60*5) # Le time.sleep étant en secondes, on multiplie 60 secondes par 5 pour obtenir 5 minutes
             
