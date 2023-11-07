@@ -1,6 +1,6 @@
 from django.urls import path, include
 
 urlpatterns = [
-    path('captor/', include('API.captor.urls')),
+    path('sensor/', include('API.sensor.urls')),
     path('survey/', include('API.survey.urls'))
 ]

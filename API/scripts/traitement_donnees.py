@@ -1,13 +1,39 @@
-hex = "545A004124240406020400000641884907900004150B0E173B0500000008AAC0000001A404B7001900020B62182233000E5600B8384406182660000E1300B7FF3C010A5EDC0D0A"
-id = int(hex[86:94], 16)
-print(f"ID : {id}")
-status = int(hex[94:96], 16)
-print(f"STATUS : {status}")
-battery_voltage = int(hex[94:100], 16)
-print(f"BATTERY VOLTAGE : {battery_voltage/1000} V")
-temperature = int(hex[100:104], 16)
-print(f"TEMPERATURE : {temperature/10} °C")
-humidity = int(hex[104:106], 16)
-print(f"HUMIDITY : {humidity} %")
-rssi = int(hex[106:108], 16)
-print(f"RSSI : {-rssi} dBm")
+from API import models
+from datetime import datetime
+from django.utils import timezone
+from django.core import serializers
+
+sensors = models.sensor.objects.values('id')
+list_sensors = list(sensors)
+
+def new(data):
+    for survey in data:
+        idThisSurvey = survey[0]
+        if models.survey.objects.filter(idSurvey=idThisSurvey):
+            return
+
+        trame = survey[1]
+        surveyDate = survey[2]
+        formattedDate = datetime.strptime(surveyDate, "%a, %d %b %Y %H:%M:%S %Z")
+        formattedDate = timezone.make_aware(formattedDate, timezone=timezone.utc)
+
+        for sensor in list_sensors:
+            if sensor['id'] in trame:
+                position = trame.find(sensor['id'])
+                sensorStatus = int(trame[position+8:position+10], 16)
+                sensorBattery_voltage = float(int(trame[position+10:position+14], 16))
+                sensorTemperature = float(int(trame[position+14:position+18], 16)/10)
+                sensorHumidity = float(int(trame[position+18:position+20], 16))
+                if sensorHumidity == 255: sensorHumidity = None
+                sensorRssi = int(trame[position+20:position+22], 16)
+
+                newSurvey = models.survey(
+                    idSurvey=idThisSurvey,
+                    temperature=sensorTemperature,
+                    humidity=sensorHumidity,
+                    battery_level=sensorBattery_voltage,
+                    rssi=sensorRssi,
+                    date=formattedDate,
+                    sensor_id=sensor['id'])
+                newSurvey.save()
+                print("[API] [NEW] : Nouveau relevé n°"+str(idThisSurvey))
