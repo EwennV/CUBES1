@@ -38,7 +38,6 @@ class surveyCollect(Thread):
             # On appelle la fonction traitement_donnees qui permet de traiter les nouvelles données reçues
             # Dans le cas où les capteurs font un relevé minimum toute les 5 minutes il est inutile de faire des requêtes toutes les secondes. On met donc un time.sleep de 5 minutes
             time.sleep(60*5) # Le time.sleep étant en secondes, on multiplie 60 secondes par 5 pour obtenir 5 minutes
-            
 
 # On lance le thread
 thread = surveyCollect()
