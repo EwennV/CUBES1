@@ -101,35 +101,19 @@
         <div>
             <table>
                 <tr>
-                    <th>Nomde de la sonde</td>
-                    <th>Dates</td>
-                    <th>Températures</td>
-                    <th>Humidités</td>
+                    <th>Nom de de la sonde</th>
+                    <th>Dates</th>
+                    <th>Températures</th>
+                    <th>Humidités</th>
                 </tr>
-                <tr>
-                    <td>sonde X</td>
-                    <td>xx/xx/xxxx : xx:xx</td>
-                    <td>xx°C</td>
-                    <td>xx%</td>
-                </tr>
-                <tr>
-                    <td>sonde X</td>
-                    <td>xx/xx/xxxx : xx:xx</td>
-                    <td>xx°C</td>
-                    <td>xx%</td>
-                </tr>
-                <tr>
-                    <td>sonde X</td>
-                    <td>xx/xx/xxxx : xx:xx</td>
-                    <td>xx°C</td>
-                    <td>xx%</td>
-                </tr>
-                <tr>
-                    <td>sonde X</td>
-                    <td>xx/xx/xxxx : xx:xx</td>
-                    <td>xx°C</td>
-                    <td>xx%</td>
-                </tr>
+                {% for entry in sensor_data %}
+                    <tr>
+                        <td>{{ entry.sensor_id }}</td>
+                        <td>{{ entry.date }}</td>
+                        <td>{{ entry.temperature }}</td>
+                        <td>{{ entry.battery_level }}</td>
+                    </tr>
+                {% endfor %}
             </table>
         </div>
     </div>
