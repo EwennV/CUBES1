@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CUBES 1</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="static/style.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
@@ -103,15 +104,15 @@
             <!--- commande post des données sur la bdd -->
         </form>
     </div>
-    <div class="historique_container">
+    <div id="historique_container">
         <h1>Historique</h1>
         <div>
             <table>
                 <tr>
-                    <td>Nomde de la sonde</td>
-                    <td>Dates</td>
-                    <td>Températures</td>
-                    <td>Humidités</td>
+                    <th>Nomde de la sonde</td>
+                    <th>Dates</td>
+                    <th>Températures</td>
+                    <th>Humidités</td>
                 </tr>
                 <tr>
                     <td>sonde X</td>
@@ -139,7 +140,7 @@
                 </tr>
             </table>
         </div>
-    </div>   
-<script src="./map.js"></script>
+    </div>
+    <script src="./map.js"></script>
 </body>
 </html>
