@@ -7,19 +7,19 @@
         <div id="temp">temperature</div>
         <div id="hum">humidité</div>
         <div id="batt">batterie</div>
-        <div id="s1"><a href="{{ url_for('detail') }}">sonde 1</a></div>
+        <div id="s1"><a href="{% url 'detail' %}">sonde 1</a></div>
         <div id="t1">temp 1</div>
         <div id="h1">hum 1</div>
         <div id="b1">batt 1</div>
-        <div id="s2"><a href="{{ url_for('detail') }}">sonde 2</a></div>
+        <div id="s2"><a href="{% url 'detail' %}">sonde 2</a></div>
         <div id="t2">temp 2</div>
         <div id="h2">hum 2</div>
         <div id="b2">batt 2</div>
-        <div id="s3"><a href="{{ url_for('detail') }}">sonde 3</a></div>
+        <div id="s3"><a href="{% url 'detail' %}">sonde 3</a></div>
         <div id="t3">temp 3</div>
         <div id="h3">hum 3</div>
         <div id="b3">batt 3</div>
     </form>
-    <a href="{{ url_for('historique') }}" id="historique">Historique</a>
+    <a href="{% url 'historique' %}" id="historique">Historique</a>
 </div>
 {% endblock %}

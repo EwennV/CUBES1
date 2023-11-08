@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filenames='style.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{% load static %} % static 'style.css' %}"/>
     <title>Projet CUBES 1</title>
 </head>
 <body>
@@ -11,13 +11,13 @@
         <nav class="nav">
             <ul>
                 <li id="home">
-                    <a href="{{ url_for('dashboard') }}">home &#9776;</a>
+                    <a href="{% url 'dashboard' %}">home &#9776;</a>
                 </li>
                 <li>
-                    <a href="{{ url_for('alerte') }}">alertes &#9888;</a>
+                    <a href="{% url 'alerte' %}">alertes &#9888;</a>
                 </li>
                 <li>
-                    <a href="{{ url_for('carte') }}">carte &#9872;</a>
+                    <a href="{% url 'carte' %}">carte &#9872;</a>
                 </li>
                 
             </ul>
