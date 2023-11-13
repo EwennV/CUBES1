@@ -3,7 +3,7 @@ import requests
 # Create your views here
 
 def home(request):
-    return render(request, 'sensors/list.html')
+    return render(request, 'home/base.html')
 
 
 def historique(request):

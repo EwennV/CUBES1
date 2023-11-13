@@ -3,16 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CUBES 1</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Projet CUBES 1</title>
     <link rel="stylesheet" href="static/style.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
      crossorigin=""/>
-     <!-- Make sure you put this AFTER Leaflet's CSS -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-    crossorigin=""></script>
 </head>
 <body>
     <header>
@@ -31,7 +26,7 @@
             </ul>
         </nav>
     </header>
-    <div class="dashboard_container">
+    <div class="container">
         <h1>Tableau de bord</h1>
         <form class="dashboard">
             <div id="ico">iconographie &#9728; &#9729; &#9730; &#9731;</div>
@@ -53,22 +48,24 @@
         </form>
         <a href="" id="historique">Historique</a>
     </div>
-    <div class="detail_container">
+    <div class="container">
         <h1>Nom de la sonde <button>&#9997;</button></h1>
         <form class="detail">
             <div id="temp">temperature</div>
             <div id="detail_temp">xx°C</div>
-            <div id="g_temp">graph temperature</div>
+            <div id="g_temp" class="g_temp_container"></div>
             <div id="hum">humidité</div>
             <div id="detail_hum">XX%</div>
-            <div id="g_hum">graph humidite</div>
+            <div id="g_hum" class="g_hum_container">
+                <canvas class="myChart"></canvas>
+            </div>
         </form>
     </div>
-    <div class="carte_container">
+    <div class="container">
         <h1>Carte</h1>
         <div id="map"></div>
     </div>
-    <div class="alerte_container">
+    <div class="container">
         <h1>Configuration des alertes</h1>
         <form class="alerte">
             <div id="limite_tempinf_container">
@@ -104,15 +101,15 @@
             <!--- commande post des données sur la bdd -->
         </form>
     </div>
-    <div id="historique_container">
+    <div class="container">
         <h1>Historique</h1>
         <div>
             <table>
                 <tr>
-                    <th>Nomde de la sonde</td>
-                    <th>Dates</td>
-                    <th>Températures</td>
-                    <th>Humidités</td>
+                    <th>Nomde de la sonde</th>
+                    <th>Dates</th>
+                    <th>Températures</th>
+                    <th>Humidités</th>
                 </tr>
                 <tr>
                     <td>sonde X</td>
@@ -140,7 +137,10 @@
                 </tr>
             </table>
         </div>
-    </div>
-    <script src="./map.js"></script>
+    </div>   
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="./map.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="./script.js"></script>
 </body>
 </html>
