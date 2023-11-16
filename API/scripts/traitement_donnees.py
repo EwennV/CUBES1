@@ -26,7 +26,6 @@ def new(data):
                 sensorHumidity = float(int(trame[position+18:position+20], 16))
                 if sensorHumidity == 255: sensorHumidity = None
                 sensorRssi = int(trame[position+20:position+22], 16)
-
                 newSurvey = models.survey(
                     idSurvey=idThisSurvey,
                     temperature=sensorTemperature,

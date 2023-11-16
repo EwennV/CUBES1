@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{% load static %} % static 'style.css' %}"/>
+    <title>Projet CUBES 1</title>
+</head>
+<body>
+    <header>
+        <nav class="nav">
+            <ul>
+                <li id="home">
+                    <a href="{% url 'dashboard' %}">home &#9776;</a>
+                </li>
+                <li>
+                    <a href="{% url 'alerte' %}">alertes &#9888;</a>
+                </li>
+                <li>
+                    <a href="{% url 'carte' %}">carte &#9872;</a>
+                </li>
+                
+            </ul>
+        </nav>
+    </header>
+    
+{% block dashboard %}{% endblock %}
+{% block detail %}{% endblock %}
+{% block carte %}{% endblock %}
+{% block alerte %}{% endblock %}
+{% block historique %}{% endblock %}
+
+</body>
+</html>
