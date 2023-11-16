@@ -1,6 +1,5 @@
 from django.shortcuts import render
 import requests
-import models
 # Create your views here
 
 def home(request):
@@ -9,7 +8,7 @@ def home(request):
 def historique(request): 
     requests.get('/api/survey/list')
     data = [
-        {'sensor_id': 'name', 'date': 'date': 'temperature':'temperature', 'humidity':'humidity'}
+        {'sensor_id':'name', 'date':'date', 'temperature':'temperature', 'humidity':'humidity'}
     ]
     return render(request, 'historique.html')
 
