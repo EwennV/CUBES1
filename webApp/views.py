@@ -1,6 +1,5 @@
 from django.shortcuts import render
 import requests
-import models
 # Create your views here
 
 def home(request):
