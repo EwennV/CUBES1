@@ -6,7 +6,6 @@ def home(request):
     return render(request, 'base.html')
 
 def historique(request): 
-    requests.get('/api/survey/list')
     data = [
     ]
     return render(request, 'historique.html')
