@@ -1,34 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{{% load static %} % static 'style.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <title>Projet CUBES 1</title>
 </head>
 <body>
-    <header>
-        <nav class="nav">
-            <ul>
-                <li id="home">
-                    <a href="{% url 'dashboard' %}">home &#9776;</a>
-                </li>
-                <li>
-                    <a href="{% url 'alerte' %}">alertes &#9888;</a>
-                </li>
-                <li>
-                    <a href="{% url 'carte' %}">carte &#9872;</a>
-                </li>
-                
-            </ul>
-        </nav>
-    </header>
-    
-{% block dashboard %}{% endblock %}
-{% block detail %}{% endblock %}
-{% block carte %}{% endblock %}
-{% block alerte %}{% endblock %}
-{% block historique %}{% endblock %}
-
+    {% block body %}
+    {% endblock %}
 </body>
 </html>

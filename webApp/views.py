@@ -1,13 +1,15 @@
 from django.shortcuts import render
+import requests
 # Create your views here
 
 def home(request):
     return render(request, 'base.html')
 
 def historique(request): 
-    data = [
-    ]
-    return render(request, 'historique.html')
+    r = requests.get("http://localhost:8000/api/survey/list?limit=0")
+    data = {'data': r.json}
+
+    return render(request, 'historique.html', r)
 
 def dashboard(request):
     return render(request, 'dashboard.html')
