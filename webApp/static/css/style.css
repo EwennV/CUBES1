@@ -292,8 +292,28 @@ form.alerte {
 }
 
 .historique_container div {
-    background-color: blue;
+    
     margin: 30px;
     padding: 30px;
     color: white;
 }
+
+.historique_container table {
+    background-color: rgb(0, 136, 255);
+    table-layout: auto;
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid black;
+}
+.historique_container table tr {
+    table-layout: auto;
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid black;
+}    
+.historique_container table td {
+    table-layout: auto;
+    width: 20%;
+    border-collapse: collapse;
+    border: 2px solid black;
+}    
