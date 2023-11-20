@@ -12,6 +12,14 @@ h1 {
     color: white;
 }
 
+.container {
+    background: #0d8ebe;
+    border-radius: 10px;
+    width: auto;
+    padding: 2%;
+    margin: 80px 20px 0 20px;
+}
+
 /* NAVBAR */
 
 nav {
@@ -22,22 +30,19 @@ nav {
     top: 0;
 }
 
-li {
+nav li {
     list-style: none;
+    font-size: 1.2em;
+}
+
+nav ul {
+    display: flex;
+    justify-content: space-between;
 }
 
 nav a {
     text-decoration: none;
     color: white;
-}
-
-header li {
-    float: right;
-    font-size: 1.2em;
-}
-
-header li a {
-    text-decoration: none;
     display: block;
     text-align: center;
     padding: 18px 16px;
@@ -49,19 +54,7 @@ nav a:hover {
     color: black;
 }
 
-#home {
-    float: left;
-}
-
 /* DASHBOARD */
-
-.dashboard_container {
-    background: #0d8ebe;
-    border-radius: 10px;
-    width: auto;
-    padding: 2%;
-    margin: 80px 20px 0 20px;
-}
 
 form.dashboard {
     padding: 20px;
@@ -160,14 +153,6 @@ form.dashboard {
 
 /* DETAIL */
 
-.detail_container {
-    background: #0d8ebe;
-    border-radius: 10px;
-    width: auto;
-    padding: 2%;
-    margin: 80px 20px 0 20px;
-}
-
 form.detail {
     padding: 20px;
     text-align: center;
@@ -205,14 +190,6 @@ form.detail {
 }
 
 /* CARTE */
-
-.carte_container {
-    background: #0d8ebe;
-    border-radius: 10px;
-    width: auto;
-    padding: 2%;
-    margin: 80px 20px 0 20px;
-}
 
 #map { 
     height: 450px; 
@@ -282,14 +259,6 @@ form.alerte {
 }
 
 /* HISTORIQUE */
-
-.historique_container {
-    background: #0d8ebe;
-    border-radius: 10px;
-    width: auto;
-    padding: 2%;
-    margin: 80px 20px 0 20px;
-}
 
 .historique_container div {
     
