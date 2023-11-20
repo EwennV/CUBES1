@@ -1,9 +1,11 @@
 {% extends "base.html" %}
 {% block historique %}
+{% load static %}
+<link rel="stylesheet" href="{% static/style.css' %}">
 <div class="historique_container">
     <h1>Historique</h1>
     <div>
-        <table>
+        <table style="width:100%">
             <tr>
                 <td>Nom de de la sonde</td>
                 <td>Dates</td>
@@ -12,10 +14,10 @@
             </tr>
             {% for mesure in data %}
             <tr>
-                <td>{{ mesure.sensor_id }}</td>
-                <td>{{ mesure.date }}</td>
-                <td>{{ mesure.temperature }}</td>
-                <td>{{ mesure.humidity }}</td>
+                <td>{{ mesure.fields.sensor_id }}</td>
+                <td>{{ mesure.fields.date }}</td>
+                <td>{{ mesure.fields.temperature }}</td>
+                <td>{{ mesure.fields.humidity }}</td>
             </tr>
             {% endfor %}
             </tr>
