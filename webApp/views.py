@@ -3,13 +3,13 @@ import requests
 # Create your views here
 
 def home(request):
-    return render(request, 'base.html')
+    return render(request, 'dashboard.html')
 
 def historique(request): 
-    r = requests.get("http://localhost:8000/api/survey/list?limit=0")
-    data = {'data': r.json}
+    r = requests.get("http://localhost:8000/api/survey/list?limit=10")
+    data = {'data': r.json()}
 
-    return render(request, 'historique.html', r)
+    return render(request, 'historique.html', data)
 
 def dashboard(request):
     return render(request, 'dashboard.html')

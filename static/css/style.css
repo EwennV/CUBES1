@@ -10,6 +10,7 @@
 :root {
     --global-padding: 0px 60px;
     --primary-color: #046aaa;
+    --light-color: #0084d7;
 }
 
 header{
@@ -54,7 +55,7 @@ header .nav-bar .nav-bar-collapse .nav-item a {
 }
 
 header .nav-bar .nav-bar-collapse .nav-item a:hover {
-    background-color: aqua;
+    background-color: var(--light-color);
     transition: background-color 0.2s ease-in;
 }
 
@@ -85,3 +86,8 @@ table th {
     background-color: var(--primary-color);
     color: white;
   }
+
+#map {
+    height: 400px;
+    width: 400px;
+}
