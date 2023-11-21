@@ -7,6 +7,7 @@
     <div class="container">
         <div class="container-header">
             <h1>Tableau de bord</h1>
+            <button>Ajouter un capteur</button>
         </div>
         <div class="container-content">
             <div class="row">
@@ -29,11 +30,14 @@
                 </thead>
                 <tbody>
                     {% if data|length < 1 %}
-                    <tr>EEEEEEE</tr>
+                        <tr>
+                            <td>test</td>
+                        </tr>
+                        
                     {% endif %}
                     {% for sensor in data %}
                     <tr>
-                        <td>{{ sensor.sensor_id }}</td>
+                        <td><a class="refTo" href="{% url 'app_capteur' sensorId=sensor.sensor_id %}">{{ sensor.sensor_id }}</a></td>
                         <td>{{ sensor.temperature }}</td>
                         <td>{{ sensor.humidity }}</td>
                         <td>{{ sensor.rssi }}</td>

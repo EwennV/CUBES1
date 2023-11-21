@@ -2,13 +2,28 @@
 {% load tz %}
 
 {% block content %}
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+  
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+
+<script>
+    $(document).ready(function() {
+        let table = new DataTable('#truc', {
+            order: [[1, "desc"]]
+        })
+    })
+</script>
+
 <div class="historique_container">
+    
     <div class="container">
         <div class="container-header">
             <h1>Historique</h1>
         </div>
         <div class="container-content">
-            <table>
+            <table id="truc">
                 <thead>
                     <tr>
                         <th>Nom de de la sonde</th>
@@ -25,7 +40,7 @@
                     {% endif %}
                     {% for survey in data %}
                     <tr>
-                        <td><a href="#">{{ survey.fields.sensor_id }}</a></td>
+                        <td><a class="refTo" href="{% url 'app_capteur' sensorId=survey.fields.sensor_id %}">{{ survey.fields.sensor_id }}</a></td>
                         <td>{{ survey.fields.date}}</td>
                         <td>{{ survey.fields.temperature }}°C</td>
                         <td>{{ survey.fields.humidity|default:"N/A" }}%</td>
@@ -40,4 +55,5 @@
     <div>
     </div>
 </div>
+
 {% endblock %}

@@ -11,6 +11,8 @@
     --global-padding: 0px 60px;
     --primary-color: #046aaa;
     --light-color: #0084d7;
+    --text-color: black;
+    --inversed-text-color: white;
 }
 
 header{
@@ -64,6 +66,16 @@ header .nav-bar .nav-bar-collapse .nav-item a:hover {
     margin-top: 20px;
 }
 
+.container-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container-content {
+    margin-top: 20px;
+}
+
 table {
     border-collapse: collapse;
     width: 100%;
@@ -96,4 +108,23 @@ table th {
     display: flex;
     flex-direction: row;
     justify-content: end;
+}
+
+.refTo {
+    text-decoration: underline dotted;
+    cursor: help;
+    color: var(--text-color);
+}
+
+button {
+    background-color: var(--primary-color);
+    color: var(--inversed-text-color);
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: var(--light-color);
 }

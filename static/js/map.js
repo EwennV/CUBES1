@@ -14,14 +14,27 @@ class map {
     init() {
 
         let mainLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         });
 
         mainLayer.addTo(this.map);
+
+        this.addPoint(this.CESI.lat, this.CESI.lng)
+
+        this.map.on('click', this.onMapClick)
+
     }
     
     addPoint(lat, long) {
-        L.marker([lat, long]).addTo(this.map)
+        let marker = L.marker([lat, long])
+        
+        marker.addTo(this.map)
     }
+
+    onMapClick(e) {
+        alert('You clicked here : '+e.latlng)
+    }   
+
 }
+
+const myMap = new map();
