@@ -6,7 +6,7 @@ def home(request):
     return render(request, 'base.html')
 
 def historique(request): 
-    r = requests.get('http://localhost:8000/api/survey/list?limit=5')
+    r = requests.get(f'http://localhost:8000/api/survey/list?limit=1000')
     data = {'data': r.json()} 
     return render(request, 'historique.html', data)
 
