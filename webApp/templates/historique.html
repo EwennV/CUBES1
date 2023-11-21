@@ -25,7 +25,7 @@
                     {% endif %}
                     {% for survey in data %}
                     <tr>
-                        <td><a href="{% url 'sensor' %}">{{ survey.fields.sensor_id }}</a></td>
+                        <td><a href="#">{{ survey.fields.sensor_id }}</a></td>
                         <td>{{ survey.fields.date}}</td>
                         <td>{{ survey.fields.temperature }}°C</td>
                         <td>{{ survey.fields.humidity|default:"N/A" }}%</td>

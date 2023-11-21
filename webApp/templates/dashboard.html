@@ -17,6 +17,31 @@
 
                 </div>
             </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nom de de la sonde</th>
+                        <th>Température</th>
+                        <th>Humidité</th>
+                        <th>Signal RSSI</th>
+                        <th>Niveau de batterie</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if data|length < 1 %}
+                    <tr>EEEEEEE</tr>
+                    {% endif %}
+                    {% for sensor in data %}
+                    <tr>
+                        <td>{{ sensor.sensor_id }}</td>
+                        <td>{{ sensor.temperature }}</td>
+                        <td>{{ sensor.humidity }}</td>
+                        <td>{{ sensor.rssi }}</td>
+                        <td>{{ sensor.battery_level }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
