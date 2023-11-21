@@ -27,7 +27,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Make envfile
-    - uses: SpicyPizza/create-envfile@v2.0
+      uses: SpicyPizza/create-envfile@v2.0
       with: 
         envkey_SECRET_KEY: "4393cb94-e994-4a7c-8716-fe8754f7546d"
         envkey_API_KEY: ${{ secrets.API_KEY }}
