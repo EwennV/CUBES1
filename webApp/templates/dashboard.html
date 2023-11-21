@@ -9,15 +9,17 @@
                 <th>Température</th>
                 <th>Humidité</th>
                 <th>Batterie</th>
+                <th>RSSI</th>
             </tr>
         </thead>
         <tbody>
-            {% for mesure in data %}
+            {% for sensor in data %}
             <tr>
-                <td>{{ mesure.fields.sensor_id }}</td>
-                <td>{{ mesure.fields.temperature }}</td>
-                <td>{{ mesure.fields.humidity }}</td>
-                <td>{{ mesure.fields.battery_level }}</td>
+                <td><a href="{% url 'detail' %}">{{ sensor.sensor_id }}</a></td>
+                <td>{{ sensor.temperature }}</td>
+                <td>{{ sensor.humidity }}</td>
+                <td>{{ sensor.battery_level }}</td>
+                <td>{{ sensor.rssi }}</td>
             </tr>
             {% endfor %}
         </tbody>    
