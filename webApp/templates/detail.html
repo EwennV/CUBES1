@@ -1,14 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container">
-    <h1>Nom de la sonde <button>&#9997;</button></h1>
+    {% for sensor in data %}
+    <h1>{{ sensor.sensor_id }} <button><i class="fa-solid fa-pen"></i></button></h1>
     <form class="detail">
         <div id="temp">temperature</div>
-        <div id="detail_temp">xx°C</div>
+        <div id="detail_temp">{{ sensor.temperature }}</div>
         <div id="g_temp">graph temperature</div>
         <div id="hum">humidité</div>
-        <div id="detail_hum">XX%</div>
+        <div id="detail_hum">{{ sensor.humidity }}</div>
         <div id="g_hum">graph humidite</div>
     </form>
+    {% endfor %}
 </div>
+<script src="static/js/script.js"></script>
 {% endblock %}
