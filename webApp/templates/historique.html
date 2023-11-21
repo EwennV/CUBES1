@@ -1,4 +1,6 @@
 {% extends "layout.html" %}
+{% load tz %}
+
 {% block content %}
 <div class="historique_container">
     <div class="container">
@@ -10,23 +12,23 @@
                 <thead>
                     <tr>
                         <th>Nom de de la sonde</th>
-                        <th>Dates</th>
-                        <th>Températures</th>
-                        <th>Humidités</th>
+                        <th>Date</th>
+                        <th>Température</th>
+                        <th>Humidité</th>
                         <th>Signal RSSI</th>
                         <th>Niveau de batterie</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% if data|length < 1%}
+                    {% if data|length < 1 %}
                     <tr>EEEEEEE</tr>
                     {% endif %}
                     {% for survey in data %}
                     <tr>
-                        <td>{{ survey.fields.sensor_id }}</td>
-                        <td>{{ survey.fields.date }}</td>
-                        <td>{{ survey.fields.temperature }}</td>
-                        <td>{{ survey.fields.humidity }}</td>
+                        <td><a href="{% url 'sensor' %}">{{ survey.fields.sensor_id }}</a></td>
+                        <td>{{ survey.fields.date}}</td>
+                        <td>{{ survey.fields.temperature }}°C</td>
+                        <td>{{ survey.fields.humidity|default:"N/A" }}%</td>
                         <td>{{ survey.fields.battery_level }}</td>
                         <td>{{ survey.fields.rssi }}</td>
                     </tr>

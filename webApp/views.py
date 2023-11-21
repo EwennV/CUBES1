@@ -7,9 +7,9 @@ def home(request):
 
 def historique(request): 
     r = requests.get("http://localhost:8000/api/survey/list?limit=10")
-    data = {'data': r.json()}
+    context = {'data': r.json()}
 
-    return render(request, 'historique.html', data)
+    return render(request, 'historique.html', context)
 
 def dashboard(request):
     return render(request, 'dashboard.html')
@@ -20,5 +20,8 @@ def alerte(request):
 def carte(request):
     return render(request, 'carte.html')
 
-def detail(request):
-    return render(request, 'detail.html')
+def capteur(request, sensorId):
+    r = requests.get('http://localhost:8000/api/sensor?id=',sensorId)
+    context = {'sensor': r.json()[0]}
+
+    return render(request, 'capteur.html', context)

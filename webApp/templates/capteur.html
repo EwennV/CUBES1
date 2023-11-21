@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <div class="container-header">
+        <h1>{{ sensor.fields.name }}</h1>
+    </div>
+    <div class="container-content">
+        <div class="right-align">
+            {% include 'addons/carte.html' %}
+        </div>
+    </div>
+    <script src="{% static 'js/map.js'%}"></script>
+    <script>let sensorPosition = new map();</script>
+    
+</div>
+{% endblock %}

@@ -91,3 +91,9 @@ table th {
     height: 400px;
     width: 400px;
 }
+
+.right-align {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
