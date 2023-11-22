@@ -172,10 +172,10 @@ form.detail {
 }
 
 .detail div {
-    background-color: blue;
+    background-color: rgb(255, 255, 255);
     padding: 10px;
     margin: 10px;
-    color: white;
+    color: rgb(0, 0, 0);
 }
 
 #detail_temp {

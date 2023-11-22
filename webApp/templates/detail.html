@@ -6,7 +6,9 @@
     <form class="detail">
         <div id="temp">temperature</div>
         <div id="detail_temp">xx°C</div>
-        <div id="g_temp">graph temperature</div>
+        <div id="g_temp" class = "chart-container">
+            <canvas id="tempCanvas" aria-label="chart" role="img"></canvas>
+        </div>
         <div id="hum">humidité</div>
         <div id="detail_hum">XX%</div>
         <div id="g_hum" class="chart-container">
@@ -15,6 +17,5 @@
     </form>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.js"></script>
-<script src="{% static 'js/script.js' %}"></script>
+<script type= "module" src="{% static 'js/script.js' %}"></script>
 {% endblock %}
