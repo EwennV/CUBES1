@@ -35,7 +35,7 @@ jobs:
         pip install -r requirements.txt
     - name: Make envfile
       run: |
-        echp "SECRET_KEY=e4a469a4-6e61-4566-b024-cf1cdfb5d4ad" >> .env 
+        echo "SECRET_KEY=e4a469a4-6e61-4566-b024-cf1cdfb5d4ad" >> .env 
         echo "API_KEY=${{ secrets.API_KEY }}" >> .env
         echo "DB_USER=${{ secrets.DB_USER }}" >> .env
         echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
