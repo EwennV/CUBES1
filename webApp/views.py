@@ -35,19 +35,23 @@ def alerte(request):
 def carte(request):
     return render(request, 'carte.html')
 
-def detail(request):
+def detail(request, sensorId):
     r = requests.get('http://localhost:8000/api/sensor')
 
     data = {
         'data': []
     }
+    # print(sensorId)
+    # print(r.json())
+    r2 = requests.get(f'http://localhost:8000/api/survey/list?id={sensorId}&limit=1')
+    print(f'http://localhost:8000/api/survey/list?id={sensorId}&limit=1')
+    r2 = r2.json()[0]
 
-    for sensor in r.json():
-        r2 = requests.get(f'http://localhost:8000/api/survey/list?id={sensor["pk"]}&limit=1')
-        r2 = r2.json()[0]
-        data['data'].append({
-            'sensor_id': sensor["pk"],
-            'humidity': r2["fields"]["humidity"],
-            'temperature': r2["fields"]["temperature"],
-        })
+    data['data'].append({
+        'sensor_id': sensorId,
+        'humidity': r2["fields"]["humidity"],
+        'temperature': r2["fields"]["temperature"],
+        'battery_level': r2["fields"]["battery_level"],
+        'rssi': r2["fields"]["rssi"]
+    })
     return render(request, 'detail.html', data)
