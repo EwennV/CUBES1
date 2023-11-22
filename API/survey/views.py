@@ -17,12 +17,12 @@ def list(request):
     try:
         limit = int(limit)
     except :
-        return error_response.throwError("Le paramètre limite est incorrect")
+        return error_response.throw_error("Le paramètre limite est incorrect")
     
     maxLimit = 10000
     
     if limit > maxLimit:
-        return error_response.throwError(f"Le paramètre limite ne peut pas dépasser {maxLimit}")
+        return error_response.throw_error(f"Le paramètre limite ne peut pas dépasser {maxLimit}")
     
     match order:
         case "asc":
@@ -30,12 +30,12 @@ def list(request):
         case "desc":
             order = "-"
         case _:
-            return error_response.throwError(f"Le paramètre order est invalide (asc, desc)")
+            return error_response.throw_error(f"Le paramètre order est invalide (asc, desc)")
         
     if idSensor:
         surveys = models.survey.objects.filter(sensor_id = idSensor).order_by(f'{order}date')[:limit]
         if not surveys:
-            return error_response.throwError('id de capteur introuvable')
+            return error_response.throw_error('Aucun relevé pour ce capteur')
     else:
         surveys = models.survey.objects.order_by(f'{order}date')[:limit]
     

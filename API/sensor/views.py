@@ -98,7 +98,7 @@ def delete(request):
     response = {
         'message': 'Capteur supprimé'
     }
-    return HttpResponse(data, status=200, content_type='application/json')
+    return HttpResponse(response, status=200, content_type='application/json')
 
 def delete(request):
     sensorId = request.GET.get('sensor_id')
