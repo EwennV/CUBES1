@@ -10,6 +10,7 @@
                 <th>Humidité</th>
                 <th>Batterie</th>
                 <th>RSSI</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -20,6 +21,11 @@
                 <td>{{ sensor.humidity }}</td>
                 <td>{{ sensor.battery_level }}</td>
                 <td>{{ sensor.rssi }}</td>
+                <td>
+                    <form method="post" action="{% url 'http://localhost' sensorId=sensor.sensor_id %}">
+                        <button type="submit">Supprimer</button>
+                    </form>
+                </td>
             </tr>
             {% endfor %}
         </tbody>    
