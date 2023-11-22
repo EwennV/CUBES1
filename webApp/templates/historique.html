@@ -8,30 +8,29 @@
 <script>
     $(document).ready(function () {
         $('#myTable').DataTable()
-        })
+    })
 </script>
 <div class="container">
-    <h1>Historique</h1>
-    <form class="historique">
-    <table id="myTable">
-        <thead>
-            <tr>
-                <th>Nom de de la sonde</th>
-                <th>Dates</th>
-                <th>Températures</th>
-                <th>Humidités</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for mesure in data %}
-            <tr>
-                <td>{{ mesure.fields.sensor_id }}</td>
-                <td>{{ mesure.fields.date }}</td>
-                <td>{{ mesure.fields.temperature }}</td>
-                <td>{{ mesure.fields.humidity }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>    
-    </table>
+<h1>Historique</h1>
+<table id="myTable">
+    <thead>
+        <tr>
+            <th>Nom de de la sonde</th>
+            <th>Dates</th>
+            <th>Températures</th>
+            <th>Humidités</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for mesure in data %}
+        <tr>
+            <td>{{ mesure.fields.sensor_id }}</td>
+            <td>{{ mesure.fields.date }}</td>
+            <td>{{ mesure.fields.temperature }}</td>
+            <td>{{ mesure.fields.humidity }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>    
+</table>
 </div>
 {% endblock %}

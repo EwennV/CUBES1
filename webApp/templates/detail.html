@@ -1,17 +1,23 @@
 {% extends "base.html" %}
 {% block content %}
+{% load static %}
 <div class="container">
     {% for sensor in data %}
     <h1>{{ sensor.sensor_id }} <button><i class="fa-solid fa-pen"></i></button></h1>
     <form class="detail">
         <div id="temp">temperature</div>
-        <div id="detail_temp">{{ sensor.temperature }}</div>
-        <div id="g_temp">graph temperature</div>
+        <div id="detail_temp">xx°C</div>
+        <div id="g_temp" class = "chart-container">
+            <canvas id="tempCanvas" aria-label="chart" role="img"></canvas>
+        </div>
         <div id="hum">humidité</div>
-        <div id="detail_hum">{{ sensor.humidity }}</div>
-        <div id="g_hum">graph humidite</div>
+        <div id="detail_hum">XX%</div>
+        <div id="g_hum" class="chart-container">
+            <canvas id="barCanvas" aria-label="chart" role="img"></canvas>
+        </div>
     </form>
     {% endfor %}
 </div>
-<script src="static/js/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type= "module" src="{% static 'js/script.js' %}"></script>
 {% endblock %}
