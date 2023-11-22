@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.utils import timezone
+from datetime import timedelta
 from django.http import HttpResponse
 from django.core import serializers
 from API import models
@@ -13,6 +15,7 @@ def list(request):
     idSensor = request.GET.get('id')
     limit = request.GET.get('limit','100')
     order = request.GET.get('order', 'desc')
+    last = request.GET.get('last', None)
 
     try:
         limit = int(limit)
@@ -33,12 +36,21 @@ def list(request):
             return error_response.throw_error(f"Le paramètre order est invalide (asc, desc)")
         
     if idSensor:
-        surveys = models.survey.objects.filter(sensor_id = idSensor).order_by(f'{order}date')[:limit]
+        if not last:
+            surveys = models.survey.objects.filter(sensor_id = idSensor).order_by(f'{order}date')[:limit]
+        else:
+            if not int(last):
+                return error_response.throw_error("Le paramètre last est invalide (int)")
+            
+            differenceDate = timezone.now() - timedelta(hours=int(last))
+            surveys = models.survey.objects.filter(sensor_id = idSensor).filter(date__gte=differenceDate).order_by(f'{order}date')[:limit]
+            print(differenceDate)
         if not surveys:
             return error_response.throw_error('Aucun relevé pour ce capteur')
     else:
         surveys = models.survey.objects.order_by(f'{order}date')[:limit]
     
-    
+
     surveysJson = serializers.serialize('json', surveys)
+
     return HttpResponse(surveysJson, status=200, content_type='application/json')
