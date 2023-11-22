@@ -25,7 +25,7 @@ jobs:
     - name: Create env
       run: |
         python -m venv ./
-        ls -a
+        ls -a bin
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
