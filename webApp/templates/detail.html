@@ -2,7 +2,8 @@
 {% block content %}
 {% load static %}
 <div class="container">
-    <h1>Nom de la sonde <button>&#9997;</button></h1>
+    {% for sensor in data %}
+    <h1>{{ sensor.sensor_id }} <button><i class="fa-solid fa-pen"></i></button></h1>
     <form class="detail">
         <div id="temp">temperature</div>
         <div id="detail_temp">xx°C</div>
@@ -15,6 +16,7 @@
             <canvas id="barCanvas" aria-label="chart" role="img"></canvas>
         </div>
     </form>
+    {% endfor %}
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script type= "module" src="{% static 'js/script.js' %}"></script>
