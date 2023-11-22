@@ -29,6 +29,9 @@ jobs:
     - name: Activate env
       run: |
         source bin/activate
+    - name: Install mysqlclient
+      run: |
+        sudo apt-get install python3-dev default-libmysqlclient-dev build-essential
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
