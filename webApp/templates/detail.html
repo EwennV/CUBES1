@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+{% load static %}
 <div class="container">
     <h1>Nom de la sonde <button>&#9997;</button></h1>
     <form class="detail">
@@ -8,7 +9,12 @@
         <div id="g_temp">graph temperature</div>
         <div id="hum">humidité</div>
         <div id="detail_hum">XX%</div>
-        <div id="g_hum">graph humidite</div>
+        <div id="g_hum" class="chart-container">
+            <canvas id="barCanvas" aria-label="chart" role="img"></canvas>
+        </div>
     </form>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.js"></script>
+<script src="{% static 'js/script.js' %}"></script>
 {% endblock %}
