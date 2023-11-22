@@ -12,6 +12,12 @@
 </script>
 <div class="container">
 <h1>Historique</h1>
+<form class = "historique" method="get" action="{% url 'historique' %}">
+    {% csrf_token %}
+    <label for="limite_releves"> Nombre de relevés :</label>
+    <input type="number" id="limite_releves" name="limite_releves" value="{{ request.GET.limite_releves }}">
+    <button type="submit"> Appliquer </button>
+</form>
 <table id="myTable">
     <thead>
         <tr>
