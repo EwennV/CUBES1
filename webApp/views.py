@@ -19,15 +19,26 @@ def dashboard(request):
     }
 
     for sensor in r.json():
-        r2 = requests.get(f'http://localhost:8000/api/survey/list?id={sensor["pk"]}&limit=1')
-        r2 = r2.json()[0]
-        data['data'].append({
-            'sensor_id': sensor["pk"],
-            'humidity': r2["fields"]["humidity"],
-            'temperature': r2["fields"]["temperature"],
-            'battery_level': r2["fields"]["battery_level"],
-            'rssi': r2["fields"]["rssi"]
-        })
+        try:
+            r2 = requests.get(f'http://localhost:8000/api/survey/list?id={sensor["pk"]}&limit=1')
+            r2 = r2.json()[0]
+
+            data['data'].append({
+                'sensor_id': sensor["pk"],
+                'humidity': r2["fields"]["humidity"],
+                'temperature': r2["fields"]["temperature"],
+                'battery_level': r2["fields"]["battery_level"],
+                'rssi': r2["fields"]["rssi"]
+            })
+        except:
+            data['data'].append({
+                'sensor_id': sensor["pk"],
+                'humidity': "N/A",
+                'temperature': "N/A",
+                'battery_level': "N/A",
+                'rssi': "N/A"
+            })
+
     return render(request, 'dashboard.html', data)
 
 def alerte(request):
