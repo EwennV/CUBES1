@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.http import JsonResponse
 from django.core import serializers  
 from API import models
 from API.scripts import error_response
@@ -21,13 +22,39 @@ def sensor(request):
     return HttpResponse(dataJson, content_type='application/json', status=200)
 
 def create(request):
-    data = {
-        'name': 'John Doe',
-        'age': 30,
-        'email': 'john.doe@example.com'
-    }
-    return HttpResponse(data, status=200, content_type="application/json")
+    id = request.GET.get('id')
+    name = request.GET.get('name')
+    lat = request.GET.get('lat')
+    lng = request.GET.get('lng')
 
+    if not id or not int(id):
+        return error_response.throw_error('Id invalide')
+    
+    if models.sensor.objects.filter(id=id):
+        return error_response.throw_error('Ce capteur est déjà enregistré')
+    
+    if not name or not str(name):
+        return error_response.throw_error('Name invalide')
+    
+    if lat and not float(lat):
+        return error_response.throw_error('Lattitude invalide')
+    
+    if lng and not float(lng):
+        return error_response.throw_error('Longitude invalide')
+    sensor = models.sensor(
+        id = id,
+        name = name,
+        lattitude = lat,
+        longitude = lng,
+    )
+
+    sensor.save()
+
+    response = {
+        'message': 'Capteur ajouté !'
+    }
+
+    return JsonResponse(response, status=200)
 def update(request):
     data = {
         'name': 'John Doe',
