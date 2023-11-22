@@ -53,13 +53,50 @@ def create(request):
     response = {
         'message': 'Capteur ajouté !'
     }
+    
+    return JsonResponse(response, status=200)
+  
+def update(request):
+    id = request.GET.get('id')
+
+    try:
+        sensor = models.sensor.objects.get(id=id)
+    except:
+        return error_response.throw_error('Id de capteur invalide')
+    
+    name = request.GET.get('name') or sensor.name
+    lat = request.GET.get('lat') or sensor.lattitude
+    lng = request.GET.get('lng') or sensor.longitude
+
+    try:
+        sensor.name = name
+        sensor.lattitude = lat
+        sensor.longitude = lng
+
+        sensor.save()
+    
+    except ValueError:
+        error_response.throw_error('Modifications impossibles')
+        print(ValueError)
+
+    response = {
+        'message': "Capteur mis à jour !"
+    }
 
     return JsonResponse(response, status=200)
-def update(request):
-    data = {
-        'name': 'John Doe',
-        'age': 30,
-        'email': 'john.doe@example.com'
+
+def delete(request):
+    sensorId = request.GET.get('sensor_id')
+    if not sensorId:
+        return error_response.throwError("Id de capteur invalide")
+    
+    try:
+        models.sensor.delete(sensorId)
+    except:
+        return error_response.throwError("Suppression impossible, l'id fourni doit être invalide.")
+    
+    response = {
+        'message': 'Capteur supprimé'
     }
     return HttpResponse(data, status=200, content_type='application/json')
 
@@ -76,4 +113,3 @@ def delete(request):
     response = {
         'message': 'Capteur supprimé'
     }
-    return HttpResponse(response, status=200, content_type='application/json')
