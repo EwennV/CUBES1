@@ -88,12 +88,12 @@ def update(request):
 def delete(request):
     sensorId = request.GET.get('sensor_id')
     if not sensorId:
-        return error_response.throwError("Id de capteur invalide")
+        return error_response.throw_error("Id de capteur invalide")
     
     try:
         models.sensor.delete(sensorId)
     except:
-        return error_response.throwError("Suppression impossible, l'id fourni doit être invalide.")
+        return error_response.throw_error("Suppression impossible, l'id fourni doit être invalide.")
     
     response = {
         'message': 'Capteur supprimé'
