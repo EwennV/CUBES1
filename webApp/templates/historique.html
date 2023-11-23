@@ -2,27 +2,38 @@
 {% block content %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
 <div class="container">
-    <h1>Historique</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Nom de de la sonde</th>
-                <th>Dates</th>
-                <th>Températures</th>
-                <th>Humidités</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for mesure in data %}
-            <tr>
-                <td>{{ mesure.fields.sensor_id }}</td>
-                <td>{{ mesure.fields.date }}</td>
-                <td>{{ mesure.fields.temperature }}</td>
-                <td>{{ mesure.fields.humidity }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>    
-    </table>
+<h1>Historique</h1>
+<form class = "historique" method="get" action="{% url 'historique' %}">
+    {% csrf_token %}
+    <label for="limite_releves"> Nombre de relevés :</label>
+    <input type="number" id="limite_releves" name="limite_releves" value="{{ request.GET.limite_releves }}">
+    <button type="submit"> Appliquer </button>
+</form>
+<table id="myTable">
+    <thead>
+        <tr>
+            <th>Nom de de la sonde</th>
+            <th>Dates</th>
+            <th>Températures</th>
+            <th>Humidités</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for mesure in data %}
+        <tr>
+            <td>{{ mesure.fields.sensor_id }}</td>
+            <td>{{ mesure.fields.date }}</td>
+            <td>{{ mesure.fields.temperature }}</td>
+            <td>{{ mesure.fields.humidity }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>    
+</table>
 </div>
+
+<script src="{% static 'js/table.js' %}"></script>
 {% endblock %}
