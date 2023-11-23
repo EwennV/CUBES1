@@ -53,19 +53,18 @@ def carte(request):
 def detail(request, sensorId):
     data = {}
     
-    r = requests.get(f'http://{request.get_host()}{reverse("api_sensor:api_sensor_list")}?id={sensorId}')
+    r = requests.get(f'http://localhost:8000/api/sensor?id={sensorId}')
 
     sensor = r.json()[0]
     
     nom_capteur = sensor['fields']['name']
 
-    data['nom']= nom_capteur
-
-    r2 = requests.get(f'http://{request.get_host()}{reverse("api_survey:api_survey_list")}?id={sensorId}&limit=1')
+    r2 = requests.get(f'http://localhost:8000/api/survey/list?id={sensorId}&limit=1')
     r2 = r2.json()[0]
 
     data['data']= {
         'sensor_id': sensorId,
+        'nom': nom_capteur,
         'humidity': r2["fields"]["humidity"],
         'temperature': r2["fields"]["temperature"],
         'battery_level': r2["fields"]["battery_level"],

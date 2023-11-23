@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
     <title>Projet CUBES 1</title>
 </head>
 <body>
@@ -19,11 +19,15 @@
                     <a href="{% url 'dashboard' %}">home <i class="fa-solid fa-house"></i></a>
                 </li>
                 <ul>
+                    
                     <li>
                         <a href="{% url 'carte' %}">carte <i class="fa-solid fa-map"></i></a>
                     </li>
                     <li>
                         <a href="{% url 'alerte' %}">alertes <i class="fa-solid fa-bell"></i></a>
+                    </li>
+                    <li>
+                        <a href="{% url 'historique' %}">historique <i class="fa-solid fa-clock-rotate-left"></i></a>
                     </li>
                 </ul>
             </ul>
