@@ -71,7 +71,7 @@ def detail(request, sensorId):
         'humidity_data': []  # Liste pour les humidités
     }
 
-    r3 = requests.get(f'http://localhost:8000/api/survey/list?id={sensorId}&limit=500')
+    r3 = requests.get(f'http://localhost:8000/api/survey/list?id={sensorId}&last=24')
 
     surveys = r3.json()
 
