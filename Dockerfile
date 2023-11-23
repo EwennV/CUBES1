@@ -6,6 +6,8 @@ RUN mkdir -p ${DockerHOME}
 
 WORKDIR ${DockerHOME}
 
+COPY . ${DockerHOME}
+
 RUN pip install -r requirements.txt
 
 EXPOSE 7000
