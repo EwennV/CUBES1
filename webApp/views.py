@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from datetime import datetime
+from django.urls import reverse
 import requests
 # Create your views here
 
@@ -8,12 +9,13 @@ def home(request):
 
 def historique(request): 
     limite_releves =  request.GET.get('limite_releves', 1000)
-    r = requests.get(f'http://localhost:8000/api/survey/list?limit={limite_releves}')
+    print(f'http://{request.get_host()}{reverse("api_survey:api_survey_list")}/api/survey/list?limit={limite_releves}')
+    r = requests.get(f'http://{request.get_host()}{reverse("api_survey:api_survey_list")}?limit={limite_releves}')
     data = {'data': r.json()} 
     return render(request, 'historique.html', data)
 
 def dashboard(request):
-    r = requests.get('http://localhost:8000/api/sensor')
+    r = requests.get(f'http://{request.get_host()}{reverse("api_sensor:api_sensor_list")}')
 
     data = {
         'data': []
@@ -21,7 +23,7 @@ def dashboard(request):
 
     for sensor in r.json():
         try:
-            r2 = requests.get(f'http://localhost:8000/api/survey/list?id={sensor["pk"]}&limit=1')
+            r2 = requests.get(f'http://{request.get_host()}{reverse("api_survey:api_survey_list")}?id={sensor["pk"]}&limit=1')
             r2 = r2.json()[0]
 
             data['data'].append({
@@ -51,7 +53,7 @@ def carte(request):
 def detail(request, sensorId):
     data = {}
     
-    r = requests.get(f'http://localhost:8000/api/sensor?id={sensorId}')
+    r = requests.get(f'http://{request.get_host()}{reverse("api_sensor:api_sensor_list")}?id={sensorId}')
 
     sensor = r.json()[0]
     
@@ -59,7 +61,7 @@ def detail(request, sensorId):
 
     data['nom']= nom_capteur
 
-    r2 = requests.get(f'http://localhost:8000/api/survey/list?id={sensorId}&limit=1')
+    r2 = requests.get(f'http://{request.get_host()}{reverse("api_survey:api_survey_list")}?id={sensorId}&limit=1')
     r2 = r2.json()[0]
 
     data['data']= {
@@ -77,7 +79,7 @@ def detail(request, sensorId):
         'humidity_data': []  # Liste pour les humidités
     }
 
-    r3 = requests.get(f'http://localhost:8000/api/survey/list?id={sensorId}&last=24')
+    r3 = requests.get(f'http://{request.get_host()}{reverse("api_survey:api_survey_list")}?id={sensorId}&last=24')
 
     surveys = r3.json()
 
