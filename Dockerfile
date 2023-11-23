@@ -1,6 +1,6 @@
 FROM python:3.10
 
-ENV DockerHOME = /home/github/cubes1
+ENV DockerHOME = /home/cesi/cubes1
 
 RUN mkdir -p ${DockerHOME}
 
