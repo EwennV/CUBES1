@@ -4,11 +4,11 @@
 * {
     padding: 0;
     margin: 0;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Helvetica', sans-serif;
 }
 
 body {
-    background-color: black;
+    background-color: rgb(63, 63, 63);
 }
 
 h1 {
@@ -272,6 +272,7 @@ table {
     padding: 0;
     width: 100%;
     table-layout: fixed;
+    background-color: white;
   }
   
   table caption {
@@ -288,7 +289,8 @@ table {
   table th,
   table td {
     padding: .625em;
-    text-align: center;
+    text-align: flex-start;
+    border-right: solid 1px black
   }
   
   table th {
@@ -350,3 +352,22 @@ table {
     font-family: "Open Sans", sans-serif;
     line-height: 1.25;
   }
+  #myTable_filter {
+    padding: 10px;
+    color: white
+  }
+  div#myTable_length {
+    margin: 10px;
+    color: white
+  }
+  a#historique {
+    font-weight: bold;
+  }
+
+div#myTable_info {
+    color: white;
+    margin-left: 10px;
+}
+div#myTable_paginate {
+    color: white
+}
