@@ -1,8 +1,14 @@
 {% extends "base.html" %}
+{% load static %}
+
 {% block content %}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+
 <div class="container">
     <h1>Tableau de bord</h1>
-    <table>
+    <table id="myTable">
         <thead>
             <tr>
                 <th>Nom de de la sonde</th>
@@ -26,4 +32,6 @@
     </table>
     <a href="{% url 'historique' %}" id="historique">Historique</a>
 </div>
+
+<script src="{% static 'js/table.js' %}"></script>
 {% endblock %}
