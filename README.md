@@ -107,11 +107,12 @@ git push origin le_nom_de_ma_branche
   GET /api/survey/list
 ```
 
-| Paramètre | Défaut| Exemple     | Description                |
-| :-------- | :----|:---------| :------------------------- |
-| `limit`   | `100`| `100` | **Optionnel** Nombre de relevés à recevoir |
-| `order`   | `desc`| `asc` | **Optionnel** Ordre de tri des données par date|
-| `id`   | `null`| `06190485`| **Optionnel** Retourne les relevés associés à un id de capteur|
+| Paramètre | Défaut | Exemple     | Description                                                                             |
+| :-------- | :----- | :---------- | :-------------------------------------------------------------------------------------- |
+| `limit`   | `100`  | `100`       | **Optionnel** Nombre de relevés à recevoir                                              |
+| `order`   | `desc` | `asc`       | **Optionnel** Ordre de tri des données par date                                         |
+| `id`      | `null` | `06190485`  | **Optionnel** Retourne les relevés associés à un id de capteur                          |
+| `last`    | `null` | `24`        | **Optionnel** Défini l'heure à laquelle s'arrêter, rendant le paramètre `limit` inutile |
 
 Les différents paramètres peuvent êtres utilisés ensembles.
 
