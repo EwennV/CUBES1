@@ -1,15 +1,17 @@
-FROM python:3.10
+FROM python:3.8
 
-ENV DockerHOME = /home/cesi/cubes1
+# Créer et définir le répertoire de travail
+WORKDIR /app
 
-RUN mkdir -p ${DockerHOME}
+# Copier les fichiers requis dans le conteneur
+COPY requirements.txt /app/
+COPY . /app/
 
-WORKDIR ${DockerHOME}
-
-COPY . ${DockerHOME}
-
+# Installer les dépendances
+RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
+# Exposer le port sur lequel l'application va écouter
 EXPOSE 7000
 
 RUN python manage.py runserver 7000
