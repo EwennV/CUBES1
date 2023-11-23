@@ -51,8 +51,15 @@ def carte(request):
     return render(request, 'carte.html')
 
 def detail(request, sensorId):
-    data = {
-    }
+    data = {}
+    
+    r = requests.get(f'http://{request.get_host()}{reverse("api_sensor:api_sensor_list")}?id={sensorId}')
+
+    sensor = r.json()[0]
+    
+    nom_capteur = sensor['fields']['name']
+
+    data['nom']= nom_capteur
 
     r2 = requests.get(f'http://{request.get_host()}{reverse("api_survey:api_survey_list")}?id={sensorId}&limit=1')
     r2 = r2.json()[0]
@@ -82,12 +89,8 @@ def detail(request, sensorId):
         heure = datetime_object.strftime('%d/%m - %H:%M')
         graph_data['clean_date'].append(heure)
         graph_data['temperature_data'].append(survey["fields"]["temperature"])
-        print(survey["fields"]["temperature"])
         graph_data['humidity_data'].append(survey["fields"]["humidity"])
 
     data['graph_data'] = graph_data
 
     return render(request, 'detail.html', data)
-
-
-    
