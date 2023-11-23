@@ -93,3 +93,6 @@ def detail(request, sensorId):
     data['graph_data'] = graph_data
 
     return render(request, 'detail.html', data)
+
+def hiistorique(request):
+    return render(request, 'historique.html')
