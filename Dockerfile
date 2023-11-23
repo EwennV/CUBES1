@@ -6,8 +6,6 @@ RUN mkdir -p ${DockerHOME}
 
 WORKDIR ${DockerHOME}
 
-RUN python -m venv ./
-RUN source bin/activate
 RUN pip install -r requirements.txt
 
 EXPOSE 7000
