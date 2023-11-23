@@ -78,7 +78,7 @@ def detail(request, sensorId):
     for survey in surveys:
         graph_data['labels'].append(survey["fields"]["date"])
         datetime_object = datetime.strptime(survey["fields"]["date"], '%Y-%m-%dT%H:%M:%SZ')
-        heure = datetime_object.strftime('%H:%M')
+        heure = datetime_object.strftime('%d/%m - %H:%M')
         graph_data['clean_date'].append(heure)
         graph_data['temperature_data'].append(survey["fields"]["temperature"])
         print(survey["fields"]["temperature"])
