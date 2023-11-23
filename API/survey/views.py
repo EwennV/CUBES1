@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.core import serializers
 from API import models
 from API.scripts import error_response
+from datetime import datetime
 
 # Create your views here.
 
@@ -39,18 +40,19 @@ def list(request):
         if not last:
             surveys = models.survey.objects.filter(sensor_id = idSensor).order_by(f'{order}date')[:limit]
         else:
-            if not int(last):
+            try:
+                if not int(last) or not type(int(last)) is int:
+                    raise ValueError()
+            except ValueError:
                 return error_response.throw_error("Le paramètre last est invalide (int)")
-            
-            differenceDate = timezone.now() - timedelta(hours=int(last))
-            surveys = models.survey.objects.filter(sensor_id = idSensor).filter(date__gte=differenceDate).order_by(f'{order}date')[:limit]
-            print(differenceDate)
+
+            differenceDate = timezone.localtime(timezone.now()) - timedelta(hours=int(last))
+            surveys = models.survey.objects.filter(sensor_id = idSensor).filter(date__gte=differenceDate).order_by(f'{order}date')
         if not surveys:
             return error_response.throw_error('Aucun relevé pour ce capteur')
     else:
         surveys = models.survey.objects.order_by(f'{order}date')[:limit]
     
-
     surveysJson = serializers.serialize('json', surveys)
 
     return HttpResponse(surveysJson, status=200, content_type='application/json')
