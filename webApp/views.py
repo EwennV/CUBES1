@@ -57,13 +57,12 @@ def detail(request, sensorId):
     
     nom_capteur = sensor['fields']['name']
 
-    data['nom']= nom_capteur
-
     r2 = requests.get(f'http://localhost:8000/api/survey/list?id={sensorId}&limit=1')
     r2 = r2.json()[0]
 
     data['data']= {
         'sensor_id': sensorId,
+        'nom': nom_capteur,
         'humidity': r2["fields"]["humidity"],
         'temperature': r2["fields"]["temperature"],
         'battery_level': r2["fields"]["battery_level"],
