@@ -260,7 +260,6 @@ form.alerte {
 
 #submit {
     color: rgb(0, 0, 0);
-<<<<<<< HEAD
 }
 
 .customLook + button{
@@ -281,8 +280,6 @@ form.alerte {
 
 .customLook + button:hover{
     box-shadow: 0 0 0 5px inset currentColor;
-=======
->>>>>>> a31f42647302dd4656e6f62659f2fee81c7f0d01
 }
 
 /* HISTORIQUE */
@@ -294,10 +291,7 @@ table {
     padding: 0;
     width: 100%;
     table-layout: fixed;
-<<<<<<< HEAD
     background-color: white;
-=======
->>>>>>> a31f42647302dd4656e6f62659f2fee81c7f0d01
   }
   
   table caption {
@@ -314,12 +308,8 @@ table {
   table th,
   table td {
     padding: .625em;
-<<<<<<< HEAD
     text-align: flex-start;
     border-right: solid 1px black
-=======
-    text-align: center;
->>>>>>> a31f42647302dd4656e6f62659f2fee81c7f0d01
   }
   
   table th {
