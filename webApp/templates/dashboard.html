@@ -22,7 +22,8 @@
                 <td>{{ sensor.battery_level }}</td>
                 <td>{{ sensor.rssi }}</td>
                 <td>
-                    <form method="post" action="{% url 'http://localhost' sensorId=sensor.sensor_id %}">
+                    <form method="post" action="{% url 'delete_sensor' sensorId=sensor.sensor_id %}">
+                        {% csrf_token %}
                         <button type="submit">Supprimer</button>
                     </form>
                 </td>
@@ -32,4 +33,25 @@
     </table>
     <a href="{% url 'historique' %}" id="historique">Historique</a>
 </div>
+<script>
+    function deleteSensor(sensorId) {
+        if (confirm("Etes-vous sûr de vouloir supprimer ce capteur ?")) {
+            fetch('/api/sensor/delete?sensor_id=${sensorId}', {
+                method: 'GET',
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    alert(data.message);
+                } else if (data.error_message) {
+                    alert('Erreur : ${data.error_message}');
+                }   
+            })
+            .catch(error => {
+                console.error('Erreur lors de la suppression du capteur :', error);
+            });
+        }
+    }
+deleteSensor('votre_sensor_id');
+</script>
 {% endblock %}

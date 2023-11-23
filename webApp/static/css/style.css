@@ -8,12 +8,15 @@
 }
 
 body {
-    background-color: black;
+    background-color: rgb(65, 65, 65);
 }
 
 h1 {
     background-color: #0d8ebe;
     color: white;
+    font-family: 'OpenDyslexic-Regular';
+    src: url('./font/OpenDyslexic-Regular.otf') format('truetype')
+    
 }
 
 .container {
@@ -56,7 +59,7 @@ nav a {
 
 nav a:hover {
     background: white;
-    color: black;
+    color: rgb(0, 0, 0);
 }
 
 /* DASHBOARD */
@@ -272,23 +275,31 @@ table {
     padding: 0;
     width: 100%;
     table-layout: fixed;
+    font-family: 'OpenDyslexic-Regular';
+    src: url('./font/OpenDyslexic-Regular.otf') format('truetype')
   }
   
   table caption {
     font-size: 1.5em;
     margin: .5em 0 .75em;
+    font-family: 'OpenDyslexic-Regular';
+    src: url('./font/OpenDyslexic-Regular.otf') format('truetype')
   }
   
   table tr {
     background-color: #f8f8f8;
     border: 1px solid #ddd;
     padding: .35em;
+    font-family: 'OpenDyslexic-Regular';
+    src: url('./font/OpenDyslexic-Regular.otf') format('truetype')
   }
   
   table th,
   table td {
     padding: .625em;
     text-align: center;
+    font-family: 'OpenDyslexic-Regular';
+    src: url('./font/OpenDyslexic-Regular.otf') format('truetype')
   }
   
   table th {
@@ -350,3 +361,15 @@ table {
     font-family: "Open Sans", sans-serif;
     line-height: 1.25;
   }
+#myTable_info {
+    font-family: 'OpenDyslexic-Regular';
+    src: url('./font/OpenDyslexic-Regular.otf') format('truetype')
+}
+div#myTable_length label {
+    font-family: 'OpenDyslexic-Regular';
+    src: url('./font/OpenDyslexic-Regular.otf') format('truetype')
+}
+div#myTable_paginate {
+    font-family: 'OpenDyslexic-Regular';
+    src: url('./font/OpenDyslexic-Regular.otf') format('truetype')
+}
