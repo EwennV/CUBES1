@@ -6,6 +6,5 @@ urlpatterns = [
     path('historique/', views.historique, name='historique'),
     path('alerte/', views.alerte, name='alerte'),
     path('carte/', views.carte, name='carte'),
-    path('detail/<str:sensorId>', views.detail, name='detail'),
-    path('detail:<str:sensorId>', views.modification, name='modification'),
+    path('detail/<str:sensorId>', views.detail, name='detail')
 ]

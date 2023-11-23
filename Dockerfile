@@ -14,4 +14,4 @@ RUN pip install -r requirements.txt
 # Exposer le port sur lequel l'application va écouter
 EXPOSE 7000
 
-RUN python manage.py runserver 7000
+RUN python test
