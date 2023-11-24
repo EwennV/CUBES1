@@ -40,7 +40,7 @@ def create(request):
 
     if not id or not int(id):
         return error_response.bad_request('Id invalide')
-
+      
     if models.sensor.objects.filter(id=id):
         return error_response.bad_request('Ce capteur est déjà enregistré')
     
