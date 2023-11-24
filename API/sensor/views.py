@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.core import serializers  
+from django.views.decorators.csrf import csrf_exempt
 from API import models
 from API.scripts import error_response
 import json
@@ -28,19 +29,19 @@ def create(request):
     lng = request.GET.get('lng')
 
     if not id or not int(id):
-        return error_response.throw_error('Id invalide')
+        return error_response.bad_request('Id invalide')
     
     if models.sensor.objects.filter(id=id):
-        return error_response.throw_error('Ce capteur est déjà enregistré')
+        return error_response.bad_request('Ce capteur est déjà enregistré')
     
     if not name or not str(name):
-        return error_response.throw_error('Name invalide')
+        return error_response.bad_request('Name invalide')
     
     if lat and not float(lat):
-        return error_response.throw_error('Lattitude invalide')
+        return error_response.bad_request('Lattitude invalide')
     
     if lng and not float(lng):
-        return error_response.throw_error('Longitude invalide')
+        return error_response.bad_request('Longitude invalide')
     sensor = models.sensor(
         id = id,
         name = name,
@@ -56,13 +57,14 @@ def create(request):
     
     return JsonResponse(response, status=200)
   
+@csrf_exempt
 def update(request):
     id = request.GET.get('id')
 
     try:
         sensor = models.sensor.objects.get(id=id)
     except:
-        return error_response.throw_error('Id de capteur invalide')
+        return error_response.bad_request('Id de capteur invalide')
     
     name = request.GET.get('name') or sensor.name
     lat = request.GET.get('lat') or sensor.lattitude
@@ -76,7 +78,7 @@ def update(request):
         sensor.save()
     
     except ValueError:
-        error_response.throw_error('Modifications impossibles')
+        error_response.bad_request('Modifications impossibles')
         print(ValueError)
 
     response = {
@@ -85,17 +87,19 @@ def update(request):
 
     return JsonResponse(response, status=200)
 
+@csrf_exempt
 def delete(request):
     sensorId = request.GET.get('sensor_id')
+    print(sensorId)
     if not sensorId:
-        return error_response.throw_error("Id de capteur invalide")
+        return error_response.bad_request("Id de capteur invalide")
     
     try:
-        models.sensor.delete(sensorId)
+        models.sensor.objects.get(id=sensorId).delete()
     except:
-        return error_response.throw_error("Suppression impossible, l'id fourni doit être invalide.")
+        return error_response.bad_request("Suppression impossible, l'id fourni doit être invalide.")
     
     response = {
         'message': 'Capteur supprimé'
     }
-    return HttpResponse(response, status=200, content_type='application/json')
+    return JsonResponse(response, status=200, content_type='application/json')
