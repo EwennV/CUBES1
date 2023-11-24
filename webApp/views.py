@@ -94,5 +94,11 @@ def detail(request, sensorId):
 
     return render(request, 'detail.html', data)
 
-def hiistorique(request):
-    return render(request, 'historique.html')
+def modification(request, sensorId):
+    r = requests.get(f'http://localhost:8000/api/survey/list?id={sensorId}&limit=1')
+    r = r.json()[0]
+
+    data = {
+        'sensor_id': sensorId,
+    }
+    return render(request, 'modification.html', data)
