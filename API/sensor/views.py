@@ -22,6 +22,7 @@ def sensor(request):
     dataJson = serializers.serialize('json', data)
     return HttpResponse(dataJson, content_type='application/json', status=200)
 
+@csrf_exempt
 def create(request):
     id = request.GET.get('id')
     name = request.GET.get('name')
