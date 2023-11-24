@@ -5,7 +5,6 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
-<<<<<<< HEAD
 <div class="container">
 <h1>Historique</h1>
 <form class = "historique" method="get" action="{% url 'historique' %}">
@@ -14,15 +13,6 @@
     <input type="number" id="limite_releves" name="limite_releves" value="{{ request.GET.limite_releves }}">
     <button type="submit"> Appliquer </button>
 </form>
-=======
-<script>
-    $(document).ready(function () {
-        $('#myTable').DataTable()
-    })
-</script>
-<div class="container">
-<h1>Historique</h1>
->>>>>>> a31f42647302dd4656e6f62659f2fee81c7f0d01
 <table id="myTable">
     <thead>
         <tr>

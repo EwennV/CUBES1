@@ -390,3 +390,7 @@ div#myTable_info {
 div#myTable_paginate {
     color: white
 }
+div#myTable_length label select option {
+    border: solid 1px #035096;
+    color: #000000;
+}
