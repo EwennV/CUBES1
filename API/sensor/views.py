@@ -69,6 +69,16 @@ def create(request):
   
 @csrf_exempt
 def update(request):
+    if not request.method == "PUT":
+        return error_response.bad_method()
+    
+    body = (request.body).decode()
+
+    try:
+        data = json.loads(body)
+    except:
+        return error_response.bad_request("Données invalides.")
+
     id = request.GET.get('id')
 
     try:
@@ -76,9 +86,9 @@ def update(request):
     except:
         return error_response.bad_request('Id de capteur invalide')
     
-    name = request.GET.get('name') or sensor.name
-    lat = request.GET.get('lat') or sensor.lattitude
-    lng = request.GET.get('lng') or sensor.longitude
+    name = data["name"] or sensor.name
+    lat = data["lat"] or sensor.lattitude
+    lng = data["lng"] or sensor.longitude
 
     try:
         sensor.name = name
