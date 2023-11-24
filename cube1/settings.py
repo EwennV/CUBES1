@@ -1,6 +1,5 @@
 import os
 import environ
-import pymysql
 
 """
 Django settings for cube1 project.
@@ -94,9 +93,6 @@ DATABASES = {
         'PORT': '3306' 
     }
 }
-
-pymysql.install_as_MySQLdb()
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
