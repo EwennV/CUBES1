@@ -24,7 +24,7 @@ def sensor(request):
 
 @csrf_exempt
 def create(request):
-    if request.method == "POST":
+    if not request.method == "POST":
         return error_response.bad_method()
     body = (request.body).decode()
 

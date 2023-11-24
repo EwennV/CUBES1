@@ -8,7 +8,9 @@
 
 <div class="container">
     <h1>Tableau de bord</h1>
-    <button onclick="window.location.href ={% url 'ajout' %}">Ajouter une sonde</button>
+    <a href="{% url 'ajout' %}">
+        <button>Ajouter une sonde</button>
+    </a>
     <table id="myTable">
         <thead>
             <tr>
@@ -17,6 +19,7 @@
                 <th>Humidité</th>
                 <th>Batterie</th>
                 <th>RSSI</th>
+                <th>Options</th>
             </tr>
         </thead>
         <tbody>
@@ -27,6 +30,13 @@
                 <td>{{ sensor.humidity }}</td>
                 <td>{{ sensor.battery_level }}</td>
                 <td>{{ sensor.rssi }}</td>
+                <td>
+                    <a href="{% url 'modification' sensorId=sensor.sensor_id %}">
+                        <button>Modifier</button>
+                    </a>
+                    
+                    <button>Supprimer</button>
+                </td>
             </tr>
             {% endfor %}
         </tbody>    
