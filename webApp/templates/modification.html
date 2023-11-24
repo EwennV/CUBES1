@@ -1,10 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
+{% load static %}
 <div class="container">
-    <h1>{{ sensor_id }}</h1>
-    <input type="text" value="">
-    <input type="checkbox" name="" id="">
-    <button>Supprimer</button>
-    <button type='submit'>Valider</button>
+    <h1 id="idInput">{{ data.sensor_id }}</h1>
+    <form>
+        <input type="text" id="nameInput" value="{{ data.nom }}">
+        <button id="submit" type="button" onclick="submitSensor()">Valider</button>
+        <button>Supprimer la sonde</button>
+    </form>
 </div>
+<script src="{% static '/js/modification.js' %}"></script>
 {% endblock %}
