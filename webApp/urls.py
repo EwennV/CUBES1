@@ -8,4 +8,5 @@ urlpatterns = [
     path('carte/', views.carte, name='carte'),
     path('detail/<str:sensorId>', views.detail, name='detail'),
     path('modification/<str:sensorId>', views.modification, name='modification'),
+    path('ajout/', views.ajout, name='ajout'),
 ]
