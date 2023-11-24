@@ -93,3 +93,12 @@ def detail(request, sensorId):
     data['graph_data'] = graph_data
 
     return render(request, 'detail.html', data)
+
+def modification(request, sensorId):
+    r = requests.get(f'http://localhost:8000/api/survey/list?id={sensorId}&limit=1')
+    r = r.json()[0]
+
+    data = {
+        'sensor_id': sensorId,
+    }
+    return render(request, 'modification.html', data)
