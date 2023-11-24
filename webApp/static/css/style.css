@@ -7,6 +7,10 @@
     font-family: 'Inter', sans-serif;
 }
 
+a {
+    text-decoration: none;
+}
+
 body {
     background-color: black;
 }
@@ -64,14 +68,6 @@ nav a:hover {
 form.dashboard {
     padding: 20px;
     text-align: center;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
-    grid-template-areas: 
-    "ico temp hum batt"
-    "s1 t1 h1 b1"
-    "s2 t2 h2 b2"
-    "s3 t3 h3 b3";
 }
 
 .dashboard div {
@@ -86,89 +82,11 @@ form.dashboard {
     color: white;
 }
 
-#ico {
-    grid-area: ico;
-}
-
-#temp {
-    grid-area: temp;
-}
-
-#hum {
-    grid-area: hum;
-}
-
-#batt {
-    grid-area: batt;
-}
-
-#s1 {
-    grid-area: s1;
-}
-
-#t1 {
-    grid-area: t1;
-}
-
-#h1 {
-    grid-area: h1;
-}
-
-#b1 {
-    grid-area: b1;
-}
-
-#s2 {
-    grid-area: s2;
-}
-
-#t2 {
-    grid-area: t2;
-}
-
-#h2 {
-    grid-area: h2;
-}
-
-#b2 {
-    grid-area: b2;
-}
-
-#s3 {
-    grid-area: s3;
-}
-
-#t3 {
-    grid-area: t3;
-}
-
-#h3 {
-    grid-area: h3;
-}
-
-#b3 {
-    grid-area: b3;
-}
-
-#historique {
-    float: right;
-    text-decoration: none;
-    color: white;
-}
-
 /* DETAIL */
 
 form.detail {
     padding: 20px;
     text-align: center;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
-    grid-template-areas: 
-    "temp g_temp g_temp"
-    "detail_temp g_temp g_temp"
-    "hum g_hum g_hum"
-    "detail_hum g_hum g_hum";
 }
 
 .detail div {
@@ -176,22 +94,6 @@ form.detail {
     padding: 10px;
     margin: 10px;
     color: rgb(0, 0, 0);
-}
-
-#detail_temp {
-    grid-area: detail_temp;
-}
-
-#g_temp {
-    grid-area: g_temp;
-}
-
-#detail_hum {
-    grid-area: detail_hum;
-}
-
-#g_hum {
-    grid-area: g_hum;
 }
 
 /* CARTE */
@@ -213,53 +115,12 @@ form.detail {
 form.alerte {
     padding: 20px;
     text-align: center;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-    grid-template-areas: 
-    "lti lti lts lts"
-    "lhi lhi lhs lhs"
-    "delai delai delai delai"
-    "mail mail mail mail"
-    ". . . submit";
 }
 
 .alerte div {
     padding: 10px;
     margin: 10px;
     color: white;
-}
-
-#limite_tempsup_container {
-    grid-area: lts;
-}
-
-#limite_tempinf_container {
-    grid-area: lti;
-}
-
-#limite_humsup_container {
-    grid-area: lhs;
-}
-
-#limite_huminf_container {
-    grid-area: lhi;
-}
-
-#delai_container {
-    grid-area: delai;
-}
-
-#mail_container {
-    grid-area: mail;
-}
-
-#submit {
-    grid-area: submit;
-}
-
-#submit {
-    color: rgb(0, 0, 0);
 }
 
 .customLook + button{
