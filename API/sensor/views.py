@@ -24,14 +24,23 @@ def sensor(request):
 
 @csrf_exempt
 def create(request):
-    id = request.GET.get('id')
-    name = request.GET.get('name')
-    lat = request.GET.get('lat')
-    lng = request.GET.get('lng')
+    if request.method == "POST":
+        return error_response.bad_method()
+    body = (request.body).decode()
+
+    try:
+        data = json.loads(body)
+    except:
+        return error_response.bad_request("Données invalides.")
+
+    id = data["id"]
+    name = data["name"]
+    lat = data["lat"]
+    lng = data["lng"]
 
     if not id or not int(id):
         return error_response.bad_request('Id invalide')
-    
+      
     if models.sensor.objects.filter(id=id):
         return error_response.bad_request('Ce capteur est déjà enregistré')
     
