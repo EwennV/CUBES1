@@ -31,11 +31,10 @@
                 <td>{{ sensor.battery_level }}</td>
                 <td>{{ sensor.rssi }}</td>
                 <td>
+                    <button>Activer</button>
                     <a href="{% url 'modification' sensorId=sensor.sensor_id %}">
                         <button>Modifier</button>
                     </a>
-                    
-                    <button>Supprimer</button>
                 </td>
             </tr>
             {% endfor %}

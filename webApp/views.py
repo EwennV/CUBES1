@@ -95,11 +95,20 @@ def detail(request, sensorId):
     return render(request, 'detail.html', data)
 
 def modification(request, sensorId):
-    r = requests.get(f'http://localhost:8000/api/survey/list?id={sensorId}&limit=1')
-    r = r.json()[0]
+    data = {}
+    
+    r = requests.get(f'http://localhost:8000/api/sensor?id={sensorId}')
 
-    data = {
+    sensor = r.json()[0]
+    
+    nom_capteur = sensor['fields']['name']
+
+    r2 = requests.get(f'http://localhost:8000/api/survey/list?id={sensorId}&limit=1')
+    r2 = r2.json()[0]
+
+    data['data']= {
         'sensor_id': sensorId,
+        'nom': nom_capteur,
     }
     return render(request, 'modification.html', data)
 
