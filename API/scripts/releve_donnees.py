@@ -24,6 +24,7 @@ class surveyCollect(Thread):
     def run(self):
         # Ce time.sleep permet d'attendre que le projet soit complétement initialisé pour ne pas avoir les potentiels print du thread au milieu de ceux de django
         time.sleep(1)
+        print("[API] [INFO] : Lancement de la récupération des données via l'API")
         while(True):
             
             # Récupération des données depuis l'API des capteurs, le paramètre account contient le token d'authentification permettant de se connecter à l'API
