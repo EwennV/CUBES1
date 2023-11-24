@@ -102,3 +102,6 @@ def modification(request, sensorId):
         'sensor_id': sensorId,
     }
     return render(request, 'modification.html', data)
+
+def ajout(request):
+    return render(request, 'ajout.html')
