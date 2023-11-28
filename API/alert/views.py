@@ -57,8 +57,11 @@ def create(request):
     return JsonResponse({"message": 'Alerte créée'}, status=200, content_type='application/json')
 
 def list(request):
-    id = request.GET.get('id')
+    if not request.method == "GET":
+        return error_response.bad_method()
     
+    id = request.GET.get('id')
+
     if id:
         if not alert.objects.get(id=id):
             return error_response.bad_request('Alerte introuvable')
@@ -117,3 +120,13 @@ def update(request):
     this_alert.save()
 
     return JsonResponse({'message': 'Alerte mise à jour'}, content_type='application/json', status=200)
+
+@csrf_exempt
+def delete(request):
+    if not request.method == "DELETE":
+        return error_response.bad_method()
+    id = request.GET.get('id')
+    
+    if not id:
+        return error_response.bad_request("Aucun id fourni")
+    
