@@ -14,7 +14,7 @@ def sensor(request):
     
     if sensorId:
         if not models.sensor.objects.filter(id=sensorId):
-            return error_response.throwError("Id de capteur introuvable")
+            return error_response.bad_request("Id de capteur introuvable")
         data = models.sensor.objects.filter(id=sensorId)
     else:
         data = models.sensor.objects.all().order_by('name')
