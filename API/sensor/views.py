@@ -9,7 +9,11 @@ import json
 
 # Create your views here.
 
+@csrf_exempt
 def sensor(request):
+    if not request.method == "GET":
+        return error_response.bad_method()
+    
     sensorId = request.GET.get("id")
     
     if sensorId:
@@ -79,16 +83,17 @@ def update(request):
     except:
         return error_response.bad_request("Données invalides.")
 
-    id = request.GET.get('id')
+    id = data['id']
 
     try:
         sensor = models.sensor.objects.get(id=id)
     except:
         return error_response.bad_request('Id de capteur invalide')
     
+
     name = data["name"] or sensor.name
-    lat = data["lat"] or sensor.lattitude
-    lng = data["lng"] or sensor.longitude
+    lat = data["lat"] if "lat" in data else sensor.lattitude
+    lng = data["lng"] if "lng" in data else sensor.longitude
 
     try:
         sensor.name = name
@@ -109,6 +114,9 @@ def update(request):
 
 @csrf_exempt
 def delete(request):
+    if not request.method == "DELETE":
+        return error_response.bad_method()
+    
     sensorId = request.GET.get('sensor_id')
     print(sensorId)
     if not sensorId:
