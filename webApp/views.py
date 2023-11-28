@@ -9,7 +9,6 @@ def home(request):
 
 def historique(request): 
     limite_releves =  request.GET.get('limite_releves', 1000)
-    print(f'http://{request.get_host()}{reverse("api_survey:api_survey_list")}/api/survey/list?limit={limite_releves}')
     r = requests.get(f'http://{request.get_host()}{reverse("api_survey:api_survey_list")}?limit={limite_releves}')
     data = {'data': r.json()} 
     return render(request, 'historique.html', data)
@@ -28,6 +27,7 @@ def dashboard(request):
 
             data['data'].append({
                 'sensor_id': sensor["pk"],
+                'name': sensor["fields"]["name"],
                 'humidity': r2["fields"]["humidity"],
                 'temperature': r2["fields"]["temperature"],
                 'battery_level': r2["fields"]["battery_level"],
