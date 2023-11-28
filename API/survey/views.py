@@ -21,12 +21,12 @@ def list(request):
     try:
         limit = int(limit)
     except :
-        return error_response.throw_error("Le paramètre limite est incorrect")
+        return error_response.bad_request("Le paramètre limite est incorrect")
     
     maxLimit = 10000
     
     if limit > maxLimit:
-        return error_response.throw_error(f"Le paramètre limite ne peut pas dépasser {maxLimit}")
+        return error_response.bad_request(f"Le paramètre limite ne peut pas dépasser {maxLimit}")
     
     match order:
         case "asc":
@@ -34,7 +34,7 @@ def list(request):
         case "desc":
             order = "-"
         case _:
-            return error_response.throw_error(f"Le paramètre order est invalide (asc, desc)")
+            return error_response.bad_request(f"Le paramètre order est invalide (asc, desc)")
         
     if idSensor:
         if not last:
@@ -44,12 +44,12 @@ def list(request):
                 if not int(last) or not type(int(last)) is int:
                     raise ValueError()
             except ValueError:
-                return error_response.throw_error("Le paramètre last est invalide (int)")
+                return error_response.bad_request("Le paramètre last est invalide (int)")
 
             differenceDate = timezone.localtime(timezone.now()) - timedelta(hours=int(last))
             surveys = models.survey.objects.filter(sensor_id = idSensor).filter(date__gte=differenceDate).order_by(f'{order}date')
         if not surveys:
-            return error_response.throw_error('Aucun relevé pour ce capteur')
+            return error_response.bad_request('Aucun relevé pour ce capteur')
     else:
         surveys = models.survey.objects.order_by(f'{order}date')[:limit]
     
