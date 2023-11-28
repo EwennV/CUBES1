@@ -2,8 +2,8 @@ function submitSensor() {
     const nameValue = document.getElementById('nameInput').value;
     const idValue = document.getElementById('idInput').value;
 
-    fetch("http://localhost:8000/api/sensor/create", {
-    method: "UPDATE",
+    fetch("http://localhost:8000/api/sensor/update", {
+    method: "PUT",
     body: JSON.stringify({
         id: idValue,
         name: nameValue,

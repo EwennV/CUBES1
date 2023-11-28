@@ -28,6 +28,7 @@ def dashboard(request):
 
             data['data'].append({
                 'sensor_id': sensor["pk"],
+                'name': sensor["fields"]["name"],
                 'humidity': r2["fields"]["humidity"],
                 'temperature': r2["fields"]["temperature"],
                 'battery_level': r2["fields"]["battery_level"],
