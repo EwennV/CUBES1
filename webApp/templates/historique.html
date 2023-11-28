@@ -16,7 +16,7 @@
 <table id="myTable">
     <thead>
         <tr>
-            <th>Nom de de la sonde</th>
+            <th>Nom de de la sonde / ID</th>
             <th>Dates</th>
             <th>Températures</th>
             <th>Humidités</th>
@@ -25,7 +25,7 @@
     <tbody>
         {% for mesure in data %}
         <tr>
-            <td>{{ mesure.fields.sensor_id }}</td>
+            <td>{{ data.nom }} / {{ mesure.fields.sensor_id }}</td>
             <td>{{ mesure.fields.date }}</td>
             <td>{{ mesure.fields.temperature }}</td>
             <td>{{ mesure.fields.humidity }}</td>
