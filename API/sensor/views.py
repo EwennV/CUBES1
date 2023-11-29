@@ -117,7 +117,7 @@ def delete(request):
     if not request.method == "DELETE":
         return error_response.bad_method()
     
-    sensorId = request.GET.get('sensor_id')
+    sensorId = request.GET.get('id')
     print(sensorId)
     if not sensorId:
         return error_response.bad_request("Id de capteur invalide")
