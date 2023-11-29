@@ -1,6 +1,6 @@
 function submitSensor() {
     const nameValue = document.getElementById('nameInput').value;
-    const idValue = document.getElementById('idInput').value;
+    const idValue = document.getElementById('idInput').getAttribute('data-sensor-id');
 
     fetch("http://localhost:8000/api/sensor/update", {
     method: "PUT",
@@ -25,7 +25,7 @@ function submitSensor() {
         console.error('There was a problem with the fetch operation:', error);
     });
 }
-document.getElementById('submit').addEventListener('onclick',function(event) {
+document.getElementById('submit').addEventListener('click',function(event) {
     event.preventDefault();
     submitSensor();
 })

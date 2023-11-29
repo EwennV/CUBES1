@@ -2,7 +2,7 @@
 {% block content %}
 {% load static %}
 <div class="container">
-    <h1 id="idInput">{{ data.sensor_id }}</h1>
+    <h1 id="idInput" data-sensor-id="{{ data.sensor_id }}">{{ data.sensor_id }}</h1>
     <form>
         <input type="text" id="nameInput" value="{{ data.nom }}">
         <button id="submit" type="button" onclick="submitSensor()">Valider</button>

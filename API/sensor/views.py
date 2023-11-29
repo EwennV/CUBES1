@@ -83,6 +83,9 @@ def update(request):
     except:
         return error_response.bad_request("Données invalides.")
 
+    if 'id' not in data:
+        return error_response.bad_request("L'identifiant du capteur est requis.")
+
     id = data['id']
 
     try:
