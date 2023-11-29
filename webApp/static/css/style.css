@@ -123,26 +123,6 @@ form.alerte {
     color: white;
 }
 
-.customLook + button{
-    color: white;
-    font: bold 1.4em/1.65 Arial;
-    border: 0;
-    background: none;
-    box-shadow: 0 0 0 2px inset currentColor;
-    border-radius: 50%;
-    width: 1.65em;
-    height: 1.65em;
-    cursor: pointer;
-    outline: none;
-    transition: .1s ease-out;
-    margin: 0 0 0 5px;
-    vertical-align: center;
-}
-
-.customLook + button:hover{
-    box-shadow: 0 0 0 5px inset currentColor;
-}
-
 /* HISTORIQUE */
 
 table {

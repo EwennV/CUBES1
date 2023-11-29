@@ -40,8 +40,8 @@ def dashboard(request):
 
     return render(request, 'dashboard.html', data)
 
-def alerte(request):
-    return render(request, 'alerte.html')
+def dashboardAlerte(request):
+    return render(request, 'dashboardAlerte.html')
 
 def carte(request):
     return render(request, 'carte.html')
@@ -115,3 +115,9 @@ def modification(request, sensorId):
 
 def ajout(request):
     return render(request, 'ajout.html')
+
+def ajoutAlerte(request):
+    return render(request, 'ajoutAlerte.html')
+
+def modifAlerte(request):
+    return render(request, 'modifAlerte.html')
