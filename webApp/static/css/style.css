@@ -67,6 +67,16 @@ nav a:hover {
     color: black;
 }
 
+@media screen and (max-width: 600px) {
+  .navItem a {
+    font-size: 0;
+  }
+  .navItem a i {
+    font-size: 19px;
+  }
+}
+
+
 /* DASHBOARD */
 
 #newSonde {
@@ -81,11 +91,18 @@ nav a:hover {
   margin: 10px 0;
 }
 
-#detail {
-  display: flex;
-  justify-content: space-between;
+#detail_temp {
+  text-align: center;
   color: white;
   font-size: 5rem;
+  margin: 10px 0;
+}
+
+#detail_hum {
+  text-align: center;
+  color: white;
+  font-size: 5rem;
+  margin: 10px 0;
 }
 
 .low-temperature {
@@ -151,7 +168,7 @@ table {
     text-transform: uppercase;
   }
   
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 850px) {
     table {
       border: 0;
     }
@@ -181,7 +198,7 @@ table {
       border-bottom: 1px solid #ddd;
       display: block;
       font-size: .8em;
-      text-align: right;
+      text-align: center;
     }
     
     table td::before {

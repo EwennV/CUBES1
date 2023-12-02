@@ -14,19 +14,19 @@
 <body>
     <header>
         <nav class="nav">
-            <ul>
-                <li>
+            <ul class="nav-list">
+                <li class="navItem">
                     <a href="{% url 'dashboard' %}">home <i class="fa-solid fa-house"></i></a>
                 </li>
                 <ul>
                     
-                    <li>
+                    <li class="navItem">
                         <a href="{% url 'carte' %}">carte <i class="fa-solid fa-map"></i></a>
                     </li>
-                    <li>
+                    <li class="navItem">
                         <a href="{% url 'dashboardAlerte' %}">alertes <i class="fa-solid fa-bell"></i></a>
                     </li>
-                    <li>
+                    <li class="navItem">
                         <a href="{% url 'historique' %}">historique <i class="fa-solid fa-clock-rotate-left"></i></a>
                     </li>
                 </ul>
