@@ -88,6 +88,18 @@ nav a:hover {
   font-size: 5rem;
 }
 
+.low-temperature {
+  border: 2px solid blue;
+}
+
+.normal-temperature {
+  border: 2px solid white;
+}
+
+.high-temperature {
+  border: 2px solid red;
+}
+
 
 /* CARTE */
 
