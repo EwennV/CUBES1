@@ -5,37 +5,33 @@
     <h1>Configuration des alertes</h1>
     <form class="alerte" method="post">
         <div id="limite_tempinf_container">
-            <h2>limite temp -</h2>
+            <label for="tinfInput">Limite inferieur de température :</label>
             <input type="number" step="0.5" id="tinfInput">
             <label>°C</label>
         </div>
         <div id="limite_tempsup_container">
-            <h2>limite temp +</h2>
+            <label for="tsupInput">Limite supérieur de température :</label>
             <input type="number" step="0.5" id="tsupInput">
             <label>°C</label>
         </div>
         <div id="limite_huminf_container">
-            <h2>limite hum -</h2>
+            <label for="hinfInput">Limite inferieur d'humidité :</label>
             <input type="number" min="0" max="100" id="hinfInput">
             <label>%</label>
         </div>
         <div id="limite_humsup_container">
-            <h2>limite hum -</h2>
+            <label for="hsupInput">Limite supérieur d'humidité :</label>
             <input type="number" min="0" max="100" id="hsupInput">
             <label>%</label>
         </div>
         <div id="delai_container">
-            <h2>delai entre les alertes mails</h2>
+            <label for="frequencyInput">Délai entre chaque alerte :</label>
             <input type="number" min="0" max="180" step="5" id="frequencyInput">
             <label>minutes</label>
         </div>
         <div id="mail_container">
-            <h2>liste des destinataires</h2>
-            <div>
-                <article>
-                    <input type="text" id="mailInput">
-                </article>
-            </div>
+            <label for="mailInput">Limite des destinataires :</label>
+            <input type="text" id="mailInput">
         </div>
         <button id="submit" type="button" onclick="submitSensor()">Ajouter</button>
     </form>

@@ -7,6 +7,10 @@
     font-family: 'Inter', sans-serif;
 }
 
+label {
+  color: white;
+}
+
 a {
     text-decoration: none;
 }
@@ -65,36 +69,25 @@ nav a:hover {
 
 /* DASHBOARD */
 
-form.dashboard {
-    padding: 20px;
-    text-align: center;
-}
-
-.dashboard div {
-    background-color: blue;
+#newSonde {
+    float: right;
     padding: 10px;
-    margin: 10px;
-    color: white;
-}
-
-.dashboard a {
-    text-decoration: none;
-    color: white;
 }
 
 /* DETAIL */
 
-form.detail {
-    padding: 20px;
-    text-align: center;
+.chart-container {
+  background-color: white;
+  margin: 10px 0;
 }
 
-.detail div {
-    background-color: rgb(255, 255, 255);
-    padding: 10px;
-    margin: 10px;
-    color: rgb(0, 0, 0);
+#detail {
+  display: flex;
+  justify-content: space-between;
+  color: white;
+  font-size: 5rem;
 }
+
 
 /* CARTE */
 
@@ -103,19 +96,6 @@ form.detail {
 }
 
 /* ALERTES */
-
-.alerte_container {
-    background: #0d8ebe;
-    border-radius: 10px;
-    width: auto;
-    padding: 2%;
-    margin: 80px 20px 0 20px;
-}
-
-form.alerte {
-    padding: 20px;
-    text-align: center;
-}
 
 .alerte div {
     padding: 10px;
@@ -147,6 +127,8 @@ table {
   
   table th,
   table td {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
     padding: .625em;
     text-align: center;
   }

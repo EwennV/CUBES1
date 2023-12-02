@@ -3,8 +3,11 @@
 {% load static %}
 <div class="container">
     <form id="sensorForm">
+        <label for="idInput">ID de la sonde :</label>
         <input type="text" id="idInput">
+        <label for="nameImput">Nom de la sonde :</label>
         <input type="text" id="nameInput">
+        <label for="latitudeInput">Coordonnées de la sonde :</label>
         <input type="text" id="latitudeInput">
         <input type="text" id="longitudeInput">
         <button id="submit" type="button" onclick="submitSensor()">Ajouter</button>
