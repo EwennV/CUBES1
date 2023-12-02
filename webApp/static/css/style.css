@@ -117,6 +117,18 @@ nav a:hover {
   border: 2px solid red;
 }
 
+.low-temperature {
+  border: 2px solid blue;
+}
+
+.normal-temperature {
+  border: 2px solid white;
+}
+
+.high-temperature {
+  border: 2px solid red;
+}
+
 
 /* CARTE */
 
