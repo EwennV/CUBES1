@@ -3,12 +3,10 @@
 {% load static %}
 <div class="container">
     <h1>{{ data.nom }}</h1>
-    <div id="detail">
-        <label for="detail_temp">Température :</label>
-        <div id="detail_temp">{{ data.temperature }}</div>
-        <label for="detail_hum">Humidité</label>
-        <div id="detail_hum">{{ data.humidity }}</div>
-    </div>
+    <label for="detail_temp">Température :</label>
+    <div id="detail_temp">{{ data.temperature }}</div>
+    <label for="detail_hum">Humidité</label>
+    <div id="detail_hum">{{ data.humidity }}</div>
     <div id="g_temp" class = "chart-container">
         <canvas id="tempCanvas" aria-label="chart" role="img"></canvas>
     </div>        
