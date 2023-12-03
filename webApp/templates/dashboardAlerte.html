@@ -8,35 +8,29 @@
 <div class="container">
     <h1>Alertes</h1>
     <a href="{% url 'ajoutAlerte' %}">
-        <button>Ajouter une alerte</button>
+        <button id="newAlerte">Ajouter une alerte</button>
     </a>
     <table id="myTable">
         <thead>
-            <tr>
-                <th>Nom de l'alerte</th>
+            <tr>                
+                <th>mail</th>
                 <th>temp -</th>
                 <th>temp +</th>
                 <th>hum -</th>
                 <th>hum +</th>
                 <th>delai</th>
-                <th>mail</th>
                 <th>Options</th>
             </tr>
         </thead>
         <tbody>
             {% for alert in data %}
             <tr>
-                <td>{{ alert.id }}</td>
+                <td>{{ alert.recipients }}</td>
                 <td>{{ alert.temperature_inferior }}</td>
                 <td>{{ alert.temperature_superior }}</td>
                 <td>{{ alert.humidity_inferior }}</td>
                 <td>{{ alert.humidity_superior }}</td>
                 <td>{{ alert.frequency }}</td>
-                <td>
-                    {% for recipient in alert.recipients.all %}
-                        {{ recipient.email }}{% if not forloop.last %}, {% endif %}
-                    {% endfor %}
-                </td>
                 <td>
                     <button id="deleteButton" tyoe="button" onclick="deleteSensor()">Supprimer l'alerte</button>
                 </td>

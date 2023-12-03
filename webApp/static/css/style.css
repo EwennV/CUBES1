@@ -1,27 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap');
 
-
 * {
     padding: 0;
     margin: 0;
     font-family: 'Inter', sans-serif;
-}
-
-label {
-  color: white;
+    color: white;
 }
 
 a {
     text-decoration: none;
-}
-
-body {
-    background-color: black;
-}
-
-h1 {
-    background-color: #0d8ebe;
-    color: white;
 }
 
 .container {
@@ -32,6 +19,9 @@ h1 {
     margin: 80px 20px 0 20px;
 }
 
+button, input {
+  color: black
+}
 /* NAVBAR */
 
 nav {
@@ -40,11 +30,12 @@ nav {
     position: fixed;
     width: 100%;
     top: 0;
+    z-index: 1991;
 }
 
 nav li {
     list-style: none;
-    font-size: 1.2em;
+    font-size: 20px;
     height: 60px;
     display: flex;
     align-items: center;
@@ -72,7 +63,7 @@ nav a:hover {
     font-size: 0;
   }
   .navItem a i {
-    font-size: 19px;
+    font-size: 20px;
   }
 }
 
@@ -81,7 +72,7 @@ nav a:hover {
 
 #newSonde {
     float: right;
-    padding: 10px;
+    margin: 10px;
 }
 
 /* DETAIL */
@@ -91,22 +82,14 @@ nav a:hover {
   margin: 10px 0;
 }
 
-#detail_temp {
+#detail_temp, #detail_hum {
   text-align: center;
-  color: white;
-  font-size: 5rem;
-  margin: 10px 0;
-}
-
-#detail_hum {
-  text-align: center;
-  color: white;
   font-size: 5rem;
   margin: 10px 0;
 }
 
 .low-temperature {
-  border: 2px solid blue;
+  border: 2px solid lightblue;
 }
 
 .normal-temperature {
@@ -116,19 +99,6 @@ nav a:hover {
 .high-temperature {
   border: 2px solid red;
 }
-
-.low-temperature {
-  border: 2px solid blue;
-}
-
-.normal-temperature {
-  border: 2px solid white;
-}
-
-.high-temperature {
-  border: 2px solid red;
-}
-
 
 /* CARTE */
 
@@ -136,100 +106,83 @@ nav a:hover {
     height: 450px; 
 }
 
-/* ALERTES */
+/* DASHBOARDALERTES */
 
-.alerte div {
-    padding: 10px;
-    margin: 10px;
-    color: white;
+#newAlerte {
+  float: right;
+  margin: 10px;
+}
+
+/* AJOUT ALERTE */
+
+#alertForm {
+  text-align: center;
+}
+
+#alertForm div {
+  margin: 4px;
 }
 
 /* HISTORIQUE */
 
 table {
-    border: 1px solid #ccc;
-    border-collapse: collapse;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    table-layout: fixed;
-  }
-  
-  table caption {
-    font-size: 1.5em;
-    margin: .5em 0 .75em;
-  }
-  
-  table tr {
-    background-color: #f8f8f8;
-    border: 1px solid #ddd;
-    padding: .35em;
-  }
-  
-  table th,
-  table td {
-    background-color: #f8f8f8;
-    border: 1px solid #ddd;
-    padding: .625em;
-    text-align: center;
-  }
-  
-  table th {
-    font-size: .85em;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-  }
-  
-  @media screen and (max-width: 850px) {
-    table {
-      border: 0;
-    }
-  
-    table caption {
-      font-size: 1.3em;
-    }
-    
-    table thead {
-      border: none;
-      clip: rect(0 0 0 0);
-      height: 1px;
-      margin: -1px;
-      overflow: hidden;
-      padding: 0;
-      position: absolute;
-      width: 1px;
-    }
-    
-    table tr {
-      border-bottom: 3px solid #ddd;
-      display: block;
-      margin-bottom: .625em;
-    }
-    
-    table td {
-      border-bottom: 1px solid #ddd;
-      display: block;
-      font-size: .8em;
-      text-align: center;
-    }
-    
-    table td::before {
-      /*
-      * aria-label has no advantage, it won't be read inside a table
-      content: attr(aria-label);
-      */
-      content: attr(data-label);
-      float: left;
-      font-weight: bold;
-      text-transform: uppercase;
-    }
-    
-    table td:last-child {
-      border-bottom: 0;
-    }
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: auto;
+}
+
+table th {
+  font-size: .85em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+table th, table td { 
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  color:black;
+  padding: .625em;
+  text-align: center;
+}
+
+table tr a {
+  color: black;
+}
+
+table tr a:hover {
+  background: #0d8ebe;
+  color: white;
+}
+
+@media screen and (max-width: 900px) {
+  table {
+    border: 0;
   }
 
-  body {
-    font-family: "Open Sans", sans-serif;
-    line-height: 1.25;
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+      padding: 0;
+    position: absolute;
+    width: 1px;
   }
+
+  table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: .8em;
+    text-align: center;
+  }
+
+  table tr {
+    border: 2px solid #0d8ebe;
+  }
+
+  table tr a:hover {
+    background-color: #0d8ebe;
+    color: white;
+  }
+}
