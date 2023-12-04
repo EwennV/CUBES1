@@ -15,7 +15,7 @@ class survey(models.Model):
     battery_level = models.IntegerField()
     rssi = models.IntegerField()
     date = models.DateTimeField()
-    sensor_id = models.CharField(max_length=8)
+    sensor= models.ForeignKey(sensor, on_delete=models.CASCADE)
 
 class recipient(models.Model):
     email = models.EmailField(unique=True)

@@ -1,19 +1,40 @@
-function init () {
-    const CESI = {
+class map {
+
+    CESI = {
         lat: 44.865154,
         lng: -0.577127
     }
+    zoom = 25
+    map = L.map('map').setView([this.CESI.lat, this.CESI.lng], this.zoom)
 
-    const zoom = 17
+    constructor() {
+        this.init()
+    }
 
-    const map = L.map('map').setView([CESI.lat, CESI.lng], zoom)
+    init() {
+
+        let mainLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        });
+
+        mainLayer.addTo(this.map);
+
+        this.addPoint(this.CESI.lat, this.CESI.lng)
+
+        this.map.on('click', this.onMapClick)
+
+    }
     
-    const mainLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    });
+    addPoint(lat, long) {
+        let marker = L.marker([lat, long])
+        
+        marker.addTo(this.map)
+    }
 
-    mainLayer.addTo(map);
+    onMapClick(e) {
+        alert('You clicked here : '+e.latlng)
+    }   
+
 }
 
-init()
+const myMap = new map();

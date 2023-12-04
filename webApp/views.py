@@ -11,7 +11,8 @@ def home(request):
 def historique(request): 
     limite_releves =  request.GET.get('limite_releves', 1000)
     r = requests.get(f'http://{request.get_host()}/api/survey/list?limit={limite_releves}')
-    data = {'data': r.json()} 
+    data = {'data': r.json()}
+    print(data)
     return render(request, 'historique.html', data)
 
 def dashboard(request):

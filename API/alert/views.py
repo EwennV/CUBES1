@@ -6,7 +6,7 @@ from API.scripts import error_response
 import json
 from django.views.decorators.csrf import csrf_exempt
 
-def alert(request):
+def list(request):
     if not request.method == "GET":
         return error_response.bad_method()
     
