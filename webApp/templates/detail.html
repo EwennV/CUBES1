@@ -3,37 +3,25 @@
 {% load static %}
 <div class="container">
     <h1>{{ data.nom }}</h1>
-<<<<<<< HEAD
-    <form class="detail">
-        <div id="temp">temperature</div>
-<<<<<<< HEAD
-        <div id="detail_temp">{{ data.temperature }}</div>
-=======
-        <div id="detail_temp">xx°C</div>
->>>>>>> a31f42647302dd4656e6f62659f2fee81c7f0d01
-        <div id="g_temp" class = "chart-container">
-            <canvas id="tempCanvas" aria-label="chart" role="img"></canvas>
+    <div class="column align-start">
+        <div class="row">
+            <div class="column">
+                <label for="detail_temp">Température :</label>
+                <div id="detail_temp">{{ data.temperature }}</div>
+            </div>
+            <div id="g_temp" class="chart-container">
+                <canvas id="tempCanvas" aria-label="chart" role="img"></canvas>
+            </div> 
         </div>
-        <div id="hum">humidité</div>
-<<<<<<< HEAD
-        <div id="detail_hum">{{ data.humidity }}</div>
-=======
-        <div id="detail_hum">XX%</div>
->>>>>>> a31f42647302dd4656e6f62659f2fee81c7f0d01
-        <div id="g_hum" class="chart-container">
-            <canvas id="barCanvas" aria-label="chart" role="img"></canvas>
+        <div class="row">
+            <div class="column">
+                <label for="detail_hum">Humidité</label>
+                <div id="detail_hum">{{ data.humidity }}</div>
+            </div>       
+            <div id="g_hum" class="chart-container">
+                <canvas id="barCanvas" aria-label="chart" role="img"></canvas>
+            </div>
         </div>
-    </form>
-=======
-    <label for="detail_temp">Température :</label>
-    <div id="detail_temp">{{ data.temperature }}</div>
-    <label for="detail_hum">Humidité</label>
-    <div id="detail_hum">{{ data.humidity }}</div>
-    <div id="g_temp" class = "chart-container">
-        <canvas id="tempCanvas" aria-label="chart" role="img"></canvas>
-    </div>        
-    <div id="g_hum" class="chart-container">
-        <canvas id="barCanvas" aria-label="chart" role="img"></canvas>
     </div>
 >>>>>>> 88ee8e481319a5e331c82007d10f737ed0f83518
 </div>

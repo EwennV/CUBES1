@@ -6,7 +6,7 @@ from API.scripts import error_response
 import json
 from django.views.decorators.csrf import csrf_exempt
 
-def alert(request):
+def list(request):
     if not request.method == "GET":
         return error_response.bad_method()
     
@@ -18,6 +18,8 @@ def alert(request):
         data = alert.objects.get(id=alertId)
     else:
         data = alert.objects.all()
+
+
 
     data_json = serializers.serialize('json', data)
     return HttpResponse(data_json, content_type="application/json", status=200)
@@ -129,4 +131,16 @@ def delete(request):
     
     if not id:
         return error_response.bad_request("Aucun id fourni")
+    
+    try:
+        this_alert = alert.objects.get(id=id)
+    except:
+        return error_response.bad_request("Alerte introuvable")
+    
+    try:
+        this_alert.delete()
+    except:
+        return error_response.bad_request("Suppression de l'alerte impossible")
+
+    return JsonResponse({'message': 'Alerte supprimée'}, content_type='application/json', status=200)
     
