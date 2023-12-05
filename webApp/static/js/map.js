@@ -9,6 +9,7 @@ class map {
 
     constructor() {
         this.init()
+        this.clickEvent = new Event("mapClicked")
     }
 
     init() {
@@ -19,10 +20,14 @@ class map {
 
         mainLayer.addTo(this.map);
 
-        this.addPoint(this.CESI.lat, this.CESI.lng)
+        this.map.on('click', function () {
+            this.dispatchEvent(this.clickEvent)
+        })
 
-        this.map.on('click', this.onMapClick)
+    }
 
+    listenEvent(callback) {
+        this.addEventListener('mapClicked', callback);
     }
     
     addPoint(lat, long) {
