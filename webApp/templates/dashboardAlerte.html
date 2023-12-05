@@ -35,6 +35,9 @@
                     <td>{{ alert.fields.humidity_superior }}</td>
                     <td>{{ alert.fields.frequency }}</td>
                     <td>
+                        <a href="{% url 'modifAlerte' %}">
+                            <button>Modifier</button>
+                        </a>
                         <button id="deleteButton" type="button" onclick="deleteAlert('{{ alert.pk }}')">Supprimer l'alerte</button>
                     </td>
                 </tr>
