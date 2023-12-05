@@ -19,6 +19,8 @@ def list(request):
     else:
         data = alert.objects.all()
 
+
+
     data_json = serializers.serialize('json', data)
     return HttpResponse(data_json, content_type="application/json", status=200)
 
@@ -129,4 +131,16 @@ def delete(request):
     
     if not id:
         return error_response.bad_request("Aucun id fourni")
+    
+    try:
+        this_alert = alert.objects.get(id=id)
+    except:
+        return error_response.bad_request("Alerte introuvable")
+    
+    try:
+        this_alert.delete()
+    except:
+        return error_response.bad_request("Suppression de l'alerte impossible")
+
+    return JsonResponse({'message': 'Alerte supprimée'}, content_type='application/json', status=200)
     

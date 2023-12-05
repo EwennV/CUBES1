@@ -4,6 +4,8 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+<script src="{% static 'js/table.js' %}"></script>
+<script src="{% static 'js/deleteAlerte.js' %}"></script>
 
 <div class="container">
     <h1>Alertes</h1>
@@ -23,23 +25,25 @@
             </tr>
         </thead>
         <tbody>
-            {% for alert in data %}
-            <tr>
-                <td>{{ alert.recipients }}</td>
-                <td>{{ alert.temperature_inferior }}</td>
-                <td>{{ alert.temperature_superior }}</td>
-                <td>{{ alert.humidity_inferior }}</td>
-                <td>{{ alert.humidity_superior }}</td>
-                <td>{{ alert.frequency }}</td>
-                <td>
-                    <button id="deleteButton" tyoe="button" onclick="deleteSensor()">Supprimer l'alerte</button>
-                </td>
-            </tr>
-            {% endfor %}
+            {% if alerts|length > 0 %}
+                {% for alert in alerts %}
+                <tr>
+                    <td>{{ alert.fields.recipients }}</td>
+                    <td>{{ alert.fields.temperature_inferior }}</td>
+                    <td>{{ alert.fields.temperature_superior }}</td>
+                    <td>{{ alert.fields.humidity_inferior }}</td>
+                    <td>{{ alert.fields.humidity_superior }}</td>
+                    <td>{{ alert.fields.frequency }}</td>
+                    <td>
+                        <a href="{% url 'modifAlerte' %}">
+                            <button>Modifier</button>
+                        </a>
+                        <button id="deleteButton" type="button" onclick="deleteAlert('{{ alert.pk }}')">Supprimer l'alerte</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            {% endif %}
         </tbody>    
     </table>
 </div>
-
-<script src="{% static 'js/table.js' %}"></script>
-<script src="{% static 'js/deleteAlerte.js' %}"></script>
 {% endblock %}
