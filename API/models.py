@@ -6,6 +6,7 @@ class sensor(models.Model):
     name = models.CharField(max_length=64)
     lattitude = models.FloatField(null=True)
     longitude = models.FloatField(null=True)
+    isActive = models.BooleanField(default=True)
 
 class survey(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -28,4 +29,3 @@ class alert(models.Model):
     temperature_inferior = models.FloatField()
     temperature_superior = models.FloatField()
     recipients = models.ManyToManyField(recipient)
-
