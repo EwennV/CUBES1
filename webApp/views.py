@@ -11,7 +11,8 @@ def home(request):
 def historique(request): 
     limite_releves =  request.GET.get('limite_releves', 1000)
     r = requests.get(f'http://{request.get_host()}/api/survey/list?limit={limite_releves}')
-    data = {'data': r.json()} 
+    data = {'data': r.json()}
+    print(data)
     return render(request, 'historique.html', data)
 
 def dashboard(request):
@@ -41,7 +42,14 @@ def dashboard(request):
     return render(request, 'dashboard.html', data)
 
 def dashboardAlerte(request):
-    return render(request, 'dashboardAlerte.html')
+    alerts = requests.get(f'http://{request.get_host()}/api/alert')
+
+    if not alerts.status_code == 200:
+        raise HttpResponseNotFound('Alerts not found')
+    context = {
+        "alerts": alerts.json()
+    }
+    return render(request, 'dashboardAlerte.html', context)
 
 def carte(request):
     return render(request, 'carte.html')

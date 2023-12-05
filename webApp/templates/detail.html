@@ -3,15 +3,25 @@
 {% load static %}
 <div class="container">
     <h1>{{ data.nom }}</h1>
-    <label for="detail_temp">Température :</label>
-    <div id="detail_temp">{{ data.temperature }}</div>
-    <label for="detail_hum">Humidité</label>
-    <div id="detail_hum">{{ data.humidity }}</div>
-    <div id="g_temp" class = "chart-container">
-        <canvas id="tempCanvas" aria-label="chart" role="img"></canvas>
-    </div>        
-    <div id="g_hum" class="chart-container">
-        <canvas id="barCanvas" aria-label="chart" role="img"></canvas>
+    <div class="column align-start">
+        <div class="row">
+            <div class="column">
+                <label for="detail_temp">Température :</label>
+                <div id="detail_temp">{{ data.temperature }}</div>
+            </div>
+            <div id="g_temp" class="chart-container">
+                <canvas id="tempCanvas" aria-label="chart" role="img"></canvas>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="column">
+                <label for="detail_hum">Humidité</label>
+                <div id="detail_hum">{{ data.humidity }}</div>
+            </div>       
+            <div id="g_hum" class="chart-container">
+                <canvas id="barCanvas" aria-label="chart" role="img"></canvas>
+            </div>
+        </div>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

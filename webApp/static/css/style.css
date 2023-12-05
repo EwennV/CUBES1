@@ -4,7 +4,10 @@
     padding: 0;
     margin: 0;
     font-family: 'Inter', sans-serif;
-    color: white;
+}
+
+body {
+  color: white;
 }
 
 a {
@@ -185,4 +188,36 @@ table tr a:hover {
     background-color: #0d8ebe;
     color: white;
   }
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.align-start {
+  align-items: start;
+}
+
+.space-between {
+  justify-content: space-around;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.chart-container {
+  width: 50%;
+}
+
+option {
+  color: black;
+}
+
+tag {
+  --tag-inset-shadow-size : 2em;
 }
