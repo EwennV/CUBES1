@@ -4,16 +4,7 @@ function submitSensor() {
     const hinfValue = document.getElementById('hinfInput').value;
     const hsupValue = document.getElementById('hsupInput').value;
     const frequencyValue = document.getElementById('frequencyInput').value;
-    const mailValue = document.getElementById('mailInput').value;
-
-    console.log("Values before sending:", {
-        frequency: frequencyValue,
-        temperature_inferior: tinfValue,
-        temperature_superior: tsupValue,
-        humidity_inferior: hinfValue,
-        humidity_superior: hsupValue,
-        recipients: mailValue
-    });
+    const mailValue = (document.getElementById('mailInput').value).split(',');
 
     fetch("http://localhost:8000/api/alert/create", {
     method: "POST",
@@ -31,19 +22,29 @@ function submitSensor() {
     }
     })
     .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
         return response.json();
     })
     .then(data => {
-        console.log(data); // Faites quelque chose avec les données renvoyées par le serveur
+        if (data.message) {
+            cuteToast({
+                type: "success",
+                title: "Succès",
+                message: data.message
+            })
+        } else {
+            cuteToast({
+                type: "error",
+                title: "Erreur",
+                message: data.error
+            })
+        }
     })
     .catch(error => {
-        console.error('There was a problem with the fetch operation:', error);
+        console.log(error)
+        cuteToast({
+            type: "error",
+            title: "Erreur",
+            message: "Une erreur est survenue"
+        })
     });
 }
-document.getElementById('submit').addEventListener('click',function(event) {
-    event.preventDefault();
-    submitSensor();
-})

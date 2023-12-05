@@ -4,7 +4,10 @@
     padding: 0;
     margin: 0;
     font-family: 'Inter', sans-serif;
-    color: white;
+}
+
+body {
+  color: white;
 }
 
 a {
@@ -209,4 +212,12 @@ table tr a:hover {
 
 .chart-container {
   width: 50%;
+}
+
+option {
+  color: black;
+}
+
+tag {
+  --tag-inset-shadow-size : 2em;
 }

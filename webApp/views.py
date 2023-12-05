@@ -42,7 +42,14 @@ def dashboard(request):
     return render(request, 'dashboard.html', data)
 
 def dashboardAlerte(request):
-    return render(request, 'dashboardAlerte.html')
+    alerts = requests.get(f'http://{request.get_host()}/api/alert')
+
+    if not alerts.status_code == 200:
+        raise HttpResponseNotFound('Alerts not found')
+    context = {
+        "alerts": alerts.json()
+    }
+    return render(request, 'dashboardAlerte.html', context)
 
 def carte(request):
     return render(request, 'carte.html')
