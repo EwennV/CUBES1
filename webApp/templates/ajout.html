@@ -2,12 +2,20 @@
 {% block content %}
 {% load static %}
 <div class="container">
-    <input type="text" name="ID">
-    <input type="text" name="Nom">
-    <input type="text" name="lat">
-    <input type="text" name="lng">
-    <button type="submit">Valider</button>
-    <div id='map'></div>
+    <form id="sensorForm">
+        <label for="idInput">ID de la sonde :</label>
+        <input type="text" id="idInput">
+        <br>
+        <label for="nameImput">Nom de la sonde :</label>
+        <input type="text" id="nameInput">
+        <br>
+        <label for="latitudeInput">Coordonnées de la sonde :</label>
+        <input type="text" id="latitudeInput">
+        <input type="text" id="longitudeInput">
+        <br>
+        <button id="submit" type="button" onclick="submitSensor()">Ajouter</button>
+        <div id='map'></div>
+    </form>
 </div>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
 integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
@@ -17,5 +25,6 @@ crossorigin=""/>
 integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
 crossorigin=""></script>
 
+<script src="{% static '/js/ajout.js' %}"></script>
 <script src="{% static '/js/map.js' %}"></script>
 {% endblock %}

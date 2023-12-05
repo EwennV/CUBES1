@@ -18,12 +18,14 @@ class survey(models.Model):
     sensor_id = models.CharField(max_length=8)
 
 class recipient(models.Model):
-    email = models.CharField(max_length=255)
+    email = models.EmailField(unique=True)
 
 class alert(models.Model):
-    id_alert = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     frequency = models.IntegerField()
-    type = models.CharField(max_length=45)
-    limit = models.CharField(max_length=45)
+    humidity_inferior = models.IntegerField()
+    humidity_superior = models.IntegerField()
+    temperature_inferior = models.FloatField()
+    temperature_superior = models.FloatField()
     recipients = models.ManyToManyField(recipient)
 

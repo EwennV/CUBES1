@@ -8,10 +8,13 @@ https://docs.djangoproject.com/en/4.2/howto/deployment/wsgi/
 """
 
 import os
-from API.scripts import releve_donnees
 
 from django.core.wsgi import get_wsgi_application
+from API.scripts.releve_donnees import surveyCollect 
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'cube1.settings')
 
 application = get_wsgi_application()
+
+thread = surveyCollect()
+thread.start()

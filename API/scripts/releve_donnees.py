@@ -41,5 +41,3 @@ class surveyCollect(Thread):
             time.sleep(60*5) # Le time.sleep étant en secondes, on multiplie 60 secondes par 5 pour obtenir 5 minutes
 
 # On lance le thread
-thread = surveyCollect()
-thread.start()

@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load static %}
-
 {% block content %}
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -8,7 +7,11 @@
 
 <div class="container">
     <h1>Tableau de bord</h1>
-    <button onclick="window.location.href ={% url 'ajout' %}">Ajouter une sonde</button>
+    <div id="newSonde">
+        <a href="{% url 'ajout' %}">
+            <button>Ajouter une sonde</button>
+        </a>
+    </div>
     <table id="myTable">
         <thead>
             <tr>
@@ -17,16 +20,23 @@
                 <th>Humidité</th>
                 <th>Batterie</th>
                 <th>RSSI</th>
+                <th>Options</th>
             </tr>
         </thead>
         <tbody>
             {% for sensor in data %}
             <tr>
-                <td><a href="{% url 'detail' sensorId=sensor.sensor_id %}">{{ sensor.sensor_id }}</a></td>
+                <td><a href="{% url 'detail' sensorId=sensor.sensor_id %}">{{ sensor.name }}</a></td>
                 <td>{{ sensor.temperature }}</td>
                 <td>{{ sensor.humidity }}</td>
                 <td>{{ sensor.battery_level }}</td>
                 <td>{{ sensor.rssi }}</td>
+                <td>
+                    <button>Activer</button>
+                    <a href="{% url 'modification' sensorId=sensor.sensor_id %}">
+                        <button>Modifier</button>
+                    </a>
+                </td>
             </tr>
             {% endfor %}
         </tbody>    

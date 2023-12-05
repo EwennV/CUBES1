@@ -1,6 +1,7 @@
 
 $(document).ready(function () {
     $('#myTable').DataTable({
+        order: [[ 1, 'desc' ]],
         "language": {
             'lengthMenu': "Afficher _MENU_ résultats par page",
             'zeroRecords': "Aucune donnée correspondante",
@@ -19,7 +20,8 @@ $(document).ready(function () {
             details : {
                 renderer: $.fn.dataTable.Responsive.renderer.tableAll() {
                     tableClass: 'ui table'
-                }
+                },
             }
         }
     })
+})

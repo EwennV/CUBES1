@@ -46,8 +46,10 @@ class Migration(migrations.Migration):
             fields=[
                 ('id_alert', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
                 ('frequency', models.IntegerField()),
-                ('type', models.CharField(max_length=45)),
-                ('limit', models.CharField(max_length=45)),
+                ('humidity_inferior', models.IntegerField(max_length=45)),
+                ('humidity_superior', models.IntegerField(max_length=45)),
+                ('temperature_inferior', models.FloatField(max_length=45)),
+                ('temperature_superior', models.FloatField(max_length=45)),
                 ('recipients', models.ManyToManyField(to='API.recipient')),
             ],
         ),
