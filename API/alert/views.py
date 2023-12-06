@@ -79,25 +79,11 @@ def create(request):
 def update(request):
     if not request.method == "PUT":
         return error_response.bad_method()
-    id = request.GET.get('id')
-    
-    if not id:
-        return error_response.bad_request("Aucun id fourni")
-    
-    frequency = request.GET.get("frequency")
-    temperature_superior = request.GET.get('temperature_superior') or None
-    temperature_inferior = request.GET.get('temperature_inferior') or None
-    humidity_superior = request.GET.get('humidity_superior') or None
-    humidity_inferior = request.GET.get('humidity_inferior') or None
     body = (request.body).decode()
-
-    if not frequency or not int(frequency):
-        return error_response.bad_request("Fréquence invalide")
-
-    # if 0 <= humidity_inferior <= 100
 
     try:
         body = json.loads(body)
+        id = body.get("id")
     except:
         return error_response.bad_request("Erreur de syntaxe des données transmises")
     
@@ -105,19 +91,29 @@ def update(request):
         recipients = body['recipients']
     except:
         return error_response.bad_request("Aucun destinataire")
+
+    try:
+        frequency = float(body.get('frequency'), None)
+        temperature_superior = float(body.get('temperature_superior'), None)
+        temperature_inferior = float(body.get('temperature_inferior'), None)
+        humidity_superior = int(body.get('humidity_superior'), None)
+        humidity_inferior = int(body.get('humidity_inferior'), None)
+    except ValueError:
+        return error_response.bad_request("Valeurs de température ou d'humidité ou frequency invalides")
     
     try:
         this_alert = alert.objects.get(id=id)
     except:
         return error_response.bad_request("Alerte introuvable")
     
-    this_alert.frequency = frequency
+    this_alert.frequency = int(frequency)
     
-    this_alert.temperature_superior = int(temperature_superior)
-    this_alert.temperature_inferior = int(temperature_inferior)
+    this_alert.temperature_superior = float(temperature_superior)
+    this_alert.temperature_inferior = float(temperature_inferior)
 
     this_alert.humidity_superior = int(humidity_superior)
     this_alert.humidity_inferior = int(humidity_inferior)
+    this_alert.recipients = recipients
 
     this_alert.save()
 
