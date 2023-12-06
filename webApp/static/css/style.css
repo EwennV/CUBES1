@@ -56,7 +56,7 @@ nav a {
     text-transform: uppercase;
 }
 
-nav a:hover {
+nav a:hover :not(button) {
     background: white;
     color: black;
 }
@@ -150,12 +150,9 @@ table th, table td {
 }
 
 table tr a {
+  cursor: pointer;
+  text-decoration: underline;
   color: black;
-}
-
-table tr a:hover {
-  background: #0d8ebe;
-  color: white;
 }
 
 @media screen and (max-width: 900px) {
@@ -220,4 +217,12 @@ option {
 
 tag {
   --tag-inset-shadow-size : 2em;
+}
+
+.pill {
+  background-color: #0d8ebe;
+  border-radius: 10px;
+  padding: 5px 8px;
+  margin: 3px;
+  color: white;
 }
