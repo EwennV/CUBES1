@@ -1,4 +1,4 @@
-function submitSensor() {
+function submitAlert() {
     const tinfValue = document.getElementById('tinfInput').value;
     const tsupValue = document.getElementById('tsupInput').value;
     const hinfValue = document.getElementById('hinfInput').value;
@@ -7,7 +7,8 @@ function submitSensor() {
     const mailValue = (document.getElementById('mailInput').value).split(',');
     const idValue = document.getElementById('idInput').getAttribute('alert-id');
 
-    fetch("http://localhost:8000/api/sensor/update", {
+
+    fetch("http://localhost:8000/api/alert/update", {
     method: "PUT",
     body: JSON.stringify({
         id: idValue,
@@ -23,19 +24,32 @@ function submitSensor() {
     }
     })
     .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
         return response.json();
     })
     .then(data => {
-        console.log(data); // Faites quelque chose avec les données renvoyées par le serveur
+        if (data.message) {
+            cuteToast({
+                type: "success",
+                title: "Succès",
+                message: data.message
+            })
+            setTimeout(() => {
+                location.reload()
+            }, 2000);
+        } else {
+            cuteToast({
+                type: "error",
+                title: "Erreur",
+                message: data.error
+            })
+        }
     })
     .catch(error => {
-        console.error('There was a problem with the fetch operation:', error);
+        console.log(error)
+        cuteToast({
+            type: "error",
+            title: "Erreur",
+            message: "Une erreur est survenue"
+        })
     });
 }
-document.getElementById('submit').addEventListener('click',function(event) {
-    event.preventDefault();
-    submitSensor();
-})

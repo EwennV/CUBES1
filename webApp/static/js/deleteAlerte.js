@@ -16,6 +16,9 @@ function deleteAlert(idValue) {
                 title: "Succès",
                 message: data.message
             })
+            setTimeout(() => {
+                location.reload()
+            }, 2000);
         } else {
             cuteToast({
                 type: "error",
