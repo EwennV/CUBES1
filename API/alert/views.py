@@ -1,28 +1,36 @@
 from django.http import JsonResponse
 from django.http import HttpResponse
+from django.forms.models import model_to_dict
+from django.core.serializers.json import DjangoJSONEncoder
+from django.core.serializers import serialize
 from API.models import alert, recipient
-from django.core import serializers  
 from API.scripts import error_response
 import json
 from django.views.decorators.csrf import csrf_exempt
 
-def list(request):
+def index(request):
     if not request.method == "GET":
         return error_response.bad_method()
     
     alertId = request.GET.get('id')
 
+    alerts = []
+
     if alertId:
-        if not alert.objects.get(id=alertId):
+        if not alert.objects.filter(id=alertId):
             return error_response.bad_request('Alerte introuvable')
-        data = alert.objects.get(id=alertId)
+        data = alert.objects.filter(id=alertId)
     else:
         data = alert.objects.all()
 
+    for alert_instance in data:
+        alert_dict = model_to_dict(alert_instance)
 
+        alert_dict['id'] = alert_instance.id
+        alert_dict['recipients'] = [recipient.email for recipient in alert_instance.recipients.all()]
+        alerts.append(alert_dict)
 
-    data_json = serializers.serialize('json', data)
-    return HttpResponse(data_json, content_type="application/json", status=200)
+    return JsonResponse(alerts,safe=False , content_type="application/json", status=200)
 
 @csrf_exempt
 def create(request):
@@ -79,22 +87,7 @@ def create(request):
 def update(request):
     if not request.method == "PUT":
         return error_response.bad_method()
-    id = request.GET.get('id')
-    
-    if not id:
-        return error_response.bad_request("Aucun id fourni")
-    
-    frequency = request.GET.get("frequency")
-    temperature_superior = request.GET.get('temperature_superior') or None
-    temperature_inferior = request.GET.get('temperature_inferior') or None
-    humidity_superior = request.GET.get('humidity_superior') or None
-    humidity_inferior = request.GET.get('humidity_inferior') or None
     body = (request.body).decode()
-
-    if not frequency or not int(frequency):
-        return error_response.bad_request("Fréquence invalide")
-
-    # if 0 <= humidity_inferior <= 100
 
     try:
         body = json.loads(body)
@@ -102,22 +95,48 @@ def update(request):
         return error_response.bad_request("Erreur de syntaxe des données transmises")
     
     try:
-        recipients = body['recipients']
+        id = body['id']
     except:
-        return error_response.bad_request("Aucun destinataire")
-    
+        return error_response.bad_request("Id invalide")
+
     try:
         this_alert = alert.objects.get(id=id)
     except:
-        return error_response.bad_request("Alerte introuvable")
+        return error_response.bad_request('Alerte inexistante')
+
+    try:
+        recipients = body['recipients']
+    except:
+        return error_response.bad_request("Aucun destinataire")
+
+    try:
+        frequency = int(body['frequency']) or None
+        temperature_superior = float(body['temperature_superior']) or None
+        temperature_inferior = float(body['temperature_inferior']) or None
+        humidity_superior = int(body['humidity_superior']) or None
+        humidity_inferior = int(body['humidity_inferior']) or None
+    except ValueError:
+        return error_response.bad_request("Valeurs de température ou d'humidité ou frequency invalides")
     
-    this_alert.frequency = frequency
+    this_alert.frequency = int(frequency)
     
-    this_alert.temperature_superior = int(temperature_superior)
-    this_alert.temperature_inferior = int(temperature_inferior)
+    this_alert.temperature_superior = float(temperature_superior)
+    this_alert.temperature_inferior = float(temperature_inferior)
 
     this_alert.humidity_superior = int(humidity_superior)
     this_alert.humidity_inferior = int(humidity_inferior)
+    
+    this_alert.recipients.clear()
+    for email in recipients:
+        try:
+            existing_email = recipient.objects.get(email=email)
+        except:
+            new_email = recipient(
+                email = email
+            )
+            new_email.save()
+            existing_email = new_email
+        this_alert.recipients.add(existing_email)      
 
     this_alert.save()
 

@@ -31,6 +31,9 @@ function submitSensor() {
                 title: "Succès",
                 message: data.message
             })
+            setTimeout(() => {
+                location.href('/dashboardAlert')
+            }, 2000);
         } else {
             cuteToast({
                 type: "error",

@@ -6,46 +6,46 @@
 <link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
 
 <div class="container">
-    <h1>Modification de l'alerte {{ alert.fields.id }}</h1>
+    <h1 id="idInput" alert-id="{{ alert.id }}">Modification de l'alerte</h1>
     <form id="alertForm">
         <div class="row">
             <div id="limite_tempinf_container">
                 <label for="tinfInput">Limite inferieur de température :</label>
-                <input type="number" step="0.5" id="tinfInput" value="{{ alert.fields.temperature_inferior }}">
+                <input type="number" step="0.5" id="tinfInput" value="{{ alert.temperature_inferior }}">
                 <label>°C</label>
             </div>
             <div id="limite_tempsup_container">
                 <label for="tsupInput">Limite supérieur de température :</label>
-                <input type="number" step="0.5" id="tsupInput" value="{{ alert.fields.temperature_superior }}">
+                <input type="number" step="0.5" id="tsupInput" value="{{ alert.temperature_superior }}">
                 <label>°C</label>
             </div>
         </div>
         <div class="row ">
             <div id="limite_huminf_container">
                 <label for="hinfInput">Limite inferieur d'humidité :</label>
-                <input type="number" min="0" max="100" id="hinfInput" value="{{ alert.fields.humidity_inferior }}">
+                <input type="number" min="0" max="100" id="hinfInput" value="{{ alert.humidity_inferior }}">
                 <label>%</label>
             </div>
             <div id="limite_humsup_container">
                 <label for="hsupInput">Limite supérieur d'humidité :</label>
-                <input type="number" min="0" max="100" id="hsupInput" value="{{ alert.fields.humidity_superior }}">
+                <input type="number" min="0" max="100" id="hsupInput" value="{{ alert.humidity_superior }}">
                 <label>%</label>
             </div>
         </div>
         <div id="delai_container">
             <label for="frequencyInput">Délai entre chaque alerte :</label>
-            <input type="number" min="0" max="180" step="5" id="frequencyInput" value="{{ alert.fields.frequency }}">
+            <input type="number" min="0" max="180" step="5" id="frequencyInput" value="{{ alert.frequency }}">
             <label>minutes</label>
         </div>
         <div id="mail_container">
             <label for="mailInput">Liste des destinataires :</label>
-            <input type="text" id="mailInput" value="{{ alert.fields.recipients }}">
+            <input type="text" id="mailInput" value="{{ alert.recipients|join:',' }}">
         </div>
-        <button id="submit" type="button" onclick="submitSensor()">Valider</button>
+        <button id="submit" type="button" onclick="submitAlert()">Valider</button>
     </form>
 </div>
-<script src="{% static '/js/modifAlerte.js' %}"></script>
 
+<script src="{% static '/js/modifAlerte.js' %}"></script>
 <script>
     const recipientInput = document.getElementById('mailInput')
 
