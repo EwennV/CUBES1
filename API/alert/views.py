@@ -1,7 +1,8 @@
 from django.http import JsonResponse
 from django.http import HttpResponse
+from django.forms.models import model_to_dict
+from django.core.serializers.json import DjangoJSONEncoder
 from API.models import alert, recipient
-from django.core import serializers  
 from API.scripts import error_response
 import json
 from django.views.decorators.csrf import csrf_exempt
@@ -12,6 +13,8 @@ def list(request):
     
     alertId = request.GET.get('id')
 
+    alerts = []
+
     if alertId:
         if not alert.objects.filter(id=alertId):
             return error_response.bad_request('Alerte introuvable')
@@ -19,8 +22,15 @@ def list(request):
     else:
         data = alert.objects.all()
 
-    data_json = serializers.serialize('json', data)
-    return HttpResponse(data_json, content_type="application/json", status=200)
+    for alert_instance in data:
+        alert_dict = model_to_dict(alert_instance)
+        
+        alert_dict['recipients'] = [recipient.email for recipient in alert_instance.recipients.all()]
+        alerts.append(alert_dict)
+
+    print(alerts)
+
+    return HttpResponse([alerts], content_type="application/json", status=200)
 
 @csrf_exempt
 def create(request):
