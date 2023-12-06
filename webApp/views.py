@@ -127,5 +127,14 @@ def ajout(request):
 def ajoutAlerte(request):
     return render(request, 'ajoutAlerte.html')
 
-def modifAlerte(request):
-    return render(request, 'modifAlerte.html')
+def modifAlerte(request, alertId):
+    alerts = requests.get(f'http://{request.get_host()}/api/alert?id={alertId}')
+
+    if not alerts.status_code == 200:
+        raise HttpResponseNotFound('Alerts not found')
+
+    context = {
+        "alert": alerts.json()[0]
+    }
+    print(context)
+    return render(request, 'modifAlerte.html', context)

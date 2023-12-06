@@ -13,13 +13,11 @@ def list(request):
     alertId = request.GET.get('id')
 
     if alertId:
-        if not alert.objects.get(id=alertId):
+        if not alert.objects.filter(id=alertId):
             return error_response.bad_request('Alerte introuvable')
-        data = alert.objects.get(id=alertId)
+        data = alert.objects.filter(id=alertId)
     else:
         data = alert.objects.all()
-
-
 
     data_json = serializers.serialize('json', data)
     return HttpResponse(data_json, content_type="application/json", status=200)
