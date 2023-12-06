@@ -6,7 +6,7 @@
 <link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
 
 <div class="container">
-    <h1>Modification de l'alerte {{ alert.fields.id }}</h1>
+    <h1 id="idInput" alert-id="{{ alert.pk }}">Modification de l'alerte</h1>
     <form id="alertForm">
         <div class="row">
             <div id="limite_tempinf_container">
@@ -44,8 +44,8 @@
         <button id="submit" type="button" onclick="submitSensor()">Valider</button>
     </form>
 </div>
-<script src="{% static '/js/modifAlerte.js' %}"></script>
 
+<script src="{% static '/js/modifAlerte.js' %}"></script>
 <script>
     const recipientInput = document.getElementById('mailInput')
 
