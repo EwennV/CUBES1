@@ -15,30 +15,36 @@
     <table id="myTable">
         <thead>
             <tr>                
-                <th>mail</th>
-                <th>temp -</th>
-                <th>temp +</th>
-                <th>hum -</th>
-                <th>hum +</th>
-                <th>delai</th>
+                <th>Destinataires</th>
+                <th>Temp -</th>
+                <th>Temp +</th>
+                <th>Hum -</th>
+                <th>Hum +</th>
+                <th>Délai</th>
                 <th>Options</th>
             </tr>
         </thead>
         <tbody>
-            {% if data|length > 0 %}
-                {% for alert in data %}
+            {% if alerts|length > 0 %}
+                {% for alert in alerts %}
                 <tr>
-                    <td>{{ alert.recipients }}</td>
+                    <td>
+                        {% for recipient in alert.recipients %}
+                        <span class="pill">
+                            {{ recipient }}
+                        </span>
+                        {% endfor%}
+                    </td>
                     <td>{{ alert.temperature_inferior }}</td>
                     <td>{{ alert.temperature_superior }}</td>
                     <td>{{ alert.humidity_inferior }}</td>
                     <td>{{ alert.humidity_superior }}</td>
                     <td>{{ alert.frequency }}</td>
                     <td>
-                        <a href="{% url 'modifAlerte' alertId=alert.pk %}">
+                        <a href="{% url 'modifAlerte' alertId=alert.id %}">
                             <button>Modifier</button>
                         </a>
-                        <button id="deleteButton" type="button" onclick="deleteAlert('{{ alert.pk }}')">Supprimer l'alerte</button>
+                        <button id="deleteButton" type="button" onclick="deleteAlert('{{ alert.id }}')">Supprimer l'alerte</button>
                     </td>
                 </tr>
                 {% endfor %}
