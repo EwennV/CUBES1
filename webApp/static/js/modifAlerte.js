@@ -5,10 +5,12 @@ function submitSensor() {
     const hsupValue = document.getElementById('hsupInput').value;
     const frequencyValue = document.getElementById('frequencyInput').value;
     const mailValue = (document.getElementById('mailInput').value).split(',');
+    const idValue = document.getElementById('idInput').getAttribute('alert-id');
 
     fetch("http://localhost:8000/api/sensor/update", {
     method: "PUT",
     body: JSON.stringify({
+        id: idValue,
         frequency: frequencyValue,
         temperature_inferior: tinfValue,
         temperature_superior: tsupValue,

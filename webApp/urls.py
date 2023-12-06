@@ -10,5 +10,5 @@ urlpatterns = [
     path('modification/<str:sensorId>', views.modification, name='modification'),
     path('ajout/', views.ajout, name='ajout'),
     path('ajoutAlerte/', views.ajoutAlerte, name='ajoutAlerte'),
-    path('modifAlerte/', views.modifAlerte, name='modifAlerte'),
+    path('modifAlerte/<str:alertId>', views.modifAlerte, name='modifAlerte'),
 ]
