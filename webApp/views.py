@@ -102,9 +102,6 @@ def detail(request, sensorId):
 
     return render(request, 'detail.html', data)
 
-
-
-
 def modification(request, sensorId):
     data = {}
     
@@ -121,20 +118,22 @@ def modification(request, sensorId):
     }
     return render(request, 'modification.html', data)
 
+
 def ajout(request):
     return render(request, 'ajout.html')
+
 
 def ajoutAlerte(request):
     return render(request, 'ajoutAlerte.html')
 
-def modifAlerte(request, alertId):
-    alerts = requests.get(f'http://{request.get_host()}/api/alert?id={alertId}')
 
-    if not alerts.status_code == 200:
+def modifAlerte(request, alertId):
+    alertRequest = requests.get(f'http://{request.get_host()}/api/alert?id={alertId}')
+
+    if not alertRequest.status_code == 200:
         raise HttpResponseNotFound('Alerts not found')
 
     context = {
-        "alert": alerts.json()[0]
+        "alert": alertRequest.json()[0]
     }
-    print(context)
     return render(request, 'modifAlerte.html', context)

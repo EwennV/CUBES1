@@ -91,28 +91,32 @@ def update(request):
 
     try:
         body = json.loads(body)
-        id = body.get("id")
     except:
         return error_response.bad_request("Erreur de syntaxe des données transmises")
     
+    try:
+        id = body['id']
+    except:
+        return error_response.bad_request("Id invalide")
+
+    try:
+        this_alert = alert.objects.get(id=id)
+    except:
+        return error_response.bad_request('Alerte inexistante')
+
     try:
         recipients = body['recipients']
     except:
         return error_response.bad_request("Aucun destinataire")
 
     try:
-        frequency = float(body.get('frequency'), None)
-        temperature_superior = float(body.get('temperature_superior'), None)
-        temperature_inferior = float(body.get('temperature_inferior'), None)
-        humidity_superior = int(body.get('humidity_superior'), None)
-        humidity_inferior = int(body.get('humidity_inferior'), None)
+        frequency = int(body['frequency']) or None
+        temperature_superior = float(body['temperature_superior']) or None
+        temperature_inferior = float(body['temperature_inferior']) or None
+        humidity_superior = int(body['humidity_superior']) or None
+        humidity_inferior = int(body['humidity_inferior']) or None
     except ValueError:
         return error_response.bad_request("Valeurs de température ou d'humidité ou frequency invalides")
-    
-    try:
-        this_alert = alert.objects.get(id=id)
-    except:
-        return error_response.bad_request("Alerte introuvable")
     
     this_alert.frequency = int(frequency)
     
@@ -121,7 +125,18 @@ def update(request):
 
     this_alert.humidity_superior = int(humidity_superior)
     this_alert.humidity_inferior = int(humidity_inferior)
-    this_alert.recipients = recipients
+    
+    this_alert.recipients.clear()
+    for email in recipients:
+        try:
+            existing_email = recipient.objects.get(email=email)
+        except:
+            new_email = recipient(
+                email = email
+            )
+            new_email.save()
+            existing_email = new_email
+        this_alert.recipients.add(existing_email)      
 
     this_alert.save()
 
