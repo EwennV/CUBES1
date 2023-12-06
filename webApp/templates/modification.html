@@ -6,10 +6,28 @@
     <form>
         <label for="nameImput">Entrez le nouveau nom de la sonde :</label>
         <input type="text" id="nameInput" value="{{ data.nom }}">
+        <input type="text" name="lat" id="lat">
+        <input type="text" name="lng" id="lng">
         <button id="submit" type="button" onclick="submitSensor()">Valider</button>
-        <button id="deleteButton" tyoe="button" onclick="deleteSensor()">Supprimer la sonde</button>
+        <button id="deleteButton" type="button" onclick="deleteSensor()">Supprimer la sonde</button>
+        <div id="map"></div>
     </form>
 </div>
 <script src="{% static '/js/modification.js' %}"></script>
 <script src="{% static '/js/delete.js' %}"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="{% static '/js/map.js' %}"></script>
+<script>
+    myMap.listenEvent(function (e) {
+        document.getElementById('lat').value = e.latlng.lat
+        document.getElementById('lng').value = e.latlng.lng
+
+        myMarker = myMap.addPoint(e.latlng.lat, e.latlng.lng)
+        console.log(myMarker)
+    })
+</script>
 {% endblock %}
