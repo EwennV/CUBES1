@@ -5,7 +5,11 @@ class map {
         lng: -0.577127
     }
     zoom = 25
-    map = L.map('map').setView([this.CESI.lat, this.CESI.lng], this.zoom)
+    map = L.map('map', {
+    }).setView(
+        [this.CESI.lat, this.CESI.lng],
+        this.zoom
+    )
 
     catFound = new CustomEvent("animalfound", {
         detail: {
@@ -13,10 +17,10 @@ class map {
         },
     });
 
+    clickEvent = new Event("myCustomEvent")
     
 
     constructor() {
-        const clickEvent = new Event("myCustomEvent")
 
         this.init()
     }
@@ -28,25 +32,21 @@ class map {
         });
 
         mainLayer.addTo(this.map);
-
-        this.map.on('click', function () {
-            this.dispatchEvent(this.catFound);
-        })
-
     }
 
     listenEvent(callback) {
-        this.addEventListener("animalfound", (e) => console.log(e.detail.name));
+        this.map.on('click', callback)
     }
     
     addPoint(lat, long) {
         let marker = L.marker([lat, long])
         
         marker.addTo(this.map)
+        return marker
     }
 
     onMapClick(e) {
-        alert('You clicked here : '+e.latlng)
+        console.log('You clicked zzzzzzzz : '+e.latlng)
     }   
 
 }
