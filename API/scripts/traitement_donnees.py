@@ -10,7 +10,6 @@ list_sensors = list(sensors)
 
 def new(data):
     updateSendedAlert()
-    list_alert = list(models.alert.objects.all())
     for survey in data:
         idThisSurvey = survey[0]
         if models.survey.objects.filter(idSurvey=idThisSurvey):
@@ -39,7 +38,7 @@ def new(data):
                     rssi=sensorRssi,
                     date=formattedDate,
                     sensor_id=sensor['id'])
-                # newSurvey.save() ################### A DECOMMENTER ###################
+                newSurvey.save()
                 print("[API] [NEW] : Nouveau relevé n°"+str(idThisSurvey))
                 
                 compareAlert(sensorTemperature, sensorHumidity, sensor)
