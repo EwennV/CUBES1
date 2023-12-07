@@ -53,7 +53,6 @@ def list(request):
     else:
         surveys = models.survey.objects.order_by(f'{order}date')[:limit]
     
-    print(surveys)
     surveysJson = serializers.serialize('json', surveys)
 
     return HttpResponse(surveysJson, status=200, content_type='application/json')
