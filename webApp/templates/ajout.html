@@ -27,4 +27,14 @@ crossorigin=""></script>
 
 <script src="{% static '/js/ajout.js' %}"></script>
 <script src="{% static '/js/map.js' %}"></script>
+
+<script>
+    myMap.listenEvent(function (e) {
+        document.getElementById('latitudeInput').value = e.latlng.lat
+        document.getElementById('longitudeInput').value = e.latlng.lng
+
+        myMarker = myMap.addPoint(e.latlng.lat, e.latlng.lng)
+        console.log(myMarker)
+    })
+</script>
 {% endblock %}

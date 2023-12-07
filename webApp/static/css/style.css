@@ -25,6 +25,7 @@ a {
 button, input {
   color: black
 }
+
 /* NAVBAR */
 
 nav {
@@ -177,7 +178,7 @@ table tr a {
     clip: rect(0 0 0 0);
     height: 1px;
     margin: -1px;
-      padding: 0;
+    padding: 0;
     position: absolute;
     width: 1px;
   }
@@ -190,30 +191,13 @@ table tr a {
   }
 
   table tr {
-    border: 2px solid #0d8ebe;
+    border-bottom: 20px solid #0d8ebe;
   }
 
   table tr a:hover {
     background-color: #0d8ebe;
     color: white;
   }
-}
-
-.align-start {
-  align-items: start;
-}
-
-.align-center {
-  text-align: center;
-  align-items: center;
-}
-
-.space-around {
-  justify-content: space-around;
-}
-
-.space-between {
-  justify-content: space-around;
 }
 
 option {
