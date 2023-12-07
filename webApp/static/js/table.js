@@ -16,12 +16,5 @@ $(document).ready(function () {
                 "previous":   "Précédente"
             },
         },
-        responsive: {
-            details : {
-                renderer: $.fn.dataTable.Responsive.renderer.tableAll() {
-                    tableClass: 'ui table'
-                },
-            }
-        }
     })
 })
