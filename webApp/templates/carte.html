@@ -11,7 +11,7 @@ crossorigin=""/>
 
 <script>
     async function getSensorPlacement() {
-        let response = await fetch('http://127.0.0.1:7000/api/sensor')
+        let response = await fetch('http://127.0.0.1:8000/api/sensor')
         let sensors = await response.json()
         sensors.forEach((sensor) => {
             console.log(`${sensor['fields']['lattitude']}, ${sensor['fields']['longitude']}`)
