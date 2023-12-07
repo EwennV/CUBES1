@@ -1,12 +1,16 @@
 from API import models
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.utils import timezone
 from django.core import serializers
+from API.scripts.comparaison_alerte import compareAlert
 
 sensors = models.sensor.objects.values('id')
 list_sensors = list(sensors)
 
+
 def new(data):
+
+    list_alert = list(models.alert.objects.all())
     for survey in data:
         idThisSurvey = survey[0]
         if models.survey.objects.filter(idSurvey=idThisSurvey):
@@ -35,5 +39,7 @@ def new(data):
                     rssi=sensorRssi,
                     date=formattedDate,
                     sensor_id=sensor['id'])
-                newSurvey.save()
+                # newSurvey.save() ################### A DECOMMENTER ###################
                 print("[API] [NEW] : Nouveau relevé n°"+str(idThisSurvey))
+                
+                compareAlert(sensorTemperature, sensorHumidity, sensor)
