@@ -23,9 +23,8 @@ def sensor(request):
     else:
         data = models.sensor.objects.all().order_by('name')
     
-    print(data)
     dataJson = serializers.serialize('json', data)
-    print(dataJson)
+    
     return HttpResponse(dataJson, content_type='application/json', status=200)
 
 @csrf_exempt

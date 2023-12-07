@@ -15,6 +15,13 @@ $(document).ready(function () {
                 "next":       "Prochaine",
                 "previous":   "Précédente"
             },
+        },
+        responsive: {
+            details : {
+                renderer: $.fn.dataTable.Responsive.renderer.tableAll() {
+                    tableClass: 'ui table'
+                },
+            }
         }
     })
 })

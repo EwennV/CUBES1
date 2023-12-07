@@ -81,8 +81,10 @@ nav a:hover {
 /* DETAIL */
 
 .chart-container {
+  display: flex;
+  justify-content: center;
   background-color: white;
-  margin: 10px 0;
+  width: 80%;
 }
 
 #detail_temp, #detail_hum {
@@ -101,6 +103,10 @@ nav a:hover {
 
 .high-temperature {
   border: 2px solid red;
+}
+
+@media screen and (max-width: 900px) {
+    
 }
 
 /* CARTE */
@@ -187,28 +193,21 @@ table tr a {
   }
 }
 
-.row {
-  display: flex;
-  flex-direction: row;
-}
-
 .align-start {
   align-items: start;
 }
 
-.space-between {
+.align-center {
+  text-align: center;
+  align-items: center;
+}
+
+.space-around {
   justify-content: space-around;
 }
 
-.column {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.chart-container {
-  width: 50%;
+.space-between {
+  justify-content: space-around;
 }
 
 option {
