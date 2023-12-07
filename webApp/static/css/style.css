@@ -84,7 +84,13 @@ nav a:hover {
   display: flex;
   justify-content: center;
   background-color: white;
-  width: 80%;
+  margin: 20px 0;
+}
+
+.row {
+  display: flex;
+  justify-content: space-around;
+  margin: 10px;
 }
 
 #detail_temp, #detail_hum {
@@ -94,15 +100,15 @@ nav a:hover {
 }
 
 .low-temperature {
-  border: 2px solid lightblue;
+  color: blue;
 }
 
 .normal-temperature {
-  border: 2px solid white;
+  color: white;
 }
 
 .high-temperature {
-  border: 2px solid red;
+  color: red;
 }
 
 @media screen and (max-width: 900px) {
