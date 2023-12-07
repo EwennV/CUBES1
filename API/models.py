@@ -24,8 +24,8 @@ class recipient(models.Model):
 class alert(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     frequency = models.IntegerField()
-    humidity_inferior = models.IntegerField()
-    humidity_superior = models.IntegerField()
-    temperature_inferior = models.FloatField()
-    temperature_superior = models.FloatField()
+    humidity_inferior = models.IntegerField(null=True)
+    humidity_superior = models.IntegerField(null=True)
+    temperature_inferior = models.FloatField(null=True)
+    temperature_superior = models.FloatField(null=True)
     recipients = models.ManyToManyField(recipient)
