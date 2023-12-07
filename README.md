@@ -7,7 +7,9 @@ Projet du CESI - DI 2023
 
 Pour déployer le projet en local suivez les étapés suivantes :
 
-### Pour macOS / Linux
+### Initialisation du projet
+
+#### Pour macOS / Linux
 
 ```bash
   git clone https://github.com/EwennV/cubes1.git
@@ -16,25 +18,11 @@ Pour déployer le projet en local suivez les étapés suivantes :
   source bin/activate
   pip install -r requirements.txt
 ```
-Créez le fichier **.env** dans la racine du projet et y ajouter :
-```env
-SECRET_KEY="your secret_key here"
-API_KEY="your api_key here"
-DB_USER=""
-DB_PASSWORD=""
-DB_HOST=""
-```
-Vous pouvez maintenant migrer votre base de données avec la commande suivante en vérifiant que vous êtes toujours dans votre environnement (cubes1) :
-```bash
-python ./manage.py migrate
-```
-Il ne vous reste plus qu'à lancer votre serveur avec la commande :
-```bash
-python ./manage.py runserver
-```
+
+Vous pouvez passer à l'étape suivante.
 
 
-### Pour Windows
+#### Pour Windows
 ```bash
   git clone https://github.com/EwennV/cubes1.git
   cd cubes1/
@@ -42,13 +30,17 @@ python ./manage.py runserver
   .\Scripts\activate.bat
   pip install -r requirements.txt
 ```
+
+### Variables d'environnement
+
 Créez le fichier **.env** dans la racine du projet et y ajouter :
-```env
-SECRET_KEY="your secret_key here"
-API_KEY="your api_key here"
-DB_USER=""
-DB_PASSWORD=""
-DB_HOST=""
+```json
+SECRET_KEY="your_secret_key"
+API_KEY="your_api_key"
+DB_USER="your_db_user_name"
+DB_PASSWORD="your_db_password"
+DB_HOST="your_db_host"
+ALLOWED_HOSTS=0.0.0.0,127.0.0.1,localhost
 ```
 Vous pouvez maintenant migrer votre base de données avec la commande suivante en vérifiant que vous êtes toujours dans votre environnement (cubes1) :
 ```bash
@@ -58,22 +50,6 @@ Il ne vous reste plus qu'à lancer votre serveur avec la commande :
 ```bash
 python ./manage.py runserver
 ```
-
-
-
-## Variables d'environment
-
-Pour lancer ce projet, vous avez besoin d'ajouter les variables d'environment suivantes dans un .env que vous devez créer à la racine du projet
-
-`SECRET_KEY`
-
-`API_KEY`
-
-`DB_USER`
-
-`DB_PASSWORD`
-
-`DB_HOST`
 
 ## Développer avec GIT
 
@@ -90,6 +66,7 @@ Si elle existe :
 git checkout le_nom_de_ma_branche
 ```
 
+
 Développer votre feature / ce que vous voulez
 
 Et ensuite enregistez vos modifications, pour ce faire éxecutez les commandes suivantes :
@@ -97,8 +74,14 @@ Et ensuite enregistez vos modifications, pour ce faire éxecutez les commandes s
 ```bash
 git add .
 git commit -m "la_description_de_votre_modification"
+git pull origin develop
 git push origin le_nom_de_ma_branche
 ```
+
+### Pull request
+
+Pour faire valider vos modifications par vos collègues il est nécessaire de faire un pull request dans la branche **develop**. Pour ce faire, rendez-vous dans la partie Pull request de GitHub.
+
 ## Utilisation de l'API
 
 #### Récupérer tous les relevés
@@ -107,12 +90,12 @@ git push origin le_nom_de_ma_branche
   GET /api/survey/list
 ```
 
-| Paramètre | Défaut | Exemple     | Description                                                                             |
-| :-------- | :----- | :---------- | :-------------------------------------------------------------------------------------- |
-| `limit`   | `100`  | `100`       | **Optionnel** Nombre de relevés à recevoir                                              |
-| `order`   | `desc` | `asc`       | **Optionnel** Ordre de tri des données par date                                         |
-| `id`      | `null` | `06190485`  | **Optionnel** Retourne les relevés associés à un id de capteur                          |
-| `last`    | `null` | `24`        | **Optionnel** Défini l'heure à laquelle s'arrêter, rendant le paramètre `limit` inutile |
+| Paramètre | Type  | Défaut | Exemple     | Description                                                                             |
+| :-------- | :---- | :----- | :---------- | :-------------------------------------------------------------------------------------- |
+| `limit`   | `int` | `100`  | `100`       | **Optionnel** Nombre de relevés à recevoir                                              |
+| `order`   | `str` | `desc` | `asc`       | **Optionnel** Ordre de tri des données par date                                         |
+| `id`      | `str` | `null` | `06190485`  | **Optionnel** Retourne les relevés associés à un id de capteur                          |
+| `last`    | `int` | `null` | `24`        | **Optionnel** Défini l'heure à laquelle s'arrêter dans la recherche, rendant le paramètre `limit` inutile |
 
 Les différents paramètres peuvent êtres utilisés ensembles.
 
@@ -139,7 +122,6 @@ Exemple de retour de l'API:
     },
 ```
 
-
 #### Récupérer tous les capteurs enregistrés
 
 ```http
@@ -147,9 +129,9 @@ Exemple de retour de l'API:
 ```
 
 Par défaut, l'API renverras la liste de tous les capteurs ainsi que leur dernier relevé
-| Paramètre | Type     |Défaut| Exemple     | Description                |
-| :-------- | :------- | :----|:---------| :------------------------- |
-| `id`   | `str`    | `none`| `06190485` | **Optionnel** Récupère les données du capteur avec cet id |
+| Paramètre | Type     |Défaut | Exemple     | Description                |
+| :-------- | :------- | :---- | :---------- | :------------------------- |
+| `id`      | `str`    | `none`| `06190485`  | **Optionnel** Récupère les données du capteur avec cet id |
 
 Exemple de retour de l'API:
 ```json
@@ -163,6 +145,32 @@ Exemple de retour de l'API:
         }
     }
 ```
+
+#### Récupérer toutes les alertes
+
+```http
+  GET api/alert
+```
+Par défaut l'API renverras la liste de toutes les alertes de la base de données avec leurs destinaites `recipients` associés
+| Paramètre | Type     |Défaut | Exemple     | Description                |
+| :-------- | :------- | :---- | :---------- | :------------------------- |
+| `id`      | `Uuid`    | `none`| `33028bcc-1e10-4cda-9a30-13e8a36433f0`  | **Optionnel** Récupère les informations de l'alerte avec cet id |
+
+Exemple de retour de l'API:
+```json
+    {
+        "frequency": 240,
+        "humidity_inferior": 10,
+        "humidity_superior": 100,
+        "temperature_inferior": -10.0,
+        "temperature_superior": 11.0,
+        "recipients": [
+            "adresse.mail@test.fr"
+        ],
+        "id": "33028bcc-1e10-4cda-9a30-13e8a36433f0"
+    }
+```
+
 
 ## Auteurs
 
