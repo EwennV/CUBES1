@@ -2,14 +2,14 @@ from API import models
 from datetime import datetime, timedelta
 from django.utils import timezone
 from django.core import serializers
-from API.scripts.comparaison_alerte import compareAlert
+from API.scripts.comparaison_alerte import compareAlert, updateSendedAlert
 
 sensors = models.sensor.objects.values('id')
 list_sensors = list(sensors)
 
 
 def new(data):
-
+    updateSendedAlert()
     list_alert = list(models.alert.objects.all())
     for survey in data:
         idThisSurvey = survey[0]

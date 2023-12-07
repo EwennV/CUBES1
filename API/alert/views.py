@@ -7,6 +7,7 @@ from API.models import alert, recipient
 from API.scripts import error_response
 import json
 from django.views.decorators.csrf import csrf_exempt
+import validators
 
 def index(request):
     if not request.method == "GET":
@@ -91,6 +92,7 @@ def update(request):
 
     try:
         body = json.loads(body)
+        print(body)
     except:
         return error_response.bad_request("Erreur de syntaxe des données transmises")
     
@@ -106,25 +108,30 @@ def update(request):
 
     try:
         recipients = body['recipients']
+        if not recipients : return error_response.bad_request('Aucun destinataire.')
+        for email in recipients:
+            if True != validators.email(email): return error_response.bad_request("Adresse mail des destinaires invalide")
     except:
         return error_response.bad_request("Aucun destinataire")
 
     try:
-        frequency = int(body['frequency']) or None
-        temperature_superior = float(body['temperature_superior']) or None
-        temperature_inferior = float(body['temperature_inferior']) or None
-        humidity_superior = int(body['humidity_superior']) or None
-        humidity_inferior = int(body['humidity_inferior']) or None
+        frequency = int(body['frequency']) if body['frequency'] !="" else None
+        if not frequency or frequency < 5:
+            return error_response.bad_method("Fréquence invalide, doit être supérieur à 5 minutes")
+        temperature_superior = float(body['temperature_superior']) if body['temperature_superior'] != "" else None
+        temperature_inferior = float(body['temperature_inferior']) if body['temperature_inferior'] != "" else None
+        humidity_superior = int(body['humidity_superior']) if body['humidity_superior'] != "" else None
+        humidity_inferior = int(body['humidity_inferior']) if body['humidity_inferior'] != "" else None
     except ValueError:
-        return error_response.bad_request("Valeurs de température ou d'humidité ou frequency invalides")
+        return error_response.bad_request("Valeurs de température ou d'humidité ou fréquence invalide")
     
-    this_alert.frequency = int(frequency)
-    
-    this_alert.temperature_superior = float(temperature_superior)
-    this_alert.temperature_inferior = float(temperature_inferior)
+    this_alert.frequency = frequency
 
-    this_alert.humidity_superior = int(humidity_superior)
-    this_alert.humidity_inferior = int(humidity_inferior)
+    this_alert.temperature_superior = temperature_superior
+    this_alert.temperature_inferior = temperature_inferior
+
+    this_alert.humidity_superior = humidity_superior
+    this_alert.humidity_inferior = humidity_inferior
     
     this_alert.recipients.clear()
     for email in recipients:

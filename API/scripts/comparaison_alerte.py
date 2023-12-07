@@ -15,16 +15,28 @@ def compareAlert(sensorTemperature, sensorHumidity, sensor):
 
             if alertType :
                 if sensor["id"] not in alertSended:
-                    print(alertSended)
                     try:
                         alertSended.append({
                             sensor["id"]: {
                                 "expireAt": (datetime.now() + timedelta(minutes=alert.frequency)).timestamp(),
                             }
                         })
+                        for recipient in alert.recipients.all():
+                            print("[API] [EMAIL SENT] :", recipient.email)
+                            
+                        #########################################
+                        # TODO ICI la fonction d'envoie de mail #
+                        #########################################
+
                     except Exception as e:
                         print("Error")
                         print(e)
         except Exception as e:
             print(e) 
             print("[API] [ERROR] Une erreur est survenue lors de la gestion des alertes")
+
+
+def updateSendedAlert():
+    for alert in alertSended:
+        if alert['expireAt'] > datetime.now().timestamp():
+            alertSended.remove(alert)
