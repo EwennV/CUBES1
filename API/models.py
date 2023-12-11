@@ -6,6 +6,7 @@ class sensor(models.Model):
     name = models.CharField(max_length=64)
     lattitude = models.FloatField(null=True)
     longitude = models.FloatField(null=True)
+    isActive = models.BooleanField(default=True)
 
 class survey(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -15,15 +16,16 @@ class survey(models.Model):
     battery_level = models.IntegerField()
     rssi = models.IntegerField()
     date = models.DateTimeField()
-    sensor_id = models.CharField(max_length=8)
+    sensor= models.ForeignKey(sensor, on_delete=models.CASCADE)
 
 class recipient(models.Model):
-    email = models.CharField(max_length=255)
+    email = models.EmailField(unique=True)
 
 class alert(models.Model):
-    id_alert = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     frequency = models.IntegerField()
-    type = models.CharField(max_length=45)
-    limit = models.CharField(max_length=45)
+    humidity_inferior = models.IntegerField(null=True)
+    humidity_superior = models.IntegerField(null=True)
+    temperature_inferior = models.FloatField(null=True)
+    temperature_superior = models.FloatField(null=True)
     recipients = models.ManyToManyField(recipient)
-

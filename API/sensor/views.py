@@ -9,17 +9,22 @@ import json
 
 # Create your views here.
 
+@csrf_exempt
 def sensor(request):
+    if not request.method == "GET":
+        return error_response.bad_method()
+    
     sensorId = request.GET.get("id")
     
     if sensorId:
         if not models.sensor.objects.filter(id=sensorId):
-            return error_response.throwError("Id de capteur introuvable")
+            return error_response.bad_request("Id de capteur introuvable")
         data = models.sensor.objects.filter(id=sensorId)
     else:
         data = models.sensor.objects.all().order_by('name')
     
     dataJson = serializers.serialize('json', data)
+    
     return HttpResponse(dataJson, content_type='application/json', status=200)
 
 @csrf_exempt
@@ -79,16 +84,20 @@ def update(request):
     except:
         return error_response.bad_request("Données invalides.")
 
-    id = request.GET.get('id')
+    if 'id' not in data:
+        return error_response.bad_request("L'identifiant du capteur est requis.")
+
+    id = data['id']
 
     try:
         sensor = models.sensor.objects.get(id=id)
     except:
         return error_response.bad_request('Id de capteur invalide')
     
+
     name = data["name"] or sensor.name
-    lat = data["lat"] or sensor.lattitude
-    lng = data["lng"] or sensor.longitude
+    lat = data["lat"] if "lat" in data else sensor.lattitude
+    lng = data["lng"] if "lng" in data else sensor.longitude
 
     try:
         sensor.name = name
@@ -109,7 +118,10 @@ def update(request):
 
 @csrf_exempt
 def delete(request):
-    sensorId = request.GET.get('sensor_id')
+    if not request.method == "DELETE":
+        return error_response.bad_method()
+    
+    sensorId = request.GET.get('id')
     print(sensorId)
     if not sensorId:
         return error_response.bad_request("Id de capteur invalide")

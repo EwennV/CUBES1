@@ -8,7 +8,6 @@
 <div class="container">
 <h1>Historique</h1>
 <form class = "historique" method="get" action="{% url 'historique' %}">
-    {% csrf_token %}
     <label for="limite_releves"> Nombre de relevés :</label>
     <input type="number" id="limite_releves" name="limite_releves" value="{{ request.GET.limite_releves }}">
     <button type="submit"> Appliquer </button>
@@ -16,7 +15,7 @@
 <table id="myTable">
     <thead>
         <tr>
-            <th>Nom de de la sonde</th>
+            <th>Nom de de la sonde / ID</th>
             <th>Dates</th>
             <th>Températures</th>
             <th>Humidités</th>
@@ -25,7 +24,7 @@
     <tbody>
         {% for mesure in data %}
         <tr>
-            <td>{{ mesure.fields.sensor_id }}</td>
+            <td>{{ mesure.fields.sensor }}</td>
             <td>{{ mesure.fields.date }}</td>
             <td>{{ mesure.fields.temperature }}</td>
             <td>{{ mesure.fields.humidity }}</td>

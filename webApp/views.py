@@ -2,6 +2,7 @@ from django.shortcuts import render
 from datetime import datetime
 from django.urls import reverse
 import requests
+from django.http import HttpResponseNotFound
 # Create your views here
 
 def home(request):
@@ -9,43 +10,46 @@ def home(request):
 
 def historique(request): 
     limite_releves =  request.GET.get('limite_releves', 1000)
-    print(f'http://{request.get_host()}{reverse("api_survey:api_survey_list")}/api/survey/list?limit={limite_releves}')
-    r = requests.get(f'http://{request.get_host()}{reverse("api_survey:api_survey_list")}?limit={limite_releves}')
-    data = {'data': r.json()} 
+    r = requests.get(f'http://{request.get_host()}/api/survey/list?limit={limite_releves}')
+    data = {'data': r.json()}
+    print(data)
     return render(request, 'historique.html', data)
 
 def dashboard(request):
-    r = requests.get(f'http://{request.get_host()}{reverse("api_sensor:api_sensor_list")}')
+    sensors = requests.get(f'http://{request.get_host()}/api/sensor')
 
     data = {
         'data': []
     }
 
-    for sensor in r.json():
-        try:
-            r2 = requests.get(f'http://{request.get_host()}{reverse("api_survey:api_survey_list")}?id={sensor["pk"]}&limit=1')
-            r2 = r2.json()[0]
+    for sensor in sensors.json():
+        survey_request = requests.get(f'http://{request.get_host()}/api/survey/list?id={sensor["pk"]}&limit=1')
 
-            data['data'].append({
-                'sensor_id': sensor["pk"],
-                'humidity': r2["fields"]["humidity"],
-                'temperature': r2["fields"]["temperature"],
-                'battery_level': r2["fields"]["battery_level"],
-                'rssi': r2["fields"]["rssi"]
-            })
-        except:
-            data['data'].append({
-                'sensor_id': sensor["pk"],
-                'humidity': "N/A",
-                'temperature': "N/A",
-                'battery_level': "N/A",
-                'rssi': "N/A"
-            })
+        last_survey = None
+
+        if (survey_request.status_code == 200):
+            last_survey = survey_request.json()[0]
+
+        data['data'].append({
+            'sensor_id': sensor["pk"],
+            'name': sensor["fields"]["name"],
+            'humidity': last_survey["fields"]["humidity"] if last_survey else "N/A",
+            'temperature': last_survey["fields"]["temperature"] if last_survey else "N/A",
+            'battery_level': last_survey["fields"]["battery_level"] if last_survey else "N/A",
+            'rssi': last_survey["fields"]["rssi"] if last_survey else "N/A"
+        })
 
     return render(request, 'dashboard.html', data)
 
-def alerte(request):
-    return render(request, 'alerte.html')
+def dashboardAlerte(request):
+    alerts = requests.get(f'http://{request.get_host()}/api/alert')
+
+    if not alerts.status_code == 200:
+        raise HttpResponseNotFound('Alerts not found')
+    context = {
+        "alerts": alerts.json()
+    }
+    return render(request, 'dashboardAlerte.html', context)
 
 def carte(request):
     return render(request, 'carte.html')
@@ -53,64 +57,83 @@ def carte(request):
 def detail(request, sensorId):
     data = {}
     
-    r = requests.get(f'http://localhost:8000/api/sensor?id={sensorId}')
+    r = requests.get(f'http://{request.get_host()}/api/sensor?id={sensorId}')
 
+    if not r.status_code == 200:
+        raise HttpResponseNotFound("Sensor not found")
+    
     sensor = r.json()[0]
+
+    r2 = requests.get(f'http://{request.get_host()}/api/survey/list?id={sensorId}&last=24')
+
+    surveys = r2.json()
+    last_survey = None
+
+    if (r2.status_code == 200):
+        last_survey = surveys[0]
     
-    nom_capteur = sensor['fields']['name']
-
-    r2 = requests.get(f'http://localhost:8000/api/survey/list?id={sensorId}&limit=1')
-    r2 = r2.json()[0]
-
-    data['data']= {
+    data['data'] = {
         'sensor_id': sensorId,
-        'nom': nom_capteur,
-        'humidity': r2["fields"]["humidity"],
-        'temperature': r2["fields"]["temperature"],
-        'battery_level': r2["fields"]["battery_level"],
-        'rssi': r2["fields"]["rssi"]
+        'nom': sensor['fields']['name'],
+        'humidity': last_survey["fields"]["humidity"] if last_survey else "N/A",
+        'temperature': last_survey["fields"]["temperature"] if last_survey else "N/A",
+        'battery_level': last_survey["fields"]["battery_level"] if last_survey else "N/A",
+        'rssi': last_survey["fields"]["rssi"] if last_survey else "N/A"
     }
+
+    if (last_survey):
     
-    graph_data = {
-        'labels': [],  # Liste pour les dates
-        'clean_date': [],
-        'temperature_data': [],  # Liste pour les températures
-        'humidity_data': []  # Liste pour les humidités
-    }
+        graph_data = {
+            'labels': [],  # Liste pour les dates
+            'clean_date': [],
+            'temperature_data': [],  # Liste pour les températures
+            'humidity_data': []  # Liste pour les humidités
+        }
 
-    r3 = requests.get(f'http://{request.get_host()}{reverse("api_survey:api_survey_list")}?id={sensorId}&last=24')
+        for survey in surveys:
+            graph_data['labels'].append(survey["fields"]["date"])
+            datetime_object = datetime.strptime(survey["fields"]["date"], '%Y-%m-%dT%H:%M:%SZ')
+            heure = datetime_object.strftime('%d/%m - %H:%M')
+            graph_data['clean_date'].append(heure)
+            graph_data['temperature_data'].append(survey["fields"]["temperature"])
+            graph_data['humidity_data'].append(survey["fields"]["humidity"])
 
-    surveys = r3.json()
-
-    for survey in surveys:
-        graph_data['labels'].append(survey["fields"]["date"])
-        datetime_object = datetime.strptime(survey["fields"]["date"], '%Y-%m-%dT%H:%M:%SZ')
-        heure = datetime_object.strftime('%d/%m - %H:%M')
-        graph_data['clean_date'].append(heure)
-        graph_data['temperature_data'].append(survey["fields"]["temperature"])
-        graph_data['humidity_data'].append(survey["fields"]["humidity"])
-
-    data['graph_data'] = graph_data
+        data['graph_data'] = graph_data
 
     return render(request, 'detail.html', data)
 
 def modification(request, sensorId):
     data = {}
     
-    r = requests.get(f'http://localhost:8000/api/sensor?id={sensorId}')
+    r = requests.get(f'http://{request.get_host()}/api/sensor?id={sensorId}')
+
+    if not r.status_code == 200:
+        return HttpResponseNotFound("Sensor not found")
 
     sensor = r.json()[0]
-    
-    nom_capteur = sensor['fields']['name']
-
-    r2 = requests.get(f'http://localhost:8000/api/survey/list?id={sensorId}&limit=1')
-    r2 = r2.json()[0]
 
     data['data']= {
         'sensor_id': sensorId,
-        'nom': nom_capteur,
+        'nom': sensor['fields']['name'],
     }
     return render(request, 'modification.html', data)
 
+
 def ajout(request):
     return render(request, 'ajout.html')
+
+
+def ajoutAlerte(request):
+    return render(request, 'ajoutAlerte.html')
+
+
+def modifAlerte(request, alertId):
+    alertRequest = requests.get(f'http://{request.get_host()}/api/alert?id={alertId}')
+
+    if not alertRequest.status_code == 200:
+        raise HttpResponseNotFound('Alerts not found')
+
+    context = {
+        "alert": alertRequest.json()[0]
+    }
+    return render(request, 'modifAlerte.html', context)

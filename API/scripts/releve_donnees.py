@@ -31,7 +31,11 @@ class surveyCollect(Thread):
             try:
                 response = requests.get(f'http://app.objco.com:8099/?account={env("API_KEY")}&limit=10')
                 data = response.json()
-                traitement_donnees.new(data)
+                try:
+                    traitement_donnees.new(data)
+                except Exception as e:
+                    print("[API] [ERROR] Une erreur est survenue lors de la sauvegarde du relevé")
+                    print(e)
             except:
                 # Si nous n'avons pas de réponse de l'API ou que le format de retour n'est pas formatable en JSON, on print une erreur dans la console
                 print("[API] [ERROR] Une erreur de communication avec l'API des capteurs est survenue")
@@ -41,5 +45,3 @@ class surveyCollect(Thread):
             time.sleep(60*5) # Le time.sleep étant en secondes, on multiplie 60 secondes par 5 pour obtenir 5 minutes
 
 # On lance le thread
-thread = surveyCollect()
-thread.start()

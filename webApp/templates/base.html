@@ -9,24 +9,26 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static '/cute-alert-master/style.css' %}"/>
+    <script src="{% static '/cute-alert-master/cute-alert.js' %}"></script>
     <title>Projet CUBES 1</title>
 </head>
 <body>
     <header>
         <nav class="nav">
-            <ul>
-                <li>
+            <ul class="nav-list">
+                <li class="navItem">
                     <a href="{% url 'dashboard' %}">home <i class="fa-solid fa-house"></i></a>
                 </li>
                 <ul>
                     
-                    <li>
+                    <li class="navItem">
                         <a href="{% url 'carte' %}">carte <i class="fa-solid fa-map"></i></a>
                     </li>
-                    <li>
-                        <a href="{% url 'alerte' %}">alertes <i class="fa-solid fa-bell"></i></a>
+                    <li class="navItem">
+                        <a href="{% url 'dashboardAlerte' %}">alertes <i class="fa-solid fa-bell"></i></a>
                     </li>
-                    <li>
+                    <li class="navItem">
                         <a href="{% url 'historique' %}">historique <i class="fa-solid fa-clock-rotate-left"></i></a>
                     </li>
                 </ul>
@@ -34,7 +36,7 @@
         </nav>
     </header>
     
-{% block content %}{% endblock %}
-
+{% block content %}
+{% endblock %}
 </body>
 </html>

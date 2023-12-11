@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
+<script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+
+<div class="container">
+    <h1 id="idInput" alert-id="{{ alert.id }}">Modification de l'alerte</h1>
+    <form id="alertForm">
+        <div class="row">
+            <div id="limite_tempinf_container">
+                <label for="tinfInput">Limite inferieur de température :</label>
+                <input type="number" step="0.5" id="tinfInput" value="{{ alert.temperature_inferior }}">
+                <label>°C</label>
+            </div>
+            <div id="limite_tempsup_container">
+                <label for="tsupInput">Limite supérieur de température :</label>
+                <input type="number" step="0.5" id="tsupInput" value="{{ alert.temperature_superior }}">
+                <label>°C</label>
+            </div>
+        </div>
+        <div class="row ">
+            <div id="limite_huminf_container">
+                <label for="hinfInput">Limite inferieur d'humidité :</label>
+                <input type="number" min="0" max="100" id="hinfInput" value="{{ alert.humidity_inferior }}">
+                <label>%</label>
+            </div>
+            <div id="limite_humsup_container">
+                <label for="hsupInput">Limite supérieur d'humidité :</label>
+                <input type="number" min="0" max="100" id="hsupInput" value="{{ alert.humidity_superior }}">
+                <label>%</label>
+            </div>
+        </div>
+        <div id="delai_container">
+            <label for="frequencyInput">Délai entre chaque alerte :</label>
+            <input type="number" min="0" max="180" step="5" id="frequencyInput" value="{{ alert.frequency }}">
+            <label>minutes</label>
+        </div>
+        <div id="mail_container">
+            <label for="mailInput">Liste des destinataires :</label>
+            <input type="text" id="mailInput" value="{{ alert.recipients|join:',' }}">
+        </div>
+        <button id="submit" type="button" onclick="submitAlert()">Valider</button>
+    </form>
+</div>
+
+<script src="{% static '/js/modifAlerte.js' %}"></script>
+<script>
+    const recipientInput = document.getElementById('mailInput')
+
+    let tagify = new Tagify(recipientInput, {
+        pattern: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(',')
+    })
+</script>
+{% endblock %}

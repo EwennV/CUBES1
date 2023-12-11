@@ -1,23 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap');
 
-
 * {
     padding: 0;
     margin: 0;
     font-family: 'Inter', sans-serif;
 }
 
+body {
+  color: white;
+}
+
 a {
     text-decoration: none;
-}
-
-body {
-    background-color: black;
-}
-
-h1 {
-    background-color: #0d8ebe;
-    color: white;
 }
 
 .container {
@@ -28,6 +22,10 @@ h1 {
     margin: 80px 20px 0 20px;
 }
 
+button, input {
+  color: black
+}
+
 /* NAVBAR */
 
 nav {
@@ -36,11 +34,12 @@ nav {
     position: fixed;
     width: 100%;
     top: 0;
+    z-index: 1991;
 }
 
 nav li {
     list-style: none;
-    font-size: 1.2em;
+    font-size: 20px;
     height: 60px;
     display: flex;
     align-items: center;
@@ -63,37 +62,58 @@ nav a:hover {
     color: black;
 }
 
+@media screen and (max-width: 600px) {
+  .navItem a {
+    font-size: 0;
+  }
+  .navItem a i {
+    font-size: 20px;
+  }
+}
+
+
 /* DASHBOARD */
 
-form.dashboard {
-    padding: 20px;
-    text-align: center;
-}
-
-.dashboard div {
-    background-color: blue;
-    padding: 10px;
+#newSonde {
+    float: right;
     margin: 10px;
-    color: white;
-}
-
-.dashboard a {
-    text-decoration: none;
-    color: white;
 }
 
 /* DETAIL */
 
-form.detail {
-    padding: 20px;
-    text-align: center;
+.chart-container {
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  margin: 20px 0;
 }
 
-.detail div {
-    background-color: rgb(255, 255, 255);
-    padding: 10px;
-    margin: 10px;
-    color: rgb(0, 0, 0);
+.row {
+  display: flex;
+  justify-content: space-around;
+  margin: 10px;
+}
+
+#detail_temp, #detail_hum {
+  text-align: center;
+  font-size: 5rem;
+  margin: 10px 0;
+}
+
+.low-temperature {
+  color: blue;
+}
+
+.normal-temperature {
+  color: white;
+}
+
+.high-temperature {
+  color: red;
+}
+
+@media screen and (max-width: 900px) {
+    
 }
 
 /* CARTE */
@@ -102,131 +122,96 @@ form.detail {
     height: 450px; 
 }
 
-/* ALERTES */
+/* DASHBOARDALERTES */
 
-.alerte_container {
-    background: #0d8ebe;
-    border-radius: 10px;
-    width: auto;
-    padding: 2%;
-    margin: 80px 20px 0 20px;
+#newAlerte {
+  float: right;
+  margin: 10px;
 }
 
-form.alerte {
-    padding: 20px;
-    text-align: center;
+/* AJOUT ALERTE */
+
+#alertForm {
+  text-align: center;
 }
 
-.alerte div {
-    padding: 10px;
-    margin: 10px;
-    color: white;
-}
-
-.customLook + button{
-    color: white;
-    font: bold 1.4em/1.65 Arial;
-    border: 0;
-    background: none;
-    box-shadow: 0 0 0 2px inset currentColor;
-    border-radius: 50%;
-    width: 1.65em;
-    height: 1.65em;
-    cursor: pointer;
-    outline: none;
-    transition: .1s ease-out;
-    margin: 0 0 0 5px;
-    vertical-align: center;
-}
-
-.customLook + button:hover{
-    box-shadow: 0 0 0 5px inset currentColor;
+#alertForm div {
+  margin: 4px;
 }
 
 /* HISTORIQUE */
 
 table {
-    border: 1px solid #ccc;
-    border-collapse: collapse;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    table-layout: fixed;
-  }
-  
-  table caption {
-    font-size: 1.5em;
-    margin: .5em 0 .75em;
-  }
-  
-  table tr {
-    background-color: #f8f8f8;
-    border: 1px solid #ddd;
-    padding: .35em;
-  }
-  
-  table th,
-  table td {
-    padding: .625em;
-    text-align: center;
-  }
-  
-  table th {
-    font-size: .85em;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-  }
-  
-  @media screen and (max-width: 600px) {
-    table {
-      border: 0;
-    }
-  
-    table caption {
-      font-size: 1.3em;
-    }
-    
-    table thead {
-      border: none;
-      clip: rect(0 0 0 0);
-      height: 1px;
-      margin: -1px;
-      overflow: hidden;
-      padding: 0;
-      position: absolute;
-      width: 1px;
-    }
-    
-    table tr {
-      border-bottom: 3px solid #ddd;
-      display: block;
-      margin-bottom: .625em;
-    }
-    
-    table td {
-      border-bottom: 1px solid #ddd;
-      display: block;
-      font-size: .8em;
-      text-align: right;
-    }
-    
-    table td::before {
-      /*
-      * aria-label has no advantage, it won't be read inside a table
-      content: attr(aria-label);
-      */
-      content: attr(data-label);
-      float: left;
-      font-weight: bold;
-      text-transform: uppercase;
-    }
-    
-    table td:last-child {
-      border-bottom: 0;
-    }
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: auto;
+}
+
+table th {
+  font-size: .85em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+table th, table td { 
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  color:black;
+  padding: .625em;
+  text-align: center;
+}
+
+table tr a {
+  cursor: pointer;
+  text-decoration: underline;
+  color: black;
+}
+
+@media screen and (max-width: 900px) {
+  table {
+    border: 0;
   }
 
-  body {
-    font-family: "Open Sans", sans-serif;
-    line-height: 1.25;
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    position: absolute;
+    width: 1px;
   }
+
+  table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: .8em;
+    text-align: center;
+  }
+
+  table tr {
+    border-bottom: 20px solid #0d8ebe;
+  }
+
+  table tr a:hover {
+    background-color: #0d8ebe;
+    color: white;
+  }
+}
+
+option {
+  color: black;
+}
+
+tag {
+  --tag-inset-shadow-size : 2em;
+}
+
+.pill {
+  background-color: #0d8ebe;
+  border-radius: 10px;
+  padding: 5px 8px;
+  margin: 3px;
+  color: white;
+}

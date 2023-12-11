@@ -3,10 +3,16 @@
 {% load static %}
 <div class="container">
     <form id="sensorForm">
+        <label for="idInput">ID de la sonde :</label>
         <input type="text" id="idInput">
+        <br>
+        <label for="nameImput">Nom de la sonde :</label>
         <input type="text" id="nameInput">
+        <br>
+        <label for="latitudeInput">Coordonnées de la sonde :</label>
         <input type="text" id="latitudeInput">
         <input type="text" id="longitudeInput">
+        <br>
         <button id="submit" type="button" onclick="submitSensor()">Ajouter</button>
         <div id='map'></div>
     </form>
@@ -21,4 +27,14 @@ crossorigin=""></script>
 
 <script src="{% static '/js/ajout.js' %}"></script>
 <script src="{% static '/js/map.js' %}"></script>
+
+<script>
+    myMap.listenEvent(function (e) {
+        document.getElementById('latitudeInput').value = e.latlng.lat
+        document.getElementById('longitudeInput').value = e.latlng.lng
+
+        myMarker = myMap.addPoint(e.latlng.lat, e.latlng.lng)
+        console.log(myMarker)
+    })
+</script>
 {% endblock %}

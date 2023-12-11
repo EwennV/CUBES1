@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+<script src="{% static 'js/table.js' %}"></script>
+<script src="{% static 'js/deleteAlerte.js' %}"></script>
+
+<div class="container">
+    <h1>Alertes</h1>
+    <a href="{% url 'ajoutAlerte' %}">
+        <button id="newAlerte">Ajouter une alerte</button>
+    </a>
+    <table id="myTable">
+        <thead>
+            <tr>                
+                <th>Destinataires</th>
+                <th>Temp -</th>
+                <th>Temp +</th>
+                <th>Hum -</th>
+                <th>Hum +</th>
+                <th>Délai</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if alerts|length > 0 %}
+                {% for alert in alerts %}
+                <tr>
+                    <td>
+                        {% for recipient in alert.recipients %}
+                        <span class="pill">
+                            {{ recipient }}
+                        </span>
+                        {% endfor%}
+                    </td>
+                    <td>{{ alert.temperature_inferior }}</td>
+                    <td>{{ alert.temperature_superior }}</td>
+                    <td>{{ alert.humidity_inferior }}</td>
+                    <td>{{ alert.humidity_superior }}</td>
+                    <td>{{ alert.frequency }}</td>
+                    <td>
+                        <a href="{% url 'modifAlerte' alertId=alert.id %}">
+                            <button>Modifier</button>
+                        </a>
+                        <button id="deleteButton" type="button" onclick="deleteAlert('{{ alert.id }}')">Supprimer l'alerte</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            {% endif %}
+        </tbody>    
+    </table>
+</div>
+{% endblock %}

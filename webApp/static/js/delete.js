@@ -1,13 +1,8 @@
-function submitSensor() {
-    const nameValue = document.getElementById('nameInput').value;
+function deleteSensor() {
     const idValue = document.getElementById('idInput').getAttribute('data-sensor-id');
 
-    fetch("http://localhost:8000/api/sensor/update", {
-    method: "PUT",
-    body: JSON.stringify({
-        id: idValue,
-        name: nameValue,
-    }),
+    fetch(`http://localhost:8000/api/sensor/delete?id=${idValue}`, {
+    method: "DELETE",
     headers: {
         "Content-type": "application/json; charset=UTF-8"
     }
@@ -25,7 +20,7 @@ function submitSensor() {
         console.error('There was a problem with the fetch operation:', error);
     });
 }
-document.getElementById('submit').addEventListener('click',function(event) {
+document.getElementById('deleteButton').addEventListener('click',function(event) {
     event.preventDefault();
-    submitSensor();
+    deleteSensor();
 })
