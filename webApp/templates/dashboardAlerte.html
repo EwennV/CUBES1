@@ -28,7 +28,7 @@
             {% if alerts|length > 0 %}
                 {% for alert in alerts %}
                 <tr>
-                    <td>
+                    <td class="firstTd">
                         {% for recipient in alert.recipients %}
                         <span class="pill">
                             {{ recipient }}

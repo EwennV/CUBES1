@@ -26,7 +26,7 @@
         <tbody>
             {% for sensor in data %}
             <tr>
-                <td><a href="{% url 'detail' sensorId=sensor.sensor_id %}">{{ sensor.name }}</a></td>
+                <td class="firstTd"><a href="{% url 'detail' sensorId=sensor.sensor_id %}">{{ sensor.name }}</a></td>
                 <td>{{ sensor.temperature }}</td>
                 <td>{{ sensor.humidity }}</td>
                 <td>{{ sensor.battery_level }}</td>
