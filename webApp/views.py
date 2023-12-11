@@ -36,7 +36,8 @@ def dashboard(request):
             'humidity': last_survey["fields"]["humidity"] if last_survey else "N/A",
             'temperature': last_survey["fields"]["temperature"] if last_survey else "N/A",
             'battery_level': last_survey["fields"]["battery_level"] if last_survey else "N/A",
-            'rssi': last_survey["fields"]["rssi"] if last_survey else "N/A"
+            'rssi': last_survey["fields"]["rssi"] if last_survey else "N/A",
+            'isActive': sensor['fields']['isActive']
         })
 
     return render(request, 'dashboard.html', data)

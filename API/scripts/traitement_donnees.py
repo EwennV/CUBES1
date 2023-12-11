@@ -21,6 +21,8 @@ def new(data):
         formattedDate = timezone.make_aware(formattedDate, timezone=timezone.utc)
 
         for sensor in list_sensors:
+            isActive = list(models.sensor.objects.filter(id=sensor['id']).values('isActive'))
+            if isActive[0]['isActive'] == False: return
             if sensor['id'] in trame:
                 position = trame.find(sensor['id'])
                 sensorStatus = int(trame[position+8:position+10], 16)
