@@ -1,22 +1,10 @@
-function submitSensor() {
-    const nameValue = document.getElementById('nameInput').value;
-    const idValue = document.getElementById('idInput').getAttribute('data-sensor-id');
-    const lat = document.getElementById('lat').value;
-    const lng = document.getElementById('lng').value;
-
-    fetch("http://localhost:8000/api/sensor/update", {
-    method: "PUT",
-    body: JSON.stringify({
-        id: idValue,
-        name: nameValue,
-        lat: lat,
-        lng: lng
-    }),
-    headers: {
-        "Content-type": "application/json; charset=UTF-8"
-    }
-    })
-    .then(response => {
+function toggleActive(id) {
+    fetch('http://127.0.0.1:8000/api/sensor/toggle', {
+        method: "PUT",
+        body: JSON.stringify({
+            id: id
+        })
+    }).then(response => {
         return response.json();
     })
     .then(data => {

@@ -94,10 +94,13 @@ def update(request):
     except:
         return error_response.bad_request('Id de capteur invalide')
     
+    print(data)
 
     name = data["name"] or sensor.name
     lat = data["lat"] if "lat" in data else sensor.lattitude
     lng = data["lng"] if "lng" in data else sensor.longitude
+
+    print(lat, ",", lng)
 
     try:
         sensor.name = name
@@ -135,3 +138,31 @@ def delete(request):
         'message': 'Capteur supprimé'
     }
     return JsonResponse(response, status=200, content_type='application/json')
+
+@csrf_exempt
+def toggleActive(request):
+    if not request.method == "PUT":
+        return error_response.bad_method()
+    
+    body = (request.body).decode()
+
+    try:
+        data = json.loads(body)
+    except:
+        return error_response.bad_request("Données invalides.")
+
+    if 'id' not in data:
+        return error_response.bad_request("L'identifiant du capteur est requis.")
+
+    id = data['id']
+
+    try:
+        sensor = models.sensor.objects.get(id=id)
+    except:
+        return error_response.bad_request('Id de capteur invalide')
+    
+    sensor.isActive = not sensor.isActive
+
+    sensor.save()
+
+    return JsonResponse({"message": "Sonde mise à jour"}, status=200, content_type="application/json")

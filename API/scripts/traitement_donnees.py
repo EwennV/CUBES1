@@ -21,12 +21,14 @@ def new(data):
         formattedDate = timezone.make_aware(formattedDate, timezone=timezone.utc)
 
         for sensor in list_sensors:
+            isActive = list(models.sensor.objects.filter(id=sensor['id']).values('isActive'))
+            if isActive[0]['isActive'] == False: return
             if sensor['id'] in trame:
                 position = trame.find(sensor['id'])
                 sensorStatus = int(trame[position+8:position+10], 16)
                 sensorBattery_voltage = float(int(trame[position+10:position+14], 16))
                 sensorTemperature = float(int(trame[position+16:position+18], 16)/10)
-                if int(trame[position+14:position+16], 16) == 40: sensorTemperature = -abs(sensorTemperature)
+                if not int(trame[position+14:position+16], 16) == 00: sensorTemperature = -abs(sensorTemperature)
                 sensorHumidity = float(int(trame[position+18:position+20], 16))
                 if sensorHumidity == 255: sensorHumidity = None
                 sensorRssi = int(trame[position+20:position+22], 16)
