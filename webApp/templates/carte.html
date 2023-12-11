@@ -19,13 +19,11 @@ crossorigin=""/>
         let response = await fetch('http://127.0.0.1:8000/api/sensor')
         let sensors = await response.json()
         sensors.forEach((sensor) => {
+            console.log(sensor)
             console.log(`${sensor['fields']['lattitude']}, ${sensor['fields']['longitude']}`)
-            myMap.addPoint(sensor['fields']['lattitude'], sensor['fields']['longitude'])
-        })
+            myMarker = myMap.addPoint(sensor['fields']['lattitude'], sensor['fields']['longitude'])
+            myMarker.bindPopup(`<a href="/detail/${sensor['pk']}">${sensor['fields']['name']}</a>`)
 
-        myMap.listenEvent(function(e) {
-            console.log(e.latlng.lat)
-            myMap.addPoint(e.latlng.lat, e.latlng.lng)
         })
     }
 
