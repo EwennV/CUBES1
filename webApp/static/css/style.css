@@ -173,6 +173,14 @@ table tr a {
     border: 0;
   }
 
+  .firstTd {
+    background-color: #0d8ebe;
+  }
+
+  .firstTd a {
+    color: white;
+  }
+
   table thead {
     border: none;
     clip: rect(0 0 0 0);
@@ -195,8 +203,8 @@ table tr a {
   }
 
   table tr a:hover {
-    background-color: #0d8ebe;
-    color: white;
+    background-color: white;
+    color: black;
   }
 }
 
