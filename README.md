@@ -34,7 +34,7 @@ Vous pouvez passer à l'étape suivante.
 ### Variables d'environnement
 
 Créez le fichier **.env** dans la racine du projet et y ajouter :
-```json
+```sh
 SECRET_KEY="your_secret_key"
 API_KEY="your_api_key"
 DB_USER="your_db_user_name"
@@ -122,7 +122,7 @@ Exemple de retour de l'API:
     },
 ```
 
-#### Récupérer tous les capteurs enregistrés
+#### Récupérer tous les capteurs
 
 ```http
   GET /api/sensor/
@@ -145,6 +145,67 @@ Exemple de retour de l'API:
         }
     }
 ```
+
+#### Ajouter un capteur
+
+```http
+  GET /api/sensor/create
+```
+
+L'API renverras un code 200 avec une clé "message" en JSON si la création du capteur s'est terminée ou un code 400 avec une clé "error" en JSON si une erreur est survenue.
+| Paramètre | Type     |Défaut | Exemple     | Description                |
+| :-------- | :------- | :---- | :---------- | :------------------------- |
+| `id`      | `str`    | `none`| `06190485`  | **Obligatoire** Id du capteur à ajouter |
+| `name`      | `str`    | `none`| `06190485`  | **Obligatoire** Nom du capteur à ajouter |
+| `lat`      | `float`    | `none`| `-0.55445445`  | **Obligatoire** Lattitude du capteur à ajouter |
+| `lng`      | `float`    | `none`| `-0.19725624`  | **Obligatoire** Longitude du capteur à ajouter |
+
+Exemple de retour de l'API:
+```json
+    {
+        "message": "Capteur ajouté !"
+    }
+```
+
+#### Modifier un capteur
+
+```http
+  GET /api/sensor/update
+```
+
+L'API renverras un code 200 avec une clé "message" en JSON si la modification du capteur s'est terminée ou un code 400 avec une clé "error" en JSON si une erreur est survenue.
+| Paramètre | Type     |Défaut | Exemple     | Description                |
+| :-------- | :------- | :---- | :---------- | :------------------------- |
+| `id`      | `str`    | `none`| `06190485`  | **Obligatoire** Id du capteur à modifier |
+| `name`      | `str`    | `none`| `06190485`  | **Obligatoire** Nom du capteur à modifier |
+| `lat`      | `float`    | `none`| `-0.55445445`  | **Obligatoire** Lattitude du capteur à modifier |
+| `lng`      | `float`    | `none`| `-0.19725624`  | **Obligatoire** Longitude du capteur à modifier |
+
+Exemple de retour de l'API:
+```json
+    {
+        "message": "Capteur mis à jour !"
+    }
+```
+
+#### Supprimer un capteur
+
+```http
+  GET /api/sensor/delete
+```
+
+L'API renverras un code 200 avec une clé "message" en JSON si la suppression du capteur s'est terminée ou un code 400 avec une clé "error" en JSON si une erreur est survenue.
+| Paramètre | Type     |Défaut | Exemple     | Description                |
+| :-------- | :------- | :---- | :---------- | :------------------------- |
+| `id`      | `str`    | `none`| `06190485`  | **Obligatoire** Id du capteur à supprimer |
+
+Exemple de retour de l'API:
+```json
+    {
+        "message": "Capteur supprimé !"
+    }
+```
+
 
 #### Récupérer toutes les alertes
 
@@ -170,6 +231,69 @@ Exemple de retour de l'API:
         "id": "33028bcc-1e10-4cda-9a30-13e8a36433f0"
     }
 ```
+
+#### Créer une alerte
+
+```http
+  GET api/alert/create
+```
+L'API renverras un code 200 avec une clé "message" en JSON si la création du capteur s'est terminée ou un code 400 avec une clé "error" en JSON si une erreur est survenue.
+| Paramètre | Type     |Défaut | Exemple     | Description                |
+| :-------- | :------- | :---- | :---------- | :------------------------- |
+| `frequency`      | `str`    | `none`| `50`  | **Obligatoire** Fréquence de l'envoie d'alerte en minutes|
+| `temperature_superior`      | `float`    | `none`| `60`  | **Optionnel** Seuil de température maximum de l'alerte en °C|
+| `temperature_inferior`      | `float`    | `none`| `0`  | **Optionnel** Seuil de température minimum de l'alerte °C|
+| `humidity_superior`      | `int`    | `none`| `100`  | **Optionnel** Seuil d'humidité maximum de l'alerte en %|
+| `humidity_inferior`      | `int`    | `none`| `10`  | **Optionnel** Seuil d'humidité minimum de l'alerte en %|
+| `recipients`      | `array`    | `none`| `['test@test.com', 'foo@bar.com']`  | **Obligatoire** Liste des destinataires de l'alerte|
+
+Exemple de retour de l'API:
+```json
+    {
+      "message":"Alerte créée"
+    }
+```
+
+#### Mettre à jour une alerte
+
+```http
+  GET api/alert/update
+```
+L'API renverras un code 200 avec une clé "message" en JSON si la mise à jour du capteur s'est terminée ou un code 400 avec une clé "error" en JSON si une erreur est survenue.
+| Paramètre | Type     |Défaut | Exemple     | Description                |
+| :-------- | :------- | :---- | :---------- | :------------------------- |
+| `id`      | `Uuid`    | `none`| `33028bcc-1e10-4cda-9a30-13e8a36433f0`  | **Obligatoire** Id de l'alerte à mettre à jour|
+| `frequency`      | `str`    | `none`| `50`  | **Obligatoire** Fréquence de l'envoie d'alerte en minutes|
+| `temperature_superior`      | `float`    | `none`| `60`  | **Optionnel** Seuil de température maximum de l'alerte en °C|
+| `temperature_inferior`      | `float`    | `none`| `0`  | **Optionnel** Seuil de température minimum de l'alerte °C|
+| `humidity_superior`      | `int`    | `none`| `100`  | **Optionnel** Seuil d'humidité maximum de l'alerte en %|
+| `humidity_inferior`      | `int`    | `none`| `10`  | **Optionnel** Seuil d'humidité minimum de l'alerte en %|
+| `recipients`      | `array`    | `none`| `['test@test.com', 'foo@bar.com']`  | **Obligatoire** Liste des destinataires de l'alerte|
+
+Exemple de retour de l'API:
+```json
+    {
+      "message":"Alerte mise à jour"
+    }
+```
+
+#### Supprimer une alerte
+
+```http
+  GET api/alert/delete
+```
+L'API renverras un code 200 avec une clé "message" en JSON si la suppression du capteur s'est terminée ou un code 400 avec une clé "error" en JSON si une erreur est survenue.
+| Paramètre | Type     |Défaut | Exemple     | Description                |
+| :-------- | :------- | :---- | :---------- | :------------------------- |
+| `id`      | `Uuid`    | `none`| `33028bcc-1e10-4cda-9a30-13e8a36433f0`  | **Obligatoire** Id de l'alerte à mettre à jour|
+
+Exemple de retour de l'API:
+```json
+    {
+      "message":"Alerte supprimée"
+    }
+```
+
 
 
 ## Auteurs

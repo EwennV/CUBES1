@@ -29,12 +29,18 @@ crossorigin=""></script>
 <script src="{% static '/js/map.js' %}"></script>
 
 <script>
+    let myMarker = undefined;
     myMap.listenEvent(function (e) {
         document.getElementById('latitudeInput').value = e.latlng.lat
         document.getElementById('longitudeInput').value = e.latlng.lng
 
-        myMarker = myMap.addPoint(e.latlng.lat, e.latlng.lng)
-        console.log(myMarker)
+        if (typeof myMarker != 'undefined') {
+            myMaker.setLatLng(new myMap.L.LatLng(e.latlng.lat, e.latlng.lng))
+        } else {
+            myMarker = myMap.addPoint(e.latlng.lat, e.latlng.lng)
+        }
+
+
     })
 </script>
 {% endblock %}

@@ -4,7 +4,9 @@ class map {
         lat: 44.865154,
         lng: -0.577127
     }
+
     zoom = 25
+
     map = L.map('map', {
     }).setView(
         [this.CESI.lat, this.CESI.lng],
@@ -17,11 +19,7 @@ class map {
         },
     });
 
-    clickEvent = new Event("myCustomEvent")
-    
-
     constructor() {
-
         this.init()
     }
 

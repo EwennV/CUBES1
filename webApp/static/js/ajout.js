@@ -17,16 +17,33 @@ function submitSensor() {
     }
     })
     .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
         return response.json();
     })
     .then(data => {
-        console.log(data); // Faites quelque chose avec les données renvoyées par le serveur
+        if (data.message) {
+            cuteToast({
+                type: "success",
+                title: "Succès",
+                message: data.message
+            })
+            setTimeout(() => {
+                location.reload()
+            }, 2000);
+        } else {
+            cuteToast({
+                type: "error",
+                title: "Erreur",
+                message: data.error
+            })
+        }
     })
     .catch(error => {
-        console.error('There was a problem with the fetch operation:', error);
+        console.log(error)
+        cuteToast({
+            type: "error",
+            title: "Erreur",
+            message: "Une erreur est survenue"
+        })
     });
 }
 document.getElementById('submit').addEventListener('onclick',function(event) {

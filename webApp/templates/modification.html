@@ -6,8 +6,8 @@
     <form>
         <label for="nameImput">Entrez le nouveau nom de la sonde :</label>
         <input type="text" id="nameInput" value="{{ data.nom }}">
-        <input type="text" name="lat" id="lat">
-        <input type="text" name="lng" id="lng">
+        <input type="text" name="lat" id="lat" value="{{ data.lat }}">
+        <input type="text" name="lng" id="lng" value="{{ data.lng }}">
         <button id="submit" type="button" onclick="submitSensor()">Valider</button>
         <button id="deleteButton" type="button" onclick="deleteSensor()">Supprimer la sonde</button>
         <div id="map"></div>
@@ -22,6 +22,8 @@ crossorigin=""/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script src="{% static '/js/map.js' %}"></script>
 <script>
+
+    myMap.addPoint({{data.lat}}, {{data.lng}})
     myMap.listenEvent(function (e) {
         document.getElementById('lat').value = e.latlng.lat
         document.getElementById('lng').value = e.latlng.lng

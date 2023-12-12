@@ -116,6 +116,8 @@ def modification(request, sensorId):
     data['data']= {
         'sensor_id': sensorId,
         'nom': sensor['fields']['name'],
+        'lat': sensor['fields']['lattitude'],
+        'lng': sensor['fields']['longitude']
     }
     return render(request, 'modification.html', data)
 
